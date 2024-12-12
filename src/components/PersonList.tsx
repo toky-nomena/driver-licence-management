@@ -13,6 +13,7 @@ import {
   getPaginationRowModel,
   useReactTable,
   PaginationState,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 import { columns } from "@/utils/columns";
 import { Person } from "@/utils/data";
@@ -44,6 +45,7 @@ export function PersonList({
     onGlobalFilterChange,
     onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     globalFilterFn: (row, _, filterValue) => {
       const search = filterValue.toLowerCase().trim();
@@ -90,7 +92,7 @@ export function PersonList({
           className="flex-1"
           currentPage={pagination.pageIndex + 1}
           pageSize={pagination.pageSize}
-          totalItems={data.length}
+          totalItems={table.getFilteredRowModel().rows.length}
           onPageChange={(page) => {
             onPaginationChange({ ...pagination, pageIndex: page - 1 });
           }}
