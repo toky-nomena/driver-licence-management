@@ -1,3 +1,4 @@
+import { isValidDateOfBirth } from "@/lib/validators";
 import { format } from "date-fns";
 
 const LAST_NAME_CODES = [
@@ -80,9 +81,9 @@ function getCode(input: string): number {
 export function generateDriverLicense(params: {
   firstName: string;
   lastName: string;
-  dateOfBirth: Date | string | undefined;
+  dateOfBirth: Date | undefined;
 }): string {
-  if (!params.dateOfBirth) {
+  if (!params.dateOfBirth || !isValidDateOfBirth(params.dateOfBirth)) {
     return "";
   }
 

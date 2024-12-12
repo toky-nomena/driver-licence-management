@@ -7,10 +7,12 @@ const columnHelper = createColumnHelper<Person>();
 export const columns = [
   columnHelper.accessor("firstName", {
     header: "First Name",
+    enableGlobalFilter: true,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("lastName", {
     header: "Last Name",
+    enableGlobalFilter: true,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("dateOfBirth", {

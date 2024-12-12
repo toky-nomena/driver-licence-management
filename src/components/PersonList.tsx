@@ -18,7 +18,17 @@ import { columns } from "@/utils/columns";
 import { Person } from "@/utils/data";
 import { useState } from "react";
 
-export function PersonList({ data }: { data: Person[] }) {
+interface PersonListProps {
+  globalFilter: string;
+  onGlobalFilterChange: (value: string) => void;
+  data: Person[];
+}
+
+export function PersonList({
+  globalFilter,
+  onGlobalFilterChange,
+  data,
+}: PersonListProps) {
   const [pagination, onPaginationChange] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,
@@ -29,7 +39,9 @@ export function PersonList({ data }: { data: Person[] }) {
     columns,
     state: {
       pagination,
+      globalFilter,
     },
+    onGlobalFilterChange,
     onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

@@ -1,17 +1,9 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
-import { format } from "date-fns";
-import { CalendarIcon, Loader2, RefreshCw, Wand } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { generateDriverLicense } from "@/utils/licence";
 import { generateFakeData, Person } from "@/utils/data";
 import {
@@ -19,6 +11,7 @@ import {
   isValidName,
   validateEmail,
 } from "@/lib/validators";
+import { format, parse } from "date-fns";
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
@@ -30,21 +23,14 @@ const defaultValues: Person = {
   email: "",
   driverLicense: "",
   policyNumber: "",
-  dateOfBirth: undefined,
+  dateOfBirth: new Date(),
 };
 
 export function PersonForm({ onSubmit }: PersonFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<Person>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      driverLicense: "",
-      policyNumber: "",
-      dateOfBirth: undefined,
-    },
+    defaultValues: defaultValues,
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
 
@@ -150,32 +136,27 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                   : "Date of birth is required",
             }}
             children={(field) => (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full pl-3 text-left font-normal",
-                      !field.state.value && "text-muted-foreground"
-                    )}
-                  >
-                    {field.state.value ? (
-                      format(field.state.value, "MM/dd/yyyy")
-                    ) : (
-                      <span>Pick a date</span>
-                    )}
-                    <CalendarIcon className="ml-auto w-4 h-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0 w-auto" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.state.value}
-                    onSelect={(date) => field.handleChange(date)}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <>
+                <Input
+                  type="date"
+                  value={
+                    field.state.value
+                      ? format(field.state.value, "yyyy-MM-dd")
+                      : undefined
+                  }
+                  onChange={(e) => {
+                    field.handleChange(
+                      parse(e.target.value, "yyyy-MM-dd", new Date())
+                    );
+                  }}
+                  onBlur={field.handleBlur}
+                />
+                {field.state.meta.errors.length > 0 && (
+                  <p className="mt-1 text-sm text-red-500">
+                    {field.state.meta.errors[0]}
+                  </p>
+                )}
+              </>
             )}
           />
         </div>
@@ -212,11 +193,31 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             )}
           />
         </div>
-
+        <div>
+          <label className="block mb-2">Driver License</label>
+          <form.Subscribe
+            selector={(state) =>
+              [
+                state.values.firstName,
+                state.values.lastName,
+                state.values.dateOfBirth,
+              ] as const
+            }
+            children={([firstName, lastName, dateOfBirth]) => (
+              <span className="font-semibold">
+                {generateDriverLicense({
+                  firstName,
+                  lastName,
+                  dateOfBirth,
+                }) || "#############"}
+              </span>
+            )}
+          />
+        </div>
         {/* Action Buttons */}
         <div className="flex gap-2 items-center">
           <Button type="button" variant="outline" onClick={handleInspire}>
-            <Wand className="mr-2 w-4 h-4" />
+            <Sparkles className="mr-2 w-4 h-4" />
             Inspire me
           </Button>
           <Button type="button" variant="outline" onClick={handleReset}>
