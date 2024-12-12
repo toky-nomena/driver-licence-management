@@ -40,15 +40,6 @@ export function Pagination({
   const startItem = (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
-  console.log({
-    startItem,
-    endItem,
-    totalItems,
-    currentPage,
-    pageSize,
-    totalPages,
-  });
-
   const canClick = !disabled && totalPages > 0;
 
   return (

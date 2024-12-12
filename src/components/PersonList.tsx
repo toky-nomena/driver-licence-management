@@ -45,6 +45,13 @@ export function PersonList({
     onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    globalFilterFn: (row, _, filterValue) => {
+      const search = filterValue.toLowerCase().trim();
+      return (
+        row.original.firstName.toLowerCase().includes(search) ||
+        row.original.lastName.toLowerCase().includes(search)
+      );
+    },
   });
 
   return (

@@ -8,11 +8,13 @@ export const columns = [
   columnHelper.accessor("firstName", {
     header: "First Name",
     enableGlobalFilter: true,
+    enableColumnFilter: true,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("lastName", {
     header: "Last Name",
     enableGlobalFilter: true,
+    enableColumnFilter: true,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("dateOfBirth", {
