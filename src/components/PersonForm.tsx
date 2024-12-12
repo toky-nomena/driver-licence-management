@@ -37,7 +37,14 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<Person>({
-    defaultValues,
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      driverLicense: "",
+      policyNumber: "",
+      dateOfBirth: undefined,
+    },
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
 
@@ -79,8 +86,8 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           <form.Field
             name="firstName"
             validators={{
-              onChange: ({ value }) => {
-                return isValidName(value)
+              onChange: () => {
+                return isValidName(form.state.values.firstName)
                   ? undefined
                   : "First name is required";
               },
@@ -108,8 +115,10 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           <form.Field
             name="lastName"
             validators={{
-              onChange: ({ value }) => {
-                return isValidName(value) ? undefined : "Last name is required";
+              onChange: () => {
+                return isValidName(form.state.values.lastName)
+                  ? undefined
+                  : "Last name is required";
               },
             }}
             children={(field) => (
@@ -135,8 +144,8 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           <form.Field
             name="dateOfBirth"
             validators={{
-              onChange: ({ value }) =>
-                isValidDateOfBirth(value)
+              onChange: () =>
+                isValidDateOfBirth(form.state.values.dateOfBirth)
                   ? undefined
                   : "Date of birth is required",
             }}
@@ -177,9 +186,11 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           <form.Field
             name="email"
             validators={{
-              onChange: ({ value }) => {
-                if (value) {
-                  return validateEmail(value) ? undefined : "Invalid email";
+              onChange: () => {
+                if (form.state.values.email) {
+                  return validateEmail(form.state.values.email)
+                    ? undefined
+                    : "Invalid email";
                 }
                 return undefined;
               },

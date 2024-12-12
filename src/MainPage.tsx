@@ -28,12 +28,12 @@ export default function DataGenerator() {
       </div>
       <ResizablePanelGroup
         direction="horizontal"
-        className="flex overflow-hidden flex-col flex-1 p-4 lg:flex-row"
+        className="flex overflow-hidden flex-col flex-1 gap-2 p-4 lg:flex-row"
       >
         <ResizablePanel className="flex flex-col min-h-0">
           <PersonList data={data} />
         </ResizablePanel>
-        <ResizableHandle />
+        <ResizableHandle className="bg-transparent" />
         <ResizablePanel defaultSize={30} className="flex flex-col min-h-0">
           <PersonForm onSubmit={onSubmit} />
         </ResizablePanel>

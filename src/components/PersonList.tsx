@@ -12,22 +12,27 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
+  PaginationState,
 } from "@tanstack/react-table";
 import { columns } from "@/utils/columns";
 import { Person } from "@/utils/data";
+import { useState } from "react";
 
 export function PersonList({ data }: { data: Person[] }) {
+  const [pagination, onPaginationChange] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 50,
+  });
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      pagination,
+    },
+    onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: {
-        pageSize: 50,
-        pageIndex: 0,
-      },
-    },
   });
 
   return (
@@ -64,11 +69,15 @@ export function PersonList({ data }: { data: Person[] }) {
       <div className="flex gap-2 justify-between items-center p-2 border-t bg-background">
         <Pagination
           className="flex-1"
-          currentPage={table.getState().pagination.pageIndex}
+          currentPage={pagination.pageIndex + 1}
+          pageSize={pagination.pageSize}
           totalItems={data.length}
-          pageSize={table.getState().pagination.pageSize}
-          onPageChange={(page) => table.setPageIndex(page)}
-          onPageSizeChange={(size) => table.setPageSize(size)}
+          onPageChange={(page) => {
+            onPaginationChange({ ...pagination, pageIndex: page - 1 });
+          }}
+          onPageSizeChange={(size) => {
+            onPaginationChange({ ...pagination, pageIndex: 0, pageSize: size });
+          }}
         />
       </div>
     </div>
