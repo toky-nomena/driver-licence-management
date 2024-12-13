@@ -7,7 +7,7 @@ export interface Person {
   dateOfBirth?: string;
   email?: string;
   driverLicense?: string;
-  policyNumber?: string;
+  description?: string;
   createdAt?: Date;
   province?: string;
 }

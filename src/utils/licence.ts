@@ -1,6 +1,6 @@
-import dayjs from "dayjs";
+import { formatDateToDDMMYY } from "@/lib/date";
 
-const LAST_NAME_CODES = [
+const FIRST_NAME_CODES = [
   ["A", "B"], // 1
   ["C"], // 2
   ["D", "E", "F"], // 3
@@ -12,7 +12,7 @@ const LAST_NAME_CODES = [
   ["U", "V", "W", "X", "Y", "Z"], // 9
 ];
 
-const FIRST_NAME_CODES = [
+const LAST_NAME_CODES = [
   ["B", "F", "P", "V"], // 1
   ["C", "G", "K", "J", "Q", "S", "X", "Z"], // 2
   ["D", "T"], // 3
@@ -37,16 +37,16 @@ function encode(value: string, codes: string[][]): string {
  * @param firstName
  * @returns
  */
-function encodeFirstName(firstName: string): string {
-  firstName = firstName
+function encodeLastName(lastName: string): string {
+  lastName = lastName
     .toUpperCase()
     .substring(1)
     .replace(/[AEIOUYHW]/g, "");
 
   let ret = "";
 
-  for (const char of firstName) {
-    ret += encode(char, FIRST_NAME_CODES);
+  for (const char of lastName) {
+    ret += encode(char, LAST_NAME_CODES);
   }
 
   return ret
@@ -61,8 +61,8 @@ function encodeFirstName(firstName: string): string {
  * @param lastName
  * @returns
  */
-function encodeLastName(lastName: string): string {
-  return encode(lastName.toUpperCase().substring(0, 1), LAST_NAME_CODES);
+function encodeFirstName(firstName: string): string {
+  return encode(firstName.toUpperCase().substring(0, 1), FIRST_NAME_CODES);
 }
 
 function getCode(str: string): number {
@@ -92,10 +92,10 @@ export function generateDriverLicense(params: {
     return "";
   }
 
-  const p1 = params.firstName.toUpperCase().substring(0, 1);
-  const p2 = encodeFirstName(params.firstName);
-  const p3 = encodeLastName(params.lastName);
-  const p4 = dayjs(params.dateOfBirth).format("DDMMYY");
+  const p1 = params.lastName.toUpperCase().substring(0, 1);
+  const p2 = encodeLastName(params.lastName);
+  const p3 = encodeFirstName(params.firstName);
+  const p4 = formatDateToDDMMYY(params.dateOfBirth);
 
   const value = `${p1}${p2}${p3}-${p4}-0`;
   const code = getCode(value);

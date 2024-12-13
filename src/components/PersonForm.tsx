@@ -5,9 +5,14 @@ import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateDriverLicense } from "@/utils/licence";
 import { generateFakeData, type Person } from "@/utils/data";
-import { isValidName, validateEmail } from "@/lib/validators";
+import {
+  isValidDateOfBirth,
+  isValidName,
+  validateEmail,
+} from "@/lib/validators";
 import { InputWithCopy } from "./InputWithCopy";
 import { ProvinceSelect } from "./ProvinceSelect";
+import { InputLabel } from "./InputLabel";
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
@@ -18,7 +23,7 @@ const defaultValues: Person = {
   lastName: "",
   email: "",
   driverLicense: "",
-  policyNumber: "",
+  description: "",
   dateOfBirth: "",
   province: "QC",
 };
@@ -69,15 +74,16 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
       >
         <div className="flex-1 space-y-4">
           {/* Last Name Field */}
+
           <div>
-            <label className="block mb-2">Last Name *</label>
+            <InputLabel description="Prénom" required>
+              First Name
+            </InputLabel>
             <form.Field
-              name="lastName"
+              name="firstName"
               validators={{
                 onChange: () => {
-                  return isValidName(form.state.values.lastName)
-                    ? undefined
-                    : "Last name is required";
+                  return isValidName("First name", form.state.values.firstName);
                 },
               }}
               children={(field) => (
@@ -91,14 +97,14 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             />
           </div>
           <div>
-            <label className="block mb-2">First Name *</label>
+            <InputLabel description="Nom de famille" required>
+              Last Name
+            </InputLabel>
             <form.Field
-              name="firstName"
+              name="lastName"
               validators={{
                 onChange: () => {
-                  return isValidName(form.state.values.firstName)
-                    ? undefined
-                    : "First name is required";
+                  return isValidName("Last name", form.state.values.lastName);
                 },
               }}
               children={(field) => (
@@ -113,9 +119,16 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
           {/* Date of Birth Field */}
           <div>
-            <label className="block mb-2">Date of Birth *</label>
+            <InputLabel description="Date de naissance" required>
+              Date of Birth
+            </InputLabel>
             <form.Field
               name="dateOfBirth"
+              validators={{
+                onChange: () => {
+                  return isValidDateOfBirth(form.state.values.dateOfBirth);
+                },
+              }}
               children={(field) => (
                 <InputWithCopy
                   type="date"
@@ -128,7 +141,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             />
           </div>
           <div>
-            <label className="block mb-2">Province</label>
+            <InputLabel>Province</InputLabel>
             <form.Field
               name="province"
               children={(field) => (
@@ -141,17 +154,12 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
           {/* Email Field */}
           <div>
-            <label className="block mb-2">Email</label>
+            <InputLabel description="Adresse email">Email</InputLabel>
             <form.Field
               name="email"
               validators={{
                 onChange: () => {
-                  if (form.state.values.email) {
-                    return validateEmail(form.state.values.email)
-                      ? undefined
-                      : "Invalid email";
-                  }
-                  return undefined;
+                  return validateEmail(form.state.values.email);
                 },
               }}
               children={(field) => (
@@ -166,9 +174,9 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             />
           </div>
           <div>
-            <label className="block mb-2">Policy Number</label>
+            <InputLabel description="Description">Description</InputLabel>
             <form.Field
-              name="policyNumber"
+              name="description"
               children={(field) => (
                 <InputWithCopy
                   value={field.state.value}
@@ -181,7 +189,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
 
           <div>
-            <label className="block mb-2">Driver License</label>
+            <InputLabel>Driver License</InputLabel>
             <form.Subscribe
               selector={(state) =>
                 [
@@ -191,12 +199,12 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 ] as const
               }
               children={([firstName, lastName, dateOfBirth]) => (
-                <span className="font-semibold">
+                <span className="text-xl font-semibold">
                   {generateDriverLicense({
                     firstName,
                     lastName,
                     dateOfBirth,
-                  }) || "#############"}
+                  }) || "#####-######-##"}
                 </span>
               )}
             />
