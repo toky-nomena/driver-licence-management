@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { Loader2, RefreshCw, Sparkles } from "lucide-react";
-import { format, parse } from "date-fns";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { generateDriverLicense } from "@/utils/licence";
 import { generateFakeData, type Person } from "@/utils/data";
-import {
-  isValidDateOfBirth,
-  isValidName,
-  validateEmail,
-} from "@/lib/validators";
+import { isValidName, validateEmail } from "@/lib/validators";
+import { InputWithCopy } from "./InputWithCopy";
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
@@ -23,7 +18,7 @@ const defaultValues: Person = {
   email: "",
   driverLicense: "",
   policyNumber: "",
-  dateOfBirth: new Date(),
+  dateOfBirth: "",
 };
 
 export function PersonForm({ onSubmit }: PersonFormProps) {
@@ -35,7 +30,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
       setIsSubmitting(true);
 
       // Simulate async submission
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 200));
 
       // Reset form and call onSubmit
       form.reset();
@@ -48,12 +43,23 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           lastName: value.lastName,
           dateOfBirth: value.dateOfBirth,
         }),
+        createdAt: new Date(),
       });
     },
   });
 
   // Handler to generate fake data
-  const handleInspire = () => form.reset(generateFakeData());
+  const handleInspire = () => {
+    const fake = generateFakeData();
+    form.reset({
+      firstName: form.state.values.firstName || fake.firstName,
+      lastName: form.state.values.lastName || fake.lastName,
+      dateOfBirth: form.state.values.dateOfBirth || fake.dateOfBirth,
+      email: form.state.values.email || fake.email,
+      driverLicense: form.state.values.driverLicense || fake.driverLicense,
+      policyNumber: form.state.values.policyNumber || fake.policyNumber,
+    });
+  };
 
   // Handler to reset form
   const handleReset = () => form.reset(defaultValues);
@@ -80,18 +86,12 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 },
               }}
               children={(field) => (
-                <>
-                  <Input
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                  {field.state.meta.errors.length > 0 && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {field.state.meta.errors[0]}
-                    </p>
-                  )}
-                </>
+                <InputWithCopy
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
               )}
             />
           </div>
@@ -109,18 +109,12 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 },
               }}
               children={(field) => (
-                <>
-                  <Input
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                  {field.state.meta.errors.length > 0 && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {field.state.meta.errors[0]}
-                    </p>
-                  )}
-                </>
+                <InputWithCopy
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
               )}
             />
           </div>
@@ -130,34 +124,14 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             <label className="block mb-2">Date of Birth *</label>
             <form.Field
               name="dateOfBirth"
-              validators={{
-                onChange: () =>
-                  isValidDateOfBirth(form.state.values.dateOfBirth)
-                    ? undefined
-                    : "Date of birth is required",
-              }}
               children={(field) => (
-                <>
-                  <Input
-                    type="date"
-                    value={
-                      field.state.value
-                        ? format(field.state.value, "yyyy-MM-dd")
-                        : undefined
-                    }
-                    onChange={(e) => {
-                      field.handleChange(
-                        parse(e.target.value, "yyyy-MM-dd", new Date())
-                      );
-                    }}
-                    onBlur={field.handleBlur}
-                  />
-                  {field.state.meta.errors.length > 0 && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {field.state.meta.errors[0]}
-                    </p>
-                  )}
-                </>
+                <InputWithCopy
+                  type="date"
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
               )}
             />
           </div>
@@ -178,19 +152,13 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 },
               }}
               children={(field) => (
-                <>
-                  <Input
-                    type="email"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                  {field.state.meta.errors.length > 0 && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {field.state.meta.errors[0]}
-                    </p>
-                  )}
-                </>
+                <InputWithCopy
+                  type="email"
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
               )}
             />
           </div>
@@ -228,7 +196,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </Button>
           <Button type="submit" className="ml-auto" disabled={isSubmitting}>
             {isSubmitting && <Loader2 className="mr-2 w-4 h-4 animate-spin" />}
-            Submit
+            Save
           </Button>
         </div>
       </form>

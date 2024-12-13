@@ -9,11 +9,15 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "./components/ui/resizable";
+} from "@/components/ui/resizable";
+import { DeleteAllAlert } from "./components/DeleteAllAlert";
+import { useLocalStorage } from "./components/hooks/useLocalStorage";
 
 export default function DataGenerator() {
-  const [data, setData] = useState<Person[]>([]);
   const [globalFilter, onGlobalFilterChange] = useState("");
+  const [data, setData] = useLocalStorage<Person[]>("driver-licence-data", []);
+  const clearAllData = () => setData([]);
+
   const onSubmit = (newPerson: Person) => {
     setData((prev) => [newPerson, ...prev]);
   };
@@ -22,14 +26,19 @@ export default function DataGenerator() {
     <div className="flex flex-col h-screen">
       <div className="flex justify-between items-center p-4 border-b">
         <h1 className="text-xl font-semibold">Data generator</h1>
-        <div className="relative w-96">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search people..."
-            className="pl-8 w-full"
-            value={globalFilter}
-            onChange={(e) => onGlobalFilterChange(e.target.value)}
-          />
+        <div className="flex gap-4 items-center">
+          <div className="relative w-96">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search people..."
+              className="pl-8 w-full"
+              value={globalFilter}
+              onChange={(e) => onGlobalFilterChange(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-4 items-center">
+            {data.length > 0 && <DeleteAllAlert onConfirm={clearAllData} />}
+          </div>
         </div>
       </div>
       <ResizablePanelGroup
