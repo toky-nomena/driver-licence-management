@@ -7,6 +7,7 @@ import { generateDriverLicense } from "@/utils/licence";
 import { generateFakeData, type Person } from "@/utils/data";
 import { isValidName, validateEmail } from "@/lib/validators";
 import { InputWithCopy } from "./InputWithCopy";
+import { ProvinceSelect } from "./ProvinceSelect";
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
@@ -19,6 +20,7 @@ const defaultValues: Person = {
   driverLicense: "",
   policyNumber: "",
   dateOfBirth: "",
+  province: "QC",
 };
 
 export function PersonForm({ onSubmit }: PersonFormProps) {
@@ -50,15 +52,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
 
   // Handler to generate fake data
   const handleInspire = () => {
-    const fake = generateFakeData();
-    form.reset({
-      firstName: form.state.values.firstName || fake.firstName,
-      lastName: form.state.values.lastName || fake.lastName,
-      dateOfBirth: form.state.values.dateOfBirth || fake.dateOfBirth,
-      email: form.state.values.email || fake.email,
-      driverLicense: form.state.values.driverLicense || fake.driverLicense,
-      policyNumber: form.state.values.policyNumber || fake.policyNumber,
-    });
+    form.reset(generateFakeData(form.state.values));
   };
 
   // Handler to reset form
@@ -74,28 +68,6 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
         className="flex flex-col flex-1 justify-between space-y-4"
       >
         <div className="flex-1 space-y-4">
-          <div>
-            <label className="block mb-2">First Name *</label>
-            <form.Field
-              name="firstName"
-              validators={{
-                onChange: () => {
-                  return isValidName(form.state.values.firstName)
-                    ? undefined
-                    : "First name is required";
-                },
-              }}
-              children={(field) => (
-                <InputWithCopy
-                  value={field.state.value}
-                  error={field.state.meta.errors[0] || undefined}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              )}
-            />
-          </div>
-
           {/* Last Name Field */}
           <div>
             <label className="block mb-2">Last Name *</label>
@@ -118,7 +90,27 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               )}
             />
           </div>
-
+          <div>
+            <label className="block mb-2">First Name *</label>
+            <form.Field
+              name="firstName"
+              validators={{
+                onChange: () => {
+                  return isValidName(form.state.values.firstName)
+                    ? undefined
+                    : "First name is required";
+                },
+              }}
+              children={(field) => (
+                <InputWithCopy
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              )}
+            />
+          </div>
           {/* Date of Birth Field */}
           <div>
             <label className="block mb-2">Date of Birth *</label>
@@ -135,7 +127,18 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               )}
             />
           </div>
-
+          <div>
+            <label className="block mb-2">Province</label>
+            <form.Field
+              name="province"
+              children={(field) => (
+                <ProvinceSelect
+                  value={field.state.value}
+                  onChange={(value) => field.handleChange(value)}
+                />
+              )}
+            />
+          </div>
           {/* Email Field */}
           <div>
             <label className="block mb-2">Email</label>
@@ -162,6 +165,21 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               )}
             />
           </div>
+          <div>
+            <label className="block mb-2">Policy Number</label>
+            <form.Field
+              name="policyNumber"
+              children={(field) => (
+                <InputWithCopy
+                  value={field.state.value}
+                  error={field.state.meta.errors[0] || undefined}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              )}
+            />
+          </div>
+
           <div>
             <label className="block mb-2">Driver License</label>
             <form.Subscribe

@@ -16,9 +16,14 @@ export function InputWithCopy({
 }: InputWithCopyProps) {
   return (
     <div>
-      <div className="flex items-center space-x-2">
+      <div className="flex relative items-center space-x-2">
         <Input {...inputProps} value={value} />
-        <CopyButton className="w-8 h-8" value={value} />
+        {value && (
+          <CopyButton
+            value={value}
+            className="absolute right-2 top-2.5 h-4 w-4 text-muted-foreground border-none"
+          />
+        )}
       </div>
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
       {children}

@@ -25,11 +25,12 @@ export default function DataGenerator() {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between items-center p-4 border-b">
-        <h1 className="text-xl font-semibold">Data generator</h1>
+        <h1 className="text-xl font-semibold">Licence generator</h1>
         <div className="flex gap-4 items-center">
           <div className="relative w-96">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
+              type="search"
               placeholder="Search people..."
               className="pl-8 w-full"
               value={globalFilter}
