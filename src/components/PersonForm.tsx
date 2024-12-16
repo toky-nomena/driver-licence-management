@@ -3,7 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { generateDriverLicense } from "@/utils/licence";
+import { DriverLicenseFactory } from "@/utils/licence/DriverLicenseFactory";
 import { generateFakeData, type Person } from "@/utils/data";
 import {
   isValidDateOfBirth,
@@ -13,6 +13,8 @@ import {
 import { InputWithCopy } from "./InputWithCopy";
 import { ProvinceSelect } from "./ProvinceSelect";
 import { InputLabel } from "./InputLabel";
+import { CopyButton } from "./ui/copy-button";
+import { Alert } from "./ui/alert";
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
@@ -42,14 +44,16 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
       // Reset form and call onSubmit
       form.reset();
       setIsSubmitting(false);
+      const license = DriverLicenseFactory.generate({
+        firstName: value.firstName,
+        lastName: value.lastName,
+        dateOfBirth: value.dateOfBirth,
+        province: value.province,
+      });
 
       onSubmit({
         ...value,
-        driverLicense: generateDriverLicense({
-          firstName: value.firstName,
-          lastName: value.lastName,
-          dateOfBirth: value.dateOfBirth,
-        }),
+        driverLicense: license.license,
         createdAt: new Date(),
       });
     },
@@ -196,17 +200,30 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                   state.values.firstName,
                   state.values.lastName,
                   state.values.dateOfBirth,
+                  state.values.province,
                 ] as const
               }
-              children={([firstName, lastName, dateOfBirth]) => (
-                <span className="text-xl font-semibold">
-                  {generateDriverLicense({
-                    firstName,
-                    lastName,
-                    dateOfBirth,
-                  }) || "#####-######-##"}
-                </span>
-              )}
+              children={([firstName, lastName, dateOfBirth, province]) => {
+                const { license, error } = DriverLicenseFactory.generate({
+                  firstName,
+                  lastName,
+                  dateOfBirth,
+                  province,
+                });
+
+                return (
+                  <Alert variant={error ? "destructive" : "default"}>
+                    <span className="flex gap-2 items-center">
+                      {license ? (
+                        <span className="text-xl font-semibold">{license}</span>
+                      ) : (
+                        <div>{error}</div>
+                      )}
+                      {license && <CopyButton value={license} />}
+                    </span>
+                  </Alert>
+                );
+              }}
             />
           </div>
         </div>

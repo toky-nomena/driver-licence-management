@@ -83,7 +83,7 @@ function getCode(str: string): number {
   return value === 10 ? 0 : value;
 }
 
-export function generateDriverLicense(params: {
+export function generate(params: {
   firstName: string;
   lastName: string;
   dateOfBirth: Date | string | undefined;
