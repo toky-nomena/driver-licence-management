@@ -39,8 +39,7 @@ export function PersonList({
 
   // Handle row deletion
   const onDeleteRow = (rowIndex: number) => {
-    const filteredData = data.filter((_, index) => index !== rowIndex);
-    onUpdateData(filteredData);
+    onUpdateData(data.filter((_, index) => index !== rowIndex));
   };
 
   const table = useReactTable({

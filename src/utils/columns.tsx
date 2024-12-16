@@ -10,12 +10,12 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { AlertDescription } from "@/components/ui/alert";
 
 const columnHelper = createColumnHelper<Person>();
 
@@ -83,9 +83,14 @@ export const columns = [
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>
-                Do you want to delete this row ?
-              </AlertDialogTitle>
+              <AlertDialogTitle>Confirm</AlertDialogTitle>
+              <AlertDescription>
+                Do you want to remove{" "}
+                <strong>
+                  {row.original.firstName} {row.original.lastName}
+                </strong>
+                ?
+              </AlertDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>No</AlertDialogCancel>
