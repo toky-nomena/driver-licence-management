@@ -1,8 +1,9 @@
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { Button } from './button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
+
+import { cn } from '@/lib/utils';
 
 interface PaginationProps {
   currentPage: number;

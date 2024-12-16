@@ -1,10 +1,11 @@
 import { createColumnHelper } from '@tanstack/react-table';
-import { Person } from './data';
-import { formatDateToYYYYMMDD } from '@/lib/date';
-import { Copy } from '@/components/Copy';
-import { provinces } from './provinces';
 import { Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
+import { Person } from './data';
+import { provinces } from './provinces';
+
+import { Copy } from '@/components/Copy';
+import { AlertDescription } from '@/components/ui/alert';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +16,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { formatDateToYYYYMMDD } from '@/lib/date';
 
 const columnHelper = createColumnHelper<Person>();
 

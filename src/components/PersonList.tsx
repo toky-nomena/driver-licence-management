@@ -1,3 +1,13 @@
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+  PaginationState,
+  getFilteredRowModel,
+} from '@tanstack/react-table';
+import { useState } from 'react';
+
 import { Pagination } from '@/components/ui/pagination';
 import {
   Table,
@@ -7,17 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-  PaginationState,
-  getFilteredRowModel,
-} from '@tanstack/react-table';
 import { columns } from '@/utils/columns';
 import { Person } from '@/utils/data';
-import { useState } from 'react';
+
 
 interface PersonListProps {
   globalFilter: string;

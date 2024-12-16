@@ -1,5 +1,5 @@
-import { generate as qc } from './impl/qc';
 import { generate as ab } from './impl/ab';
+import { generate as qc } from './impl/qc';
 
 interface Person {
   firstName: string;

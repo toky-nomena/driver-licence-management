@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { formatDateToYYYYMMDD } from '@/lib/date';
 
 export interface Person {

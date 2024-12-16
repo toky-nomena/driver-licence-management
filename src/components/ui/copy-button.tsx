@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Button, ButtonProps } from './button';
-import { cn } from '@/lib/utils';
 import { CheckIcon, Copy } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+import { Button, ButtonProps } from './button';
+
+import { cn } from '@/lib/utils';
 
 async function copyToClipboardWithMeta(value: string) {
   navigator.clipboard.writeText(value);

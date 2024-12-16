@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
-import { Input, InputProps } from './ui/input';
+
 import { CopyButton } from './ui/copy-button';
+import { Input, InputProps } from './ui/input';
+
 import { cn } from '@/lib/utils';
 
 interface InputWithCopyProps extends InputProps {

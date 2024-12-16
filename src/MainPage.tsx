@@ -1,13 +1,15 @@
-import { useState } from 'react';
 import { Search } from 'lucide-react';
+import { useState } from 'react';
 
-import { Input } from '@/components/ui/input';
+import { DeleteAllAlert } from './components/DeleteAllAlert';
+import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { PersonForm } from './components/PersonForm';
 import { PersonList } from './components/PersonList';
 import { Person } from './utils/data';
+
+import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
-import { DeleteAllAlert } from './components/DeleteAllAlert';
-import { useLocalStorage } from './components/hooks/useLocalStorage';
+
 
 export default function DataGenerator() {
   const [globalFilter, onGlobalFilterChange] = useState('');

@@ -1,5 +1,6 @@
-import { provinces } from '@/utils/provinces';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+
+import { provinces } from '@/utils/provinces';
 
 interface ProvinceSelectProps {
   value?: string;

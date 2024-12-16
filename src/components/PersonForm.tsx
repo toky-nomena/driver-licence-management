@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import { useForm } from '@tanstack/react-form';
 import { Loader2, RefreshCw, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { DriverLicenseFactory } from '@/utils/licence/DriverLicenseFactory';
-import { generateFakeData, type Person } from '@/utils/data';
-import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
+import { InputLabel } from './InputLabel';
 import { InputWithCopy } from './InputWithCopy';
 import { ProvinceSelect } from './ProvinceSelect';
-import { InputLabel } from './InputLabel';
-import { CopyButton } from './ui/copy-button';
 import { Alert } from './ui/alert';
+import { CopyButton } from './ui/copy-button';
+
+import { Button } from '@/components/ui/button';
+import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
+import { generateFakeData, type Person } from '@/utils/data';
+import { DriverLicenseFactory } from '@/utils/licence/DriverLicenseFactory';
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;

@@ -1,6 +1,8 @@
-import { cn } from '@/lib/utils';
-import { Label } from './ui/label';
 import { LabelHTMLAttributes, ReactNode } from 'react';
+
+import { Label } from './ui/label';
+
+import { cn } from '@/lib/utils';
 
 interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   children: ReactNode;
