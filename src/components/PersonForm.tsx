@@ -23,6 +23,7 @@ const defaultValues: Person = {
   email: '',
   driverLicense: '',
   description: '',
+  gender: 'male',
   dateOfBirth: '',
   province: 'QC',
 };
@@ -65,15 +66,15 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
   const handleReset = () => form.reset(defaultValues);
 
   return (
-    <div className="flex flex-1 flex-col space-y-4 rounded-lg border p-4">
+    <div className="space-y-4rounded-lg flex flex-1 flex-col overflow-auto border">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
         }}
-        className="flex flex-1 flex-col justify-between space-y-4"
+        className="flex flex-1 flex-col justify-between space-y-4 p-4"
       >
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-4 bg-background">
           {/* Last Name Field */}
 
           <div>
@@ -225,7 +226,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
         </div>
         {/* Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 bg-white/90 p-2 backdrop-blur-sm">
           <Button type="button" variant="outline" onClick={handleInspire}>
             <Sparkles className="mr-2 h-4 w-4" />
             Inspire me

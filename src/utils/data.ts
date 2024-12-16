@@ -9,6 +9,7 @@ export interface Person {
   email?: string;
   driverLicense?: string;
   description?: string;
+  gender?: 'male' | 'female';
   createdAt?: Date;
   province?: string;
 }
