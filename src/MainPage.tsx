@@ -38,7 +38,11 @@ export default function DataGenerator() {
             />
           </div>
           <div className="flex gap-4 items-center">
-            {data.length > 0 && <DeleteAllAlert onConfirm={clearAllData} />}
+            {data.length > 0 && (
+              <DeleteAllAlert onConfirm={clearAllData}>
+                Clear all
+              </DeleteAllAlert>
+            )}
           </div>
         </div>
       </div>
@@ -53,6 +57,7 @@ export default function DataGenerator() {
         <ResizablePanel defaultValue={75} className="flex flex-col">
           <PersonList
             data={data}
+            onUpdateData={setData}
             globalFilter={globalFilter}
             onGlobalFilterChange={onGlobalFilterChange}
           />

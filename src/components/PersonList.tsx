@@ -22,18 +22,26 @@ import { useState } from "react";
 interface PersonListProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
+  onUpdateData: (data: Person[]) => void;
   data: Person[];
 }
 
 export function PersonList({
   globalFilter,
   onGlobalFilterChange,
+  onUpdateData,
   data,
 }: PersonListProps) {
   const [pagination, onPaginationChange] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,
   });
+
+  // Handle row deletion
+  const onDeleteRow = (rowIndex: number) => {
+    const filteredData = data.filter((_, index) => index !== rowIndex);
+    onUpdateData(filteredData);
+  };
 
   const table = useReactTable({
     data,
@@ -47,6 +55,9 @@ export function PersonList({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    meta: {
+      onDeleteRow,
+    },
     globalFilterFn: (row, _, filterValue) => {
       const search = filterValue.toLowerCase().trim();
       return (

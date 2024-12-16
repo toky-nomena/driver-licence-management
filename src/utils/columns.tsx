@@ -3,6 +3,19 @@ import { Person } from "./data";
 import { formatDateToYYYYMMDD } from "@/lib/date";
 import { Copy } from "@/components/Copy";
 import { provinces } from "./provinces";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const columnHelper = createColumnHelper<Person>();
 
@@ -34,15 +47,17 @@ export const columns = [
     header: "Email",
     cell: (info) => <Copy>{info.getValue()}</Copy>,
   }),
-  columnHelper.accessor("policyNumber", {
-    header: "Policy Number",
+  columnHelper.accessor("description", {
+    header: "Description",
     cell: (info) => <Copy>{info.getValue()}</Copy>,
   }),
   columnHelper.accessor("province", {
     header: "Province",
     cell: (info) => {
       const province = provinces.find((p) => p.code === info.getValue());
-      return province ? province.label : info.getValue();
+      return province
+        ? `${province.label} (${province.code})`
+        : info.getValue();
     },
   }),
   columnHelper.accessor("createdAt", {
@@ -50,6 +65,40 @@ export const columns = [
     cell: (info) => {
       const data = info.getValue() as Date;
       return data ? formatDateToYYYYMMDD(data) : "-";
+    },
+  }),
+  columnHelper.display({
+    id: "actions",
+    header: "Actions",
+    cell: ({ row, table }) => {
+      const meta = table.options.meta as {
+        onDeleteRow?: (index: number) => void;
+      };
+      return (
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                Do you want to delete this row ?
+              </AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>No</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => meta?.onDeleteRow?.(row.index)}
+                variant="destructive"
+              >
+                Yes
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      );
     },
   }),
 ];

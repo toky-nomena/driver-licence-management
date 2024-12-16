@@ -13,14 +13,15 @@ import { Button } from "@/components/ui/button";
 
 interface DeleteAllAlertProps {
   onConfirm: () => void;
+  children: React.ReactNode;
 }
 
-export function DeleteAllAlert({ onConfirm }: DeleteAllAlertProps) {
+export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" className="text-destructive">
-          Clear
+          {children}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
