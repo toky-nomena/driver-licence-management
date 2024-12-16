@@ -1,11 +1,5 @@
-import { provinces } from "@/utils/provinces";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import { provinces } from '@/utils/provinces';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 interface ProvinceSelectProps {
   value?: string;
@@ -16,7 +10,7 @@ interface ProvinceSelectProps {
 export function ProvinceSelect({
   value,
   onChange,
-  placeholder = "Select Province",
+  placeholder = 'Select Province',
 }: ProvinceSelectProps) {
   return (
     <Select value={value} onValueChange={onChange}>

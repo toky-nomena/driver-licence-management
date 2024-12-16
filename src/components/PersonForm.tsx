@@ -1,33 +1,29 @@
-import { useState } from "react";
-import { useForm } from "@tanstack/react-form";
-import { Loader2, RefreshCw, Sparkles } from "lucide-react";
+import { useState } from 'react';
+import { useForm } from '@tanstack/react-form';
+import { Loader2, RefreshCw, Sparkles } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { DriverLicenseFactory } from "@/utils/licence/DriverLicenseFactory";
-import { generateFakeData, type Person } from "@/utils/data";
-import {
-  isValidDateOfBirth,
-  isValidName,
-  validateEmail,
-} from "@/lib/validators";
-import { InputWithCopy } from "./InputWithCopy";
-import { ProvinceSelect } from "./ProvinceSelect";
-import { InputLabel } from "./InputLabel";
-import { CopyButton } from "./ui/copy-button";
-import { Alert } from "./ui/alert";
+import { Button } from '@/components/ui/button';
+import { DriverLicenseFactory } from '@/utils/licence/DriverLicenseFactory';
+import { generateFakeData, type Person } from '@/utils/data';
+import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
+import { InputWithCopy } from './InputWithCopy';
+import { ProvinceSelect } from './ProvinceSelect';
+import { InputLabel } from './InputLabel';
+import { CopyButton } from './ui/copy-button';
+import { Alert } from './ui/alert';
 
 interface PersonFormProps {
   onSubmit: (person: Person) => void;
 }
 
 const defaultValues: Person = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  driverLicense: "",
-  description: "",
-  dateOfBirth: "",
-  province: "QC",
+  firstName: '',
+  lastName: '',
+  email: '',
+  driverLicense: '',
+  description: '',
+  dateOfBirth: '',
+  province: 'QC',
 };
 
 export function PersonForm({ onSubmit }: PersonFormProps) {
@@ -68,13 +64,13 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
   const handleReset = () => form.reset(defaultValues);
 
   return (
-    <div className="flex flex-col flex-1 p-4 space-y-4 rounded-lg border">
+    <div className="flex flex-1 flex-col space-y-4 rounded-lg border p-4">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
         }}
-        className="flex flex-col flex-1 justify-between space-y-4"
+        className="flex flex-1 flex-col justify-between space-y-4"
       >
         <div className="flex-1 space-y-4">
           {/* Last Name Field */}
@@ -87,7 +83,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               name="firstName"
               validators={{
                 onChange: () => {
-                  return isValidName("First name", form.state.values.firstName);
+                  return isValidName('First name', form.state.values.firstName);
                 },
               }}
               children={(field) => (
@@ -108,7 +104,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               name="lastName"
               validators={{
                 onChange: () => {
-                  return isValidName("Last name", form.state.values.lastName);
+                  return isValidName('Last name', form.state.values.lastName);
                 },
               }}
               children={(field) => (
@@ -212,8 +208,8 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 });
 
                 return (
-                  <Alert variant={error ? "destructive" : "default"}>
-                    <span className="flex gap-2 items-center">
+                  <Alert variant={error ? 'destructive' : 'default'}>
+                    <span className="flex items-center gap-2">
                       {license ? (
                         <span className="text-xl font-semibold">{license}</span>
                       ) : (
@@ -228,17 +224,17 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
         </div>
         {/* Action Buttons */}
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Button type="button" variant="outline" onClick={handleInspire}>
-            <Sparkles className="mr-2 w-4 h-4" />
+            <Sparkles className="mr-2 h-4 w-4" />
             Inspire me
           </Button>
           <Button type="button" variant="outline" onClick={handleReset}>
-            <RefreshCw className="mr-2 w-4 h-4" />
+            <RefreshCw className="mr-2 h-4 w-4" />
             Reset
           </Button>
           <Button type="submit" className="ml-auto" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 w-4 h-4 animate-spin" />}
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save
           </Button>
         </div>

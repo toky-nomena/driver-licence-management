@@ -1,4 +1,4 @@
-import { formatDateToDDMMYY } from "@/lib/date";
+import { formatDateToDDMMYY } from '@/lib/date';
 
 export function generate(params: {
   firstName: string;
@@ -6,7 +6,7 @@ export function generate(params: {
   dateOfBirth: Date | string | undefined;
 }): string {
   if (!params.firstName || !params.lastName || !params.dateOfBirth) {
-    return "";
+    return '';
   }
 
   return `${params.lastName.toUpperCase().substring(0, 1)}${

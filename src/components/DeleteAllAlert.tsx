@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from './ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 interface DeleteAllAlertProps {
   onConfirm: () => void;
@@ -26,9 +26,7 @@ export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Do you want to delete all entries ?
-          </AlertDialogTitle>
+          <AlertDialogTitle>Do you want to delete all entries ?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete all data.
           </AlertDialogDescription>

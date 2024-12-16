@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { Input, InputProps } from "./ui/input";
-import { CopyButton } from "./ui/copy-button";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { Input, InputProps } from './ui/input';
+import { CopyButton } from './ui/copy-button';
+import { cn } from '@/lib/utils';
 
 interface InputWithCopyProps extends InputProps {
   value: string | undefined;
@@ -9,24 +9,19 @@ interface InputWithCopyProps extends InputProps {
   children?: ReactNode;
 }
 
-export function InputWithCopy({
-  value,
-  error,
-  children,
-  ...inputProps
-}: InputWithCopyProps) {
+export function InputWithCopy({ value, error, children, ...inputProps }: InputWithCopyProps) {
   return (
     <div>
-      <div className="flex relative items-center space-x-2">
+      <div className="relative flex items-center space-x-2">
         <Input
           {...inputProps}
           value={value}
-          className={cn(inputProps.className, error && "border-destructive")}
+          className={cn(inputProps.className, error && 'border-destructive')}
         />
         {value && (
           <CopyButton
             value={value}
-            className="absolute right-2 top-2.5 h-4 w-4 text-muted-foreground border-none"
+            className="absolute right-2 top-2.5 h-4 w-4 border-none text-muted-foreground"
           />
         )}
       </div>

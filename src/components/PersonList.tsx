@@ -1,4 +1,4 @@
-import { Pagination } from "@/components/ui/pagination";
+import { Pagination } from '@/components/ui/pagination';
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   flexRender,
   getCoreRowModel,
@@ -14,10 +14,10 @@ import {
   useReactTable,
   PaginationState,
   getFilteredRowModel,
-} from "@tanstack/react-table";
-import { columns } from "@/utils/columns";
-import { Person } from "@/utils/data";
-import { useState } from "react";
+} from '@tanstack/react-table';
+import { columns } from '@/utils/columns';
+import { Person } from '@/utils/data';
+import { useState } from 'react';
 
 interface PersonListProps {
   globalFilter: string;
@@ -67,18 +67,15 @@ export function PersonList({
   });
 
   return (
-    <div className="flex overflow-hidden flex-col flex-1 rounded-lg border">
-      <div className="flex overflow-auto flex-1">
+    <div className="flex flex-1 flex-col overflow-hidden rounded-lg border">
+      <div className="flex flex-1 overflow-auto">
         <Table className="flex-1">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
               </TableRow>
@@ -97,7 +94,7 @@ export function PersonList({
           </TableBody>
         </Table>
       </div>
-      <div className="flex gap-2 justify-between items-center p-2 border-t bg-background">
+      <div className="flex items-center justify-between gap-2 border-t bg-background p-2">
         <Pagination
           className="flex-1"
           currentPage={pagination.pageIndex + 1}

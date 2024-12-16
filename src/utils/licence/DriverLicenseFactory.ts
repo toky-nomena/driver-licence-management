@@ -1,5 +1,5 @@
-import { generate as qc } from "./impl/qc";
-import { generate as ab } from "./impl/ab";
+import { generate as qc } from './impl/qc';
+import { generate as ab } from './impl/ab';
 
 interface Person {
   firstName: string;
@@ -8,9 +8,7 @@ interface Person {
 }
 
 // Interface for driver license generator
-export type DriverLicenceGenerator = (
-  params: Person & { province?: string }
-) => string;
+export type DriverLicenceGenerator = (params: Person & { province?: string }) => string;
 
 // Factory for creating province-specific driver license generators
 export class DriverLicenseFactory {
@@ -20,9 +18,7 @@ export class DriverLicenseFactory {
   };
 
   // Method to get a generator for a specific province
-  private static getGenerator(
-    province: string
-  ): DriverLicenceGenerator | undefined {
+  private static getGenerator(province: string): DriverLicenceGenerator | undefined {
     return this.generators[province.toUpperCase()];
   }
 
@@ -36,15 +32,15 @@ export class DriverLicenseFactory {
     // Validate required parameters
     if (!params.province) {
       return {
-        error: "Province is required",
-        license: "",
+        error: 'Province is required',
+        license: '',
       };
     }
 
     if (!params.firstName || !params.lastName || !params.dateOfBirth) {
       return {
-        error: "First name, last name, and date of birth are required",
-        license: "",
+        error: 'First name, last name, and date of birth are required',
+        license: '',
       };
     }
 
@@ -53,8 +49,8 @@ export class DriverLicenseFactory {
 
     if (!generator) {
       return {
-        error: "Province is not supported",
-        license: "",
+        error: 'Province is not supported',
+        license: '',
       };
     }
 
@@ -62,12 +58,12 @@ export class DriverLicenseFactory {
     if (!license) {
       return {
         error: "Failed to generate driver's license",
-        license: "",
+        license: '',
       };
     }
 
     return {
-      error: "",
+      error: '',
       license,
     };
   }

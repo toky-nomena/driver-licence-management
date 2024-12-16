@@ -1,24 +1,24 @@
-import { formatDateToDDMMYY } from "@/lib/date";
+import { formatDateToDDMMYY } from '@/lib/date';
 
 const FIRST_NAME_CODES = [
-  ["A", "B"], // 1
-  ["C"], // 2
-  ["D", "E", "F"], // 3
-  ["G", "H", "I"], // 4
-  ["J", "K", "L"], // 5
-  ["M", "N", "O"], // 6
-  ["P", "Q", "R"], // 7
-  ["S", "T"], // 8
-  ["U", "V", "W", "X", "Y", "Z"], // 9
+  ['A', 'B'], // 1
+  ['C'], // 2
+  ['D', 'E', 'F'], // 3
+  ['G', 'H', 'I'], // 4
+  ['J', 'K', 'L'], // 5
+  ['M', 'N', 'O'], // 6
+  ['P', 'Q', 'R'], // 7
+  ['S', 'T'], // 8
+  ['U', 'V', 'W', 'X', 'Y', 'Z'], // 9
 ];
 
 const LAST_NAME_CODES = [
-  ["B", "F", "P", "V"], // 1
-  ["C", "G", "K", "J", "Q", "S", "X", "Z"], // 2
-  ["D", "T"], // 3
-  ["L"], // 4
-  ["M", "N"], // 5
-  ["R"], // 6
+  ['B', 'F', 'P', 'V'], // 1
+  ['C', 'G', 'K', 'J', 'Q', 'S', 'X', 'Z'], // 2
+  ['D', 'T'], // 3
+  ['L'], // 4
+  ['M', 'N'], // 5
+  ['R'], // 6
 ];
 
 /**
@@ -41,17 +41,17 @@ function encodeLastName(lastName: string): string {
   lastName = lastName
     .toUpperCase()
     .substring(1)
-    .replace(/[AEIOUYHW]/g, "");
+    .replace(/[AEIOUYHW]/g, '');
 
-  let ret = "";
+  let ret = '';
 
   for (const char of lastName) {
     ret += encode(char, LAST_NAME_CODES);
   }
 
   return ret
-    .replace(/(.)\1+/g, "$1")
-    .padEnd(3, "0")
+    .replace(/(.)\1+/g, '$1')
+    .padEnd(3, '0')
     .substring(0, 3);
 }
 
@@ -66,7 +66,7 @@ function encodeFirstName(firstName: string): string {
 }
 
 function getCode(str: string): number {
-  const values = str.replace(/-/g, "");
+  const values = str.replace(/-/g, '');
   let value = 0;
 
   for (let i = 0; i < values.length; i++) {
@@ -89,7 +89,7 @@ export function generate(params: {
   dateOfBirth: Date | string | undefined;
 }): string {
   if (!params.firstName || !params.lastName || !params.dateOfBirth) {
-    return "";
+    return '';
   }
 
   const p1 = params.lastName.toUpperCase().substring(0, 1);

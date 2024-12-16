@@ -1,29 +1,24 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-export function isValidDateOfBirth(
-  value: string | Date | undefined
-): string | undefined {
+export function isValidDateOfBirth(value: string | Date | undefined): string | undefined {
   const date = dayjs(value);
 
   if (!date.isValid()) {
-    return "Date is not valid";
+    return 'Date is not valid';
   }
 
   if (date.isAfter(new Date())) {
-    return "Date must be in the past";
+    return 'Date must be in the past';
   }
 
-  if (date.isBefore(new Date("1900-01-01"))) {
-    return "Date must be at least 1900-01-01";
+  if (date.isBefore(new Date('1900-01-01'))) {
+    return 'Date must be at least 1900-01-01';
   }
 
   return undefined;
 }
 
-export function isValidName(
-  name: string,
-  value: string | undefined
-): string | undefined {
+export function isValidName(name: string, value: string | undefined): string | undefined {
   if (!value) {
     return `${name} is required`;
   }
@@ -39,7 +34,5 @@ export function validateEmail(value: string | undefined): string | undefined {
     return undefined;
   }
 
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-    ? undefined
-    : "Email is not valid";
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? undefined : 'Email is not valid';
 }
