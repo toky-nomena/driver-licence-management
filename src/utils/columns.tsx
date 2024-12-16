@@ -57,14 +57,14 @@ export const columns = [
     header: 'Province',
     cell: (info) => {
       const province = provinces.find((p) => p.code === info.getValue());
-      return province ? `${province.label} (${province.code})` : info.getValue();
+      return province ? province.code : info.getValue();
     },
   }),
   columnHelper.accessor('createdAt', {
     header: 'Created At',
     cell: (info) => {
       const data = info.getValue() as Date;
-      return data ? formatDateToYYYYMMDD(data) : '-';
+      return data ? <span className='"whitespace-nowrap"'>{formatDateToYYYYMMDD(data)}</span> : '-';
     },
   }),
   columnHelper.display({
