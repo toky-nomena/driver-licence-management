@@ -7,9 +7,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   });
 
   // Save data to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(data));
-  }, [data, key]);
+  useEffect(() => localStorage.setItem(key, JSON.stringify(data)), [data, key]);
 
   return [data, setData] as const;
 }
