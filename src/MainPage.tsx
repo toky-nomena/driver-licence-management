@@ -10,7 +10,6 @@ import { Person } from './utils/data';
 import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 
-
 export default function DataGenerator() {
   const [globalFilter, onGlobalFilterChange] = useState('');
   const [data, setData] = useLocalStorage<Person[]>('driver-licence-data', []);

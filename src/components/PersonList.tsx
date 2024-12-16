@@ -20,7 +20,6 @@ import {
 import { columns } from '@/utils/columns';
 import { Person } from '@/utils/data';
 
-
 interface PersonListProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;

@@ -9,7 +9,8 @@ export function generate(params: {
     return '';
   }
 
-  return `${params.lastName.toUpperCase().substring(0, 1)}${
-    params.firstName
-  }${formatDateToDDMMYY(params.dateOfBirth)}`;
+  const lastName = params.lastName.toUpperCase().substring(0, 1);
+  const date = formatDateToDDMMYY(params.dateOfBirth);
+
+  return `${lastName}${params.firstName}${date}`.toUpperCase();
 }
