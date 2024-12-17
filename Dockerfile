@@ -33,7 +33,7 @@ COPY --from=build /app/dist ./dist
 COPY package.json pnpm-lock.yaml ./
 
 # Install production dependencies
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile
 
 # Expose the port the app runs on
 EXPOSE 3333
