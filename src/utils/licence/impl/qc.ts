@@ -1,3 +1,5 @@
+import type { LicencePayload } from '../types';
+
 import { formatDateToDDMMYY } from '@/lib/date';
 
 const FIRST_NAME_CODES = [
@@ -83,11 +85,7 @@ function getCode(str: string): number {
   return value === 10 ? 0 : value;
 }
 
-export function generate(params: {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date | string | undefined;
-}): string {
+export function generate(params: LicencePayload): string {
   const p1 = params.lastName.toUpperCase().substring(0, 1);
   const p2 = encodeLastName(params.lastName);
   const p3 = encodeFirstName(params.firstName);

@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import { formatDateToYYYYMMDD } from '@/lib/date';
 
-export interface Person {
+export interface DriverLicensePayData {
   firstName: string;
   lastName: string;
   dateOfBirth?: string;
@@ -12,9 +12,12 @@ export interface Person {
   gender?: 'male' | 'female';
   createdAt?: Date;
   province?: string;
+  option?: number;
 }
 
-export function generateFakeData(template: Partial<Person> = {}): Person {
+export function generateRandomData(
+  template: Partial<DriverLicensePayData> = {}
+): DriverLicensePayData {
   const firstName = template?.firstName || faker.person.firstName(template?.gender);
   const lastName = template?.lastName || faker.person.lastName(template?.gender);
   const gender = template?.gender || faker.helpers.arrayElement(['male', 'female'] as const);

@@ -1,7 +1,8 @@
 import { CheckIcon, Copy } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { Button, ButtonProps } from './button';
+import { Button } from './button';
+import type { ButtonProps } from './button';
 
 import { cn } from '@/lib/utils';
 

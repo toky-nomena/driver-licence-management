@@ -8,17 +8,19 @@ import { InputWithCopy } from './InputWithCopy';
 import { ProvinceSelect } from './ProvinceSelect';
 import { Alert } from './ui/alert';
 import { CopyButton } from './ui/copy-button';
+import { Input } from './ui/input';
 
 import { Button } from '@/components/ui/button';
 import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
-import { generateFakeData, type Person } from '@/utils/data';
+import { generateRandomData } from '@/utils/data';
+import type { DriverLicensePayData } from '@/utils/data';
 import { DriverLicenseFactory } from '@/utils/licence/DriverLicenseFactory';
 
 interface PersonFormProps {
-  onSubmit: (person: Person) => void;
+  onSubmit: (person: DriverLicensePayData) => void;
 }
 
-const defaultValues: Person = {
+const defaultValues: DriverLicensePayData = {
   firstName: '',
   lastName: '',
   email: '',
@@ -32,7 +34,7 @@ const defaultValues: Person = {
 export function PersonForm({ onSubmit }: PersonFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<Person>({
+  const form = useForm<DriverLicensePayData>({
     defaultValues: defaultValues,
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
@@ -49,6 +51,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
         dateOfBirth: value.dateOfBirth,
         province: value.province,
         gender: value.gender,
+        option: value.option,
       });
 
       onSubmit({
@@ -61,7 +64,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
 
   // Handler to generate fake data
   const handleInspire = () => {
-    form.reset(generateFakeData(form.state.values));
+    form.reset(generateRandomData(form.state.values));
   };
 
   // Handler to reset form
@@ -175,26 +178,44 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             />
           </div>
 
-          {/* Email Field */}
-          <div>
-            <InputLabel description="Adresse email">Email</InputLabel>
-            <form.Field
-              name="email"
-              validators={{
-                onChange: () => {
-                  return validateEmail(form.state.values.email);
-                },
-              }}
-              children={(field) => (
-                <InputWithCopy
-                  type="email"
-                  value={field.state.value}
-                  error={field.state.meta.errors[0] || undefined}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              )}
-            />
+          {/* Email Field and Optionn Field */}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <InputLabel description="Adresse email">Email</InputLabel>
+              <form.Field
+                name="email"
+                validators={{
+                  onChange: () => {
+                    return validateEmail(form.state.values.email);
+                  },
+                }}
+                children={(field) => (
+                  <InputWithCopy
+                    type="email"
+                    value={field.state.value}
+                    error={field.state.meta.errors[0] || undefined}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex-1">
+              <InputLabel>Option</InputLabel>
+              <form.Field
+                name="option"
+                children={(field) => (
+                  <Input
+                    min="1"
+                    max="3"
+                    type="number"
+                    value={String(field.state.value)}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
+                    onBlur={field.handleBlur}
+                  />
+                )}
+              />
+            </div>
           </div>
           <div>
             <InputLabel description="Description">Description</InputLabel>

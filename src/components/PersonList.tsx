@@ -3,9 +3,9 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-  PaginationState,
   getFilteredRowModel,
 } from '@tanstack/react-table';
+import type { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 
 import { Pagination } from '@/components/ui/pagination';
@@ -18,13 +18,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { columns } from '@/utils/columns';
-import { Person } from '@/utils/data';
+import type { DriverLicensePayData } from '@/utils/data';
 
 interface PersonListProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
-  onUpdateData: (data: Person[]) => void;
-  data: Person[];
+  onUpdateData: (data: DriverLicensePayData[]) => void;
+  data: DriverLicensePayData[];
 }
 
 export function PersonList({

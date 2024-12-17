@@ -1,4 +1,4 @@
-import { LabelHTMLAttributes, ReactNode } from 'react';
+import type { LabelHTMLAttributes, ReactNode } from 'react';
 
 import { Label } from './ui/label';
 
@@ -12,9 +12,12 @@ interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 export function InputLabel({ children, description, required, ...props }: InputLabelProps) {
   return (
-    <Label {...props} className={cn('mb-2 block font-medium leading-none', props.className)}>
+    <Label
+      {...props}
+      className={cn('mb-2 block text-sm font-medium leading-none', props.className)}
+    >
       {children}{' '}
-      {description && <span className="text-sm text-muted-foreground">({description}) </span>}
+      {description && <span className="text-xs text-muted-foreground">({description}) </span>}
       {required && <span className="text-destructive">*</span>}
     </Label>
   );

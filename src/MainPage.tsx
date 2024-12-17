@@ -5,17 +5,17 @@ import { DeleteAllAlert } from './components/DeleteAllAlert';
 import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { PersonForm } from './components/PersonForm';
 import { PersonList } from './components/PersonList';
-import { Person } from './utils/data';
+import type { DriverLicensePayData } from './utils/data';
 
 import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 
 export default function DataGenerator() {
   const [globalFilter, onGlobalFilterChange] = useState('');
-  const [data, setData] = useLocalStorage<Person[]>('driver-licence-data', []);
+  const [data, setData] = useLocalStorage<DriverLicensePayData[]>('driver-licence-data', []);
   const clearAllData = () => setData([]);
 
-  const onSubmit = (newPerson: Person) => {
+  const onSubmit = (newPerson: DriverLicensePayData) => {
     setData((prev) => [newPerson, ...prev]);
   };
 

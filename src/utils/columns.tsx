@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { Trash2 } from 'lucide-react';
 
-import { Person } from './data';
+import type { DriverLicensePayData } from './data';
 import { provinces } from './provinces';
 
 import { Copy } from '@/components/Copy';
@@ -19,7 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { formatDateToYYYYMMDD } from '@/lib/date';
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<DriverLicensePayData>();
 
 export const columns = [
   columnHelper.accessor('firstName', {
