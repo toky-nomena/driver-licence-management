@@ -1,26 +1,26 @@
-import type { DriverLicensePayData } from '../data';
+import type { DrivingLicensePayData } from '../data';
+import type { licensePayload } from '../licence/types';
 
 import { generate as ab } from './impl/ab';
 import { generate as qc } from './impl/qc';
-import type { LicencePayload } from './types';
 
 // Interface for driver license generator
-export type DriverLicenceGenerator = (params: LicencePayload) => string;
+export type DrivinglicenseGenerator = (params: licensePayload) => string;
 
 // Factory for creating province-specific driver license generators
 export class DriverLicenseFactory {
-  private static generators: { [key: string]: DriverLicenceGenerator } = {
+  private static generators: { [key: string]: DrivinglicenseGenerator } = {
     QC: qc,
     AB: ab,
   };
 
   // Method to get a generator for a specific province
-  private static getGenerator(province: string): DriverLicenceGenerator | undefined {
+  private static getGenerator(province: string): DrivinglicenseGenerator | undefined {
     return this.generators[province.toUpperCase()];
   }
 
   // Method to generate a driver's license
-  static generate(params: DriverLicensePayData): { error?: string; license?: string } {
+  static generate(params: DrivingLicensePayData): { error?: string; license?: string } {
     if (!params.province) {
       return { error: 'Province is required' };
     }

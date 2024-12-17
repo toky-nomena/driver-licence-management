@@ -18,13 +18,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { columns } from '@/utils/columns';
-import type { DriverLicensePayData } from '@/utils/data';
+import type { DrivingLicensePayData } from '@/utils/data';
 
 interface PersonListProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
-  onUpdateData: (data: DriverLicensePayData[]) => void;
-  data: DriverLicensePayData[];
+  onUpdateData: (data: DrivingLicensePayData[]) => void;
+  data: DrivingLicensePayData[];
 }
 
 export function PersonList({

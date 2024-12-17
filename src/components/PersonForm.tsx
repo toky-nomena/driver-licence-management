@@ -13,18 +13,18 @@ import { Input } from './ui/input';
 import { Button } from '@/components/ui/button';
 import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
 import { generateRandomData } from '@/utils/data';
-import type { DriverLicensePayData } from '@/utils/data';
-import { DriverLicenseFactory } from '@/utils/licence/DriverLicenseFactory';
+import type { DrivingLicensePayData } from '@/utils/data';
+import { DriverLicenseFactory } from '@/utils/license/DrivingLicenseFactory';
 
 interface PersonFormProps {
-  onSubmit: (person: DriverLicensePayData) => void;
+  onSubmit: (person: DrivingLicensePayData) => void;
 }
 
-const defaultValues: DriverLicensePayData = {
+const defaultValues: DrivingLicensePayData = {
   firstName: '',
   lastName: '',
   email: '',
-  driverLicense: '',
+  drivingLicense: '',
   description: '',
   gender: 'male',
   dateOfBirth: '',
@@ -34,7 +34,7 @@ const defaultValues: DriverLicensePayData = {
 export function PersonForm({ onSubmit }: PersonFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<DriverLicensePayData>({
+  const form = useForm<DrivingLicensePayData>({
     defaultValues: defaultValues,
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
@@ -56,7 +56,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
 
       onSubmit({
         ...value,
-        driverLicense: license.license,
+        drivingLicense: license.license,
         createdAt: new Date(),
       });
     },
@@ -71,7 +71,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
   const handleReset = () => form.reset(defaultValues);
 
   return (
-    <div className="space-y-4rounded-lg flex flex-1 flex-col overflow-auto border">
+    <div className="flex flex-1 flex-col space-y-4 overflow-auto rounded-lg border">
       <form
         aria-disabled={isSubmitting}
         onSubmit={(e) => {
@@ -79,11 +79,14 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           form.handleSubmit();
         }}
         className="flex flex-1 flex-col justify-between space-y-4 p-4"
+        noValidate
+        role="form"
+        aria-label="Driving License Information Form"
       >
         <div className="flex-1 space-y-4 bg-background">
           {/* First Name Field */}
           <div>
-            <InputLabel description="Prénom" required>
+            <InputLabel description="Prénom" required htmlFor="firstName">
               First Name
             </InputLabel>
             <form.Field
@@ -95,11 +98,16 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               }}
               children={(field) => (
                 <InputWithCopy
+                  id="firstName"
+                  name="firstName"
                   disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
+                  aria-required="true"
+                  aria-invalid={!!field.state.meta.errors[0]}
+                  aria-describedby="firstName-error"
                 />
               )}
             />
@@ -107,7 +115,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
 
           {/* Last Name Field */}
           <div>
-            <InputLabel description="Nom de famille" required>
+            <InputLabel description="Nom de famille" required htmlFor="lastName">
               Last Name
             </InputLabel>
             <form.Field
@@ -119,11 +127,16 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               }}
               children={(field) => (
                 <InputWithCopy
+                  id="lastName"
+                  name="lastName"
                   disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
+                  aria-required="true"
+                  aria-invalid={!!field.state.meta.errors[0]}
+                  aria-describedby="lastName-error"
                 />
               )}
             />
@@ -132,7 +145,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           {/* Date of Birth and Province Fields */}
           <div className="flex space-x-4">
             <div className="flex-1">
-              <InputLabel description="Date de naissance" required>
+              <InputLabel description="Date de naissance" required htmlFor="dateOfBirth">
                 Date of Birth
               </InputLabel>
               <form.Field
@@ -144,18 +157,23 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 }}
                 children={(field) => (
                   <InputWithCopy
+                    id="dateOfBirth"
+                    name="dateOfBirth"
                     disabled={isSubmitting}
                     type="date"
                     value={field.state.value}
                     error={field.state.meta.errors[0] || undefined}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
+                    aria-required="true"
+                    aria-invalid={!!field.state.meta.errors[0]}
+                    aria-describedby="dateOfBirth-error"
                   />
                 )}
               />
             </div>
             <div className="flex-1">
-              <InputLabel>Province</InputLabel>
+              <InputLabel htmlFor="province">Province</InputLabel>
               <form.Field
                 name="province"
                 children={(field) => (
@@ -163,6 +181,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                     disabled={isSubmitting}
                     value={field.state.value}
                     onChange={(value) => field.handleChange(value)}
+                    aria-required="true"
                   />
                 )}
               />
@@ -184,10 +203,12 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             />
           </div>
 
-          {/* Email Field and Optionn Field */}
+          {/* Email Field and Option Field */}
           <div className="flex space-x-4">
             <div className="flex-1">
-              <InputLabel description="Adresse email">Email</InputLabel>
+              <InputLabel description="Adresse email" htmlFor="email">
+                Email
+              </InputLabel>
               <form.Field
                 name="email"
                 validators={{
@@ -197,22 +218,28 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 }}
                 children={(field) => (
                   <InputWithCopy
+                    id="email"
+                    name="email"
                     disabled={isSubmitting}
                     type="email"
                     value={field.state.value}
                     error={field.state.meta.errors[0] || undefined}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
+                    aria-invalid={!!field.state.meta.errors[0]}
+                    aria-describedby="email-error"
                   />
                 )}
               />
             </div>
             <div className="flex-1">
-              <InputLabel>Option</InputLabel>
+              <InputLabel htmlFor="option">license Option</InputLabel>
               <form.Field
                 name="option"
                 children={(field) => (
                   <Input
+                    id="option"
+                    name="option"
                     disabled={isSubmitting}
                     min="1"
                     max="3"
@@ -220,17 +247,25 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                     value={String(field.state.value)}
                     onChange={(e) => field.handleChange(Number(e.target.value))}
                     onBlur={field.handleBlur}
+                    aria-describedby="option-description"
                   />
                 )}
               />
+              <p id="option-description" className="mt-1 text-sm text-muted-foreground">
+                Select a number between 1 and 3
+              </p>
             </div>
           </div>
           <div>
-            <InputLabel description="Description">Description</InputLabel>
+            <InputLabel description="Description" htmlFor="description">
+              Description
+            </InputLabel>
             <form.Field
               name="description"
               children={(field) => (
                 <InputWithCopy
+                  id="description"
+                  name="description"
                   disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
@@ -242,7 +277,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
 
           <div>
-            <InputLabel>Driver License</InputLabel>
+            <InputLabel>Driving License</InputLabel>
             <form.Subscribe
               selector={(state) =>
                 [
@@ -261,12 +296,17 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 });
 
                 return (
-                  <Alert variant="default">
+                  <Alert variant="default" aria-live="polite">
                     <span className="flex items-center gap-2">
                       {license ? (
-                        <span className="text-xl font-semibold">{license}</span>
+                        <span
+                          className="text-xl font-semibold"
+                          aria-label="Generated Driver License Number"
+                        >
+                          {license}
+                        </span>
                       ) : (
-                        <div>{error}</div>
+                        <div aria-live="assertive">{error}</div>
                       )}
                       {license && <CopyButton value={license} />}
                     </span>
@@ -277,20 +317,42 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
           </div>
         </div>
         {/* Action Buttons */}
-        <div className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 bg-white/90 p-2 backdrop-blur-sm">
-          <Button type="button" variant="outline" onClick={handleInspire} disabled={isSubmitting}>
+        <div
+          className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 bg-white/90 p-2 backdrop-blur-sm"
+          role="toolbar"
+          aria-label="Form Actions"
+        >
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleInspire}
+            disabled={isSubmitting}
+            aria-label="Generate Random Data"
+          >
             <Sparkles className="mr-2 h-4 w-4" />
             Inspire me
           </Button>
-          <Button type="button" variant="outline" onClick={handleReset} disabled={isSubmitting}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleReset}
+            disabled={isSubmitting}
+            aria-label="Clear Form"
+          >
             <Eraser className="mr-2 h-4 w-4" />
             Clear form
           </Button>
-          <Button type="submit" variant="outline" className="flex-1" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            variant="outline"
+            className="flex-1"
+            disabled={isSubmitting}
+            aria-label={isSubmitting ? 'Saving...' : 'Save Form'}
+          >
             {isSubmitting ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
             ) : (
-              <Save className="mr-2 h-4 w-4" />
+              <Save className="mr-2 h-4 w-4" aria-hidden="true" />
             )}
             Save
           </Button>

@@ -1,7 +1,7 @@
-// src/utils/licence/DriverLicenseFactory.test.ts
+// src/utils/license/DriverLicenseFactory.test.ts
 import { describe, it, expect } from 'vitest';
 
-import { DriverLicenseFactory } from './DriverLicenseFactory';
+import { DriverLicenseFactory } from './DrivingLicenseFactory';
 
 describe('DriverLicenseFactory', () => {
   it('generates license for QC province', () => {

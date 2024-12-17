@@ -1,4 +1,4 @@
-# Driver Licence Management System
+# Driving license Management System
 
 ## Overview
 
@@ -25,8 +25,8 @@ A modern web application for managing driver's license information with features
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/driver-licence-management.git
-cd driver-licence-management
+git clone https://github.com/your-username/driver-license-management.git
+cd driver-license-management
 ```
 
 ### Installation
@@ -53,15 +53,15 @@ pnpm preview
 
 ```bash
 # Build Docker image
-docker build -t driver-licence-management .
+docker build -t driver-license-management .
 
 # Run Docker container
-docker run -p 3333:3333 driver-licence-management
+docker run -p 3333:3333 driver-license-management
 ```
 
 ## Features
 
-- Generate and manage driver's license records
+- Generate and manage driving license records
 - Search and filter records
 - Delete individual or all records
 - Responsive design

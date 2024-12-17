@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
     "preview": "vite preview",
-    "test": "vitest related",
+    "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "prepare": "husky"
@@ -73,9 +73,6 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "src/**/*.{test.ts,test.tsx}": [
-      "vitest related"
     ],
     "*.{json,md,yml}": [
       "prettier --write"

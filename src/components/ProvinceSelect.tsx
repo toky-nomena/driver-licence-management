@@ -1,9 +1,12 @@
+import type { SelectProps } from '@radix-ui/react-select';
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 import { provinces } from '@/utils/provinces';
 
-interface ProvinceSelectProps {
+interface ProvinceSelectProps extends SelectProps {
   value?: string;
+  id?: string;
   onChange: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;

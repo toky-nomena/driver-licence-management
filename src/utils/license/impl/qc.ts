@@ -1,4 +1,4 @@
-import type { LicencePayload } from '../types';
+import type { licensePayload } from '../types';
 
 import { formatDateToDDMMYY } from '@/lib/date';
 
@@ -85,7 +85,7 @@ function getCode(str: string): number {
   return value === 10 ? 0 : value;
 }
 
-export function generate(params: LicencePayload): string {
+export function generate(params: licensePayload): string {
   const p1 = params.lastName.toUpperCase().substring(0, 1);
   const p2 = encodeLastName(params.lastName);
   const p3 = encodeFirstName(params.firstName);
