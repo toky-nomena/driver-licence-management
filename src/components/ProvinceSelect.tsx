@@ -6,15 +6,17 @@ interface ProvinceSelectProps {
   value?: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export function ProvinceSelect({
   value,
   onChange,
   placeholder = 'Select Province',
+  disabled = false,
 }: ProvinceSelectProps) {
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={value} onValueChange={onChange} disabled={disabled}>
       <SelectTrigger>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

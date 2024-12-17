@@ -40,7 +40,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
       setIsSubmitting(true);
 
       // Simulate async submission
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       // Reset form and call onSubmit
       form.reset();
@@ -73,6 +73,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
   return (
     <div className="space-y-4rounded-lg flex flex-1 flex-col overflow-auto border">
       <form
+        aria-disabled={isSubmitting}
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
@@ -94,6 +95,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               }}
               children={(field) => (
                 <InputWithCopy
+                  disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -117,6 +119,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               }}
               children={(field) => (
                 <InputWithCopy
+                  disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -141,6 +144,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 }}
                 children={(field) => (
                   <InputWithCopy
+                    disabled={isSubmitting}
                     type="date"
                     value={field.state.value}
                     error={field.state.meta.errors[0] || undefined}
@@ -156,6 +160,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 name="province"
                 children={(field) => (
                   <ProvinceSelect
+                    disabled={isSubmitting}
                     value={field.state.value}
                     onChange={(value) => field.handleChange(value)}
                   />
@@ -171,6 +176,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               name="gender"
               children={(field) => (
                 <GenderRadio
+                  disabled={isSubmitting}
                   value={field.state.value as 'male' | 'female'}
                   onChange={(value) => field.handleChange(value)}
                 />
@@ -191,6 +197,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 }}
                 children={(field) => (
                   <InputWithCopy
+                    disabled={isSubmitting}
                     type="email"
                     value={field.state.value}
                     error={field.state.meta.errors[0] || undefined}
@@ -206,6 +213,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 name="option"
                 children={(field) => (
                   <Input
+                    disabled={isSubmitting}
                     min="1"
                     max="3"
                     type="number"
@@ -223,6 +231,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               name="description"
               children={(field) => (
                 <InputWithCopy
+                  disabled={isSubmitting}
                   value={field.state.value}
                   error={field.state.meta.errors[0] || undefined}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -252,7 +261,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
                 });
 
                 return (
-                  <Alert variant={error ? 'destructive' : 'default'}>
+                  <Alert variant="default">
                     <span className="flex items-center gap-2">
                       {license ? (
                         <span className="text-xl font-semibold">{license}</span>
@@ -269,11 +278,11 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
         </div>
         {/* Action Buttons */}
         <div className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 bg-white/90 p-2 backdrop-blur-sm">
-          <Button type="button" variant="outline" onClick={handleInspire}>
+          <Button type="button" variant="outline" onClick={handleInspire} disabled={isSubmitting}>
             <Sparkles className="mr-2 h-4 w-4" />
             Inspire me
           </Button>
-          <Button type="button" variant="outline" onClick={handleReset}>
+          <Button type="button" variant="outline" onClick={handleReset} disabled={isSubmitting}>
             <Eraser className="mr-2 h-4 w-4" />
             Clear form
           </Button>

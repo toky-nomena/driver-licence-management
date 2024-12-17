@@ -15,7 +15,7 @@ interface InputWithCopyProps extends InputProps {
 export function InputWithCopy({ value, error, children, ...inputProps }: InputWithCopyProps) {
   return (
     <div>
-      <div className="relative flex items-center space-x-2">
+      <div className="relative flex items-center">
         <Input
           {...inputProps}
           value={value}

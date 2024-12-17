@@ -5,11 +5,13 @@ interface GenderRadioProps {
   className?: string;
   value: 'male' | 'female';
   onChange: (value: 'male' | 'female') => void;
+  disabled?: boolean;
 }
 
-export function GenderRadio({ value, onChange, className }: GenderRadioProps) {
+export function GenderRadio({ value, onChange, className, disabled }: GenderRadioProps) {
   return (
     <RadioGroup
+      disabled={disabled}
       value={value}
       onValueChange={onChange}
       className={cn('flex gap-3 overflow-x-auto transition-colors', className)}

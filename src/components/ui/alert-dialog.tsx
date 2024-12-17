@@ -85,7 +85,7 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> & {
-    variant: 'destructive' | 'outline';
+    variant?: 'destructive' | 'outline' | 'default';
   }
 >(({ className, variant, ...props }, ref) => (
   <AlertDialogPrimitive.Action
