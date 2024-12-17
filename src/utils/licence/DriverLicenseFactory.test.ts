@@ -13,7 +13,7 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBe('D0005-010190-05');
-    expect(result.error).toBe('');
+    expect(result.error).toBeUndefined();
   });
 
   it('generates license for AB province', () => {
@@ -25,7 +25,7 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBe('DJOHN010190');
-    expect(result.error).toBe('');
+    expect(result.error).toBeUndefined();
   });
 
   it('handles unsupported province', () => {
@@ -36,7 +36,7 @@ describe('DriverLicenseFactory', () => {
       province: 'XX',
     });
 
-    expect(result.license).toBe('');
+    expect(result.license).toBeUndefined();
     expect(result.error).toBe('Province is not supported');
   });
 });
