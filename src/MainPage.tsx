@@ -35,7 +35,9 @@ export default function DataGenerator() {
             />
           </div>
           <div className="flex items-center gap-4">
-            {data.length > 0 && <DeleteAllAlert onConfirm={clearAllData}>Clear all</DeleteAllAlert>}
+            {data.length > 0 && (
+              <DeleteAllAlert onConfirm={clearAllData}>Delete all</DeleteAllAlert>
+            )}
           </div>
         </div>
       </div>

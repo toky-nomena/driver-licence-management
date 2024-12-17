@@ -1,7 +1,8 @@
 import { useForm } from '@tanstack/react-form';
-import { Loader2, RefreshCw, Sparkles } from 'lucide-react';
+import { Eraser, Loader2, Save, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 
+import { GenderRadio } from './GenderRadio';
 import { InputLabel } from './InputLabel';
 import { InputWithCopy } from './InputWithCopy';
 import { ProvinceSelect } from './ProvinceSelect';
@@ -47,6 +48,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
         lastName: value.lastName,
         dateOfBirth: value.dateOfBirth,
         province: value.province,
+        gender: value.gender,
       });
 
       onSubmit({
@@ -75,8 +77,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
         className="flex flex-1 flex-col justify-between space-y-4 p-4"
       >
         <div className="flex-1 space-y-4 bg-background">
-          {/* Last Name Field */}
-
+          {/* First Name Field */}
           <div>
             <InputLabel description="Prénom" required>
               First Name
@@ -98,6 +99,8 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               )}
             />
           </div>
+
+          {/* Last Name Field */}
           <div>
             <InputLabel description="Nom de famille" required>
               Last Name
@@ -119,41 +122,59 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               )}
             />
           </div>
-          {/* Date of Birth Field */}
-          <div>
-            <InputLabel description="Date de naissance" required>
-              Date of Birth
-            </InputLabel>
-            <form.Field
-              name="dateOfBirth"
-              validators={{
-                onChange: () => {
-                  return isValidDateOfBirth(form.state.values.dateOfBirth);
-                },
-              }}
-              children={(field) => (
-                <InputWithCopy
-                  type="date"
-                  value={field.state.value}
-                  error={field.state.meta.errors[0] || undefined}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              )}
-            />
+
+          {/* Date of Birth and Province Fields */}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <InputLabel description="Date de naissance" required>
+                Date of Birth
+              </InputLabel>
+              <form.Field
+                name="dateOfBirth"
+                validators={{
+                  onChange: () => {
+                    return isValidDateOfBirth(form.state.values.dateOfBirth);
+                  },
+                }}
+                children={(field) => (
+                  <InputWithCopy
+                    type="date"
+                    value={field.state.value}
+                    error={field.state.meta.errors[0] || undefined}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex-1">
+              <InputLabel>Province</InputLabel>
+              <form.Field
+                name="province"
+                children={(field) => (
+                  <ProvinceSelect
+                    value={field.state.value}
+                    onChange={(value) => field.handleChange(value)}
+                  />
+                )}
+              />
+            </div>
           </div>
+
+          {/* Gender Field */}
           <div>
-            <InputLabel>Province</InputLabel>
+            <InputLabel>Gender</InputLabel>
             <form.Field
-              name="province"
+              name="gender"
               children={(field) => (
-                <ProvinceSelect
-                  value={field.state.value}
+                <GenderRadio
+                  value={field.state.value as 'male' | 'female'}
                   onChange={(value) => field.handleChange(value)}
                 />
               )}
             />
           </div>
+
           {/* Email Field */}
           <div>
             <InputLabel description="Adresse email">Email</InputLabel>
@@ -232,11 +253,15 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
             Inspire me
           </Button>
           <Button type="button" variant="outline" onClick={handleReset}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Reset
+            <Eraser className="mr-2 h-4 w-4" />
+            Clear form
           </Button>
-          <Button type="submit" className="ml-auto" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button type="submit" variant="outline" className="flex-1" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="mr-2 h-4 w-4" />
+            )}
             Save
           </Button>
         </div>

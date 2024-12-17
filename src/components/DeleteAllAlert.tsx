@@ -21,9 +21,7 @@ export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="text-destructive">
-          {children}
-        </Button>
+        <Button variant="destructive">{children}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -33,10 +31,10 @@ export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm} variant="destructive">
-            Continue
+            Confirm
           </AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -93,13 +93,13 @@ export const columns = [
               </AlertDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>No</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => meta?.onDeleteRow?.(row.index)}
                 variant="destructive"
               >
                 Yes
               </AlertDialogAction>
+              <AlertDialogCancel>No</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

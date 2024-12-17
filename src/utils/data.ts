@@ -15,8 +15,10 @@ export interface Person {
 }
 
 export function generateFakeData(template: Partial<Person> = {}): Person {
-  const firstName = template?.firstName || faker.person.firstName();
-  const lastName = template?.lastName || faker.person.lastName();
+  const firstName = template?.firstName || faker.person.firstName(template?.gender);
+  const lastName = template?.lastName || faker.person.lastName(template?.gender);
+  const gender = template?.gender || faker.helpers.arrayElement(['male', 'female'] as const);
+
   const email =
     template?.email ||
     faker.internet.email({ firstName, lastName, allowSpecialCharacters: false }).toLowerCase();
@@ -30,6 +32,7 @@ export function generateFakeData(template: Partial<Person> = {}): Person {
     );
 
   return {
+    gender,
     firstName,
     lastName,
     dateOfBirth,

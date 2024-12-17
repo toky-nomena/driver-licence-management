@@ -28,6 +28,7 @@ export class DriverLicenseFactory {
     lastName: string;
     dateOfBirth: Date | string | undefined;
     province?: string;
+    gender?: string;
   }): { error: string; license: string } {
     // Validate required parameters
     if (!params.province) {
