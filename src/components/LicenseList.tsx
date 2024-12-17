@@ -20,19 +20,19 @@ import {
 import { columns } from '@/utils/columns';
 import type { DrivingLicensePayData } from '@/utils/data';
 
-interface PersonListProps {
+interface LicenseListProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
   onUpdateData: (data: DrivingLicensePayData[]) => void;
   data: DrivingLicensePayData[];
 }
 
-export function PersonList({
+export function LicenseList({
   globalFilter,
   onGlobalFilterChange,
   onUpdateData,
   data,
-}: PersonListProps) {
+}: LicenseListProps) {
   const [pagination, onPaginationChange] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,

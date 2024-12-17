@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { DeleteAllAlert } from './components/DeleteAllAlert';
 import { useLocalStorage } from './components/hooks/useLocalStorage';
-import { PersonForm } from './components/PersonForm';
-import { PersonList } from './components/PersonList';
+import { LicenseForm } from './components/LicenseForm';
+import { LicenseList } from './components/LicenseList';
 import type { DrivingLicensePayData } from './utils/data';
 
 import { Input } from '@/components/ui/input';
@@ -46,12 +46,12 @@ export default function DataGenerator() {
         className="flex flex-1 flex-col gap-2 overflow-hidden p-4 lg:flex-row"
       >
         <ResizablePanel defaultSize={30} className="flex flex-col">
-          <PersonForm onSubmit={onSubmit} />
+          <LicenseForm onSubmit={onSubmit} />
         </ResizablePanel>
         <ResizableHandle className="bg-transparent" />
         <ResizablePanel defaultValue={75} className="flex flex-col">
           {data.length > 0 ? (
-            <PersonList
+            <LicenseList
               data={data}
               onUpdateData={setData}
               globalFilter={globalFilter}

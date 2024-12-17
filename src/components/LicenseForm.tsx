@@ -16,7 +16,7 @@ import { generateRandomData } from '@/utils/data';
 import type { DrivingLicensePayData } from '@/utils/data';
 import { DriverLicenseFactory } from '@/utils/license/DrivingLicenseFactory';
 
-interface PersonFormProps {
+interface LicenseFormProps {
   onSubmit: (person: DrivingLicensePayData) => void;
 }
 
@@ -31,7 +31,7 @@ const defaultValues: DrivingLicensePayData = {
   province: 'QC',
 };
 
-export function PersonForm({ onSubmit }: PersonFormProps) {
+export function LicenseForm({ onSubmit }: LicenseFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<DrivingLicensePayData>({
@@ -233,7 +233,7 @@ export function PersonForm({ onSubmit }: PersonFormProps) {
               />
             </div>
             <div className="flex-1">
-              <InputLabel htmlFor="option">license Option</InputLabel>
+              <InputLabel htmlFor="option">Option</InputLabel>
               <form.Field
                 name="option"
                 children={(field) => (
