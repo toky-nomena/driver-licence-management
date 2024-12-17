@@ -31,7 +31,7 @@ jobs:
         run: pnpm run lint
 
       - name: Check Formatting
-        run: pnpm run format -- --check
+        run: pnpm dlx prettier --check "src/**/*.{ts,tsx,js,jsx,json,md}"
 
       - name: Run Tests
         run: pnpm run test:run
