@@ -88,10 +88,6 @@ export function generate(params: {
   lastName: string;
   dateOfBirth: Date | string | undefined;
 }): string {
-  if (!params.firstName || !params.lastName || !params.dateOfBirth) {
-    return '';
-  }
-
   const p1 = params.lastName.toUpperCase().substring(0, 1);
   const p2 = encodeLastName(params.lastName);
   const p3 = encodeFirstName(params.firstName);

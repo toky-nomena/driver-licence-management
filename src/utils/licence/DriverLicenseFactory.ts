@@ -29,43 +29,36 @@ export class DriverLicenseFactory {
     dateOfBirth: Date | string | undefined;
     province?: string;
     gender?: string;
-  }): { error: string; license: string } {
-    // Validate required parameters
+  }): { error?: string; license?: string } {
     if (!params.province) {
-      return {
-        error: 'Province is required',
-        license: '',
-      };
+      return { error: 'Province is required' };
     }
 
-    if (!params.firstName || !params.lastName || !params.dateOfBirth) {
-      return {
-        error: 'First name, last name, and date of birth are required',
-        license: '',
-      };
+    if (!params.firstName) {
+      return { error: 'First name is required' };
+    }
+
+    if (!params.lastName) {
+      return { error: 'Last name is required' };
+    }
+
+    if (!params.dateOfBirth) {
+      return { error: 'Date of birth is required' };
     }
 
     // Get the appropriate generator and generate the license
     const generator = this.getGenerator(params.province);
 
     if (!generator) {
-      return {
-        error: 'Province is not supported',
-        license: '',
-      };
+      return { error: 'Province is not supported' };
     }
 
     const license = generator(params);
+
     if (!license) {
-      return {
-        error: "Failed to generate driver's license",
-        license: '',
-      };
+      return { error: "Failed to generate driver's license" };
     }
 
-    return {
-      error: '',
-      license,
-    };
+    return { license };
   }
 }
