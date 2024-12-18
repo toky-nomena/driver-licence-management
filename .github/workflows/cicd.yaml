@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: CI and Docker Build
 
 on:
   push:
@@ -7,12 +7,31 @@ on:
     branches: ['main']
 
 jobs:
-  build-and-push:
+  lint-test-build-and-docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run ESLint
+        run: bun run lint
+
+      - name: Check Formatting
+        run: bunx prettier --check "src/**/*.{ts,tsx,js,jsx,json,md}"
+
+      - name: Run Tests
+        run: bun run test:run
+
+      - name: Build Project
+        run: bun run build
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -23,7 +42,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
