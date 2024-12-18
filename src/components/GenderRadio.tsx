@@ -24,7 +24,7 @@ export function GenderRadio({ value, onChange, className, disabled }: GenderRadi
           key={item.id}
           htmlFor={item.id}
           className={cn(
-            'group relative flex flex-1 cursor-pointer items-center gap-3 rounded-lg border bg-background px-4 py-2 hover:bg-accent/50',
+            'group relative flex flex-1 cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 hover:bg-accent/50',
             value === item.value
               ? 'border-2 border-primary bg-primary/5 text-primary'
               : 'border-border text-muted-foreground'

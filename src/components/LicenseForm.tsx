@@ -83,7 +83,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         role="form"
         aria-label="Driving License Information Form"
       >
-        <div className="flex-1 space-y-4 bg-background">
+        <div className="flex-1 space-y-4">
           {/* First Name Field */}
           <div>
             <InputLabel description="Prénom" required htmlFor="firstName">
@@ -247,13 +247,9 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                     value={String(field.state.value)}
                     onChange={(e) => field.handleChange(Number(e.target.value))}
                     onBlur={field.handleBlur}
-                    aria-describedby="option-description"
                   />
                 )}
               />
-              <p id="option-description" className="mt-1 text-sm text-muted-foreground">
-                Select a number between 1 and 3
-              </p>
             </div>
           </div>
           <div>
@@ -318,7 +314,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         </div>
         {/* Action Buttons */}
         <div
-          className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 bg-white/90 p-2 backdrop-blur-sm"
+          className="sticky bottom-0 left-0 right-0 z-50 flex items-center gap-2 p-2 backdrop-blur-sm"
           role="toolbar"
           aria-label="Form Actions"
         >
