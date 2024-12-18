@@ -11,28 +11,46 @@ import {
 } from './ui/alert-dialog';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface DeleteAllAlertProps {
   onConfirm: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
-export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
+export function DeleteAllAlert({ onConfirm, children, className }: DeleteAllAlertProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button>{children}</Button>
+        <Button
+          variant="destructive"
+          className={cn(
+            'transition-all duration-200 hover:bg-destructive/90 focus:ring-2 focus:ring-destructive/50',
+            className
+          )}
+        >
+          {children}
+        </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="duration-300 animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4">
         <AlertDialogHeader>
-          <AlertDialogTitle>Do you want to delete all entries ?</AlertDialogTitle>
+          <AlertDialogTitle>Clear All Entries</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete all data.
+            You are about to permanently delete all driving license entries. This action cannot be
+            undone and will remove all stored data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={onConfirm}>Confirm</AlertDialogAction>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="transition-colors duration-200 hover:bg-muted/50">
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={onConfirm}
+            className="bg-destructive text-destructive-foreground transition-colors duration-200 hover:bg-destructive/90"
+          >
+            Delete All
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

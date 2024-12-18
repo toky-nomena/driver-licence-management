@@ -78,12 +78,12 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
           e.preventDefault();
           form.handleSubmit();
         }}
-        className="flex flex-1 flex-col justify-between space-y-4 p-4"
+        className="flex flex-1 flex-col justify-between p-4"
         noValidate
         role="form"
         aria-label="Driving License Information Form"
       >
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-6">
           {/* First Name Field */}
           <div>
             <InputLabel description="Prénom" required htmlFor="firstName">
@@ -323,34 +323,36 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
             variant="outline"
             onClick={handleInspire}
             disabled={isSubmitting}
-            aria-label="Generate Random Data"
+            aria-label="Generate Random Driving License Data"
+            className="transition-colors duration-200 hover:bg-primary/10 focus:ring-2 focus:ring-primary/50"
           >
             <Sparkles className="mr-2 h-4 w-4" />
-            Inspire me
+            Generate Random Data
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={handleReset}
             disabled={isSubmitting}
-            aria-label="Clear Form"
+            aria-label="Reset Form to Default Values"
+            className="transition-colors duration-200 hover:bg-destructive/10 focus:ring-2 focus:ring-destructive/50"
           >
             <Eraser className="mr-2 h-4 w-4" />
-            Clear form
+            Reset Form
           </Button>
           <Button
             type="submit"
-            variant="outline"
-            className="flex-1"
+            variant="default"
+            className="flex-1 transition-colors duration-200 hover:bg-primary/90 focus:ring-2 focus:ring-primary/50"
             disabled={isSubmitting}
-            aria-label={isSubmitting ? 'Saving...' : 'Save Form'}
+            aria-label={isSubmitting ? 'Saving Driving License Data...' : 'Save Driving License'}
           >
             {isSubmitting ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
             ) : (
               <Save className="mr-2 h-4 w-4" aria-hidden="true" />
             )}
-            Save
+            {isSubmitting ? 'Saving...' : 'Save'}
           </Button>
         </div>
       </form>

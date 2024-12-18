@@ -5,12 +5,12 @@ import type { DrivingLicensePayData } from './data';
 import { provinces } from './provinces';
 
 import { Copy } from '@/components/Copy';
-import { AlertDescription } from '@/components/ui/alert';
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -64,7 +64,7 @@ export const columns = [
     header: 'Created At',
     cell: (info) => {
       const data = info.getValue() as Date;
-      return data ? <span className='"whitespace-nowrap"'>{formatDateToYYYYMMDD(data)}</span> : '-';
+      return data ? <span className="whitespace-nowrap">{formatDateToYYYYMMDD(data)}</span> : '-';
     },
   }),
   columnHelper.display({
@@ -77,26 +77,35 @@ export const columns = [
       return (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Trash2 className="h-4 w-4" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="transition-colors duration-200 hover:bg-destructive/10 focus:ring-2 focus:ring-destructive/50"
+            >
+              <Trash2 className="h-4 w-4 text-muted-foreground hover:text-destructive" />
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent>
+          <AlertDialogContent className="duration-300 animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-4">
             <AlertDialogHeader>
-              <AlertDialogTitle>Confirm</AlertDialogTitle>
-              <AlertDescription>
-                Do you want to remove{' '}
+              <AlertDialogTitle>Remove Entry</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to remove the entry for{' '}
                 <strong>
                   {row.original.firstName} {row.original.lastName}
                 </strong>
-                ?
-              </AlertDescription>
+                ? This action cannot be undone.
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction onClick={() => meta?.onDeleteRow?.(row.index)}>
-                Yes
+              <AlertDialogCancel className="transition-colors duration-200 hover:bg-muted/50">
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => meta?.onDeleteRow?.(row.index)}
+                className="bg-destructive text-destructive-foreground transition-colors duration-200 hover:bg-destructive/90"
+              >
+                Remove
               </AlertDialogAction>
-              <AlertDialogCancel>No</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
