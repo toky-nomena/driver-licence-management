@@ -1,5 +1,5 @@
-import { LicenceForm } from './LicenceForm';
 import { LicenseList } from './LicenceList';
+import { LicenseForm } from './LicenseForm';
 import type { StoredLicense } from './types';
 
 import { useLocalStorage } from '@/components/hooks/useLocalStorage';
@@ -13,7 +13,7 @@ export function MainPage() {
       <h1 className="mb-3 text-xl font-bold">Driving License Generator</h1>
       <div className="flex flex-grow flex-col gap-6 overflow-hidden lg:flex-row">
         <Card className="min-h-[500px] flex-1 overflow-auto">
-          <LicenceForm
+          <LicenseForm
             onSubmit={(newLicense) => {
               const data = { id: Date.now().toString(), createdAt: Date.now(), ...newLicense };
               console.log(data);

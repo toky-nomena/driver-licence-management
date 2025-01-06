@@ -1,11 +1,11 @@
 import { useForm } from '@tanstack/react-form';
 import { RefreshCw, Save, LucideWand2 } from 'lucide-react';
-import { useEffect } from 'react';
 
 import type { LicenseFormValues } from './types';
 
 import { GenderRadio } from '@/components/GenderRadio';
 import { Button } from '@/components/ui/button';
+import { CopyButton } from '@/components/ui/copy-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -37,25 +37,25 @@ const defaultValues: LicenseFormValues = {
   option: 1,
 };
 
-export function LicenceForm({ onSubmit }: LicenseFormProps) {
+export function LicenseForm({ onSubmit }: LicenseFormProps) {
   const licenseForm = useForm<LicenseFormValues>({
     defaultValues,
-    onSubmit: async (values) => {
-      onSubmit(values.value);
+    onSubmit: async ({ value }) => {
+      const { license } = DriverLicenseFactory.generate({
+        firstName: value.firstName,
+        lastName: value.lastName,
+        dateOfBirth: value.dateOfBirth,
+        province: value.province,
+      });
+
+      onSubmit({
+        ...value,
+        drivingLicense: license,
+      });
+
       licenseForm.reset();
     },
   });
-
-  useEffect(() => {
-    const firstName = licenseForm.getFieldValue('firstName');
-    const lastName = licenseForm.getFieldValue('lastName');
-    const dateOfBirth = licenseForm.getFieldValue('dateOfBirth');
-
-    if (firstName && lastName && dateOfBirth) {
-      const newLicenseNumber = DriverLicenseFactory.generate({ firstName, lastName, dateOfBirth });
-      licenseForm.setFieldValue('drivingLicense', newLicenseNumber.license);
-    }
-  }, [licenseForm]);
 
   const onClickReset = () => licenseForm.reset(defaultValues);
 
@@ -89,6 +89,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>First Name (Prénom)</Label>
                     <Input
+                      name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter first name"
@@ -112,6 +113,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Last Name (Nom de famille)</Label>
                     <Input
+                      name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter last name"
@@ -138,6 +140,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Date of Birth (Date de naissance)</Label>
                     <Input
+                      name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       type="date"
@@ -158,6 +161,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Province</Label>
                     <Select
+                      name={field.name}
                       value={field.state.value}
                       onValueChange={(value) => field.handleChange(value)}
                       defaultValue={field.state.value}
@@ -205,6 +209,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Email (Adresse email)</Label>
                     <Input
+                      name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       type="email"
@@ -225,6 +230,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Option</Label>
                     <Input
+                      name={field.name}
                       type="number"
                       value={String(field.state.value)}
                       onChange={(e) => field.handleChange(Number(e.target.value))}
@@ -241,6 +247,7 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
                 <div>
                   <Label htmlFor={field.name}>Description</Label>
                   <Textarea
+                    name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     placeholder="Enter description"
@@ -250,20 +257,44 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
               )}
             </licenseForm.Field>
 
-            <licenseForm.Field name="drivingLicense">
-              {(field) => (
-                <div>
-                  <Label htmlFor={field.name}>Driving License</Label>
-                  <Input
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter driving license number"
-                    className="mt-1"
-                    readOnly
-                  />
-                </div>
-              )}
-            </licenseForm.Field>
+            <licenseForm.Subscribe
+              selector={(state) =>
+                [
+                  state.values.firstName,
+                  state.values.lastName,
+                  state.values.dateOfBirth,
+                  state.values.province,
+                ] as const
+              }
+              children={([firstName, lastName, dateOfBirth, province]) => {
+                const { license, error } = DriverLicenseFactory.generate({
+                  firstName,
+                  lastName,
+                  dateOfBirth,
+                  province,
+                });
+
+                return (
+                  <div>
+                    <Label className="mb-2 block text-sm font-medium">Driving License</Label>
+
+                    <span className="flex items-center gap-2">
+                      {license ? (
+                        <span
+                          className="text-xl font-semibold"
+                          aria-label="Generated Driver License Number"
+                        >
+                          {license}
+                        </span>
+                      ) : (
+                        <div aria-live="assertive">{error}</div>
+                      )}
+                      {license && <CopyButton value={license} />}
+                    </span>
+                  </div>
+                );
+              }}
+            />
           </div>
         </div>
       </ScrollArea>
@@ -271,16 +302,18 @@ export function LicenceForm({ onSubmit }: LicenseFormProps) {
         <div className="flex items-center gap-2">
           <div className="relative flex-grow space-x-2">
             <Button type="button" variant="outline" size="sm" onClick={onClickInspire}>
-              <LucideWand2 className="h-4 w-4" />
+              <LucideWand2 className="mr-1 h-4 w-4" />
+              <span>Generate</span>
             </Button>
             <Button type="button" variant="outline" size="sm" onClick={onClickReset}>
-              <RefreshCw className="h-4 w-4" />
+              <RefreshCw className="mr-1 h-4 w-4" />
+              <span>Reset</span>
             </Button>
           </div>
           <div className="flex gap-2">
             <Button type="submit" variant="outline">
-              <Save className="mr-2 h-4 w-4" />
-              Save
+              <Save className="mr-1 h-4 w-4" />
+              <span>Save</span>
             </Button>
           </div>
         </div>

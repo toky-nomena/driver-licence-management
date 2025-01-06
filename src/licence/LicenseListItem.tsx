@@ -5,11 +5,11 @@ import type { StoredLicense } from './types';
 import { Button } from '@/components/ui/button';
 
 interface LicenseListItemProps {
-  license: StoredLicense;
+  item: StoredLicense;
   onDelete: (id: string) => void;
 }
 
-export function LicenseListItem({ license, onDelete }: LicenseListItemProps) {
+export function LicenseListItem({ item, onDelete }: LicenseListItemProps) {
   return (
     <li className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/50">
       <div className="flex items-center gap-3">
@@ -18,27 +18,25 @@ export function LicenseListItem({ license, onDelete }: LicenseListItemProps) {
           aria-label="User Initials"
         >
           <span className="text-sm">
-            {license.firstName.charAt(0).toUpperCase() + license.lastName.charAt(0).toUpperCase()}
+            {item.firstName.charAt(0).toUpperCase() + item.lastName.charAt(0).toUpperCase()}
           </span>
         </figure>
-
         <div>
           <h3 className="font-semibold text-foreground">
-            {license.firstName} {license.lastName}
+            {item.firstName} {item.lastName}
           </h3>
-          <p className="text-sm text-muted-foreground">License ID: {license.id}</p>
+          <p className="text-sm text-muted-foreground">Province: {item.province}</p>
         </div>
       </div>
 
       <div className="flex items-center gap-4">
         <dl className="grid grid-cols-2 gap-x-4 text-sm">
           <dt className="text-muted-foreground">License</dt>
-          <dd className="font-medium">{license.drivingLicense || 'Not issued'}</dd>
-
+          <dd className="font-medium">{item.drivingLicense || 'Not issued'}</dd>
           <dt className="text-muted-foreground">Birth Date</dt>
           <dd className="font-medium">
-            {license.dateOfBirth
-              ? new Date(license.dateOfBirth).toLocaleDateString('en-CA')
+            {item.dateOfBirth
+              ? new Date(item.dateOfBirth).toLocaleDateString('en-CA')
               : 'Not provided'}
           </dd>
         </dl>
@@ -46,7 +44,7 @@ export function LicenseListItem({ license, onDelete }: LicenseListItemProps) {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => onDelete(license.id)}
+          onClick={() => onDelete(item.id)}
           aria-label="Delete License"
         >
           <Trash2 className="h-4 w-4" />

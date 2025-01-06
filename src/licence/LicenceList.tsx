@@ -56,7 +56,7 @@ export function LicenseList({ licenses, onDelete, onDeleteAll }: LicenseListProp
           <div className="space-y-4 p-4">
             <ul className="space-y-4">
               {filteredLicenses.map((license) => (
-                <LicenseListItem key={license.id} license={license} onDelete={onDelete} />
+                <LicenseListItem key={license.id} item={license} onDelete={onDelete} />
               ))}
             </ul>
           </div>
