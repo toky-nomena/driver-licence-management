@@ -139,7 +139,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               >
                 {(field) => (
                   <div>
-                    <Label htmlFor={field.name}>Date of Birth (Date de naissance)</Label>
+                    <Label htmlFor={field.name}>Date of Birth</Label>
                     <InputWithCopy
                       name={field.name}
                       value={field.state.value}
