@@ -320,7 +320,6 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         >
           <Button
             type="button"
-            variant="outline"
             onClick={handleInspire}
             disabled={isSubmitting}
             aria-label="Generate Random Driving License Data"
@@ -331,7 +330,6 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
           </Button>
           <Button
             type="button"
-            variant="outline"
             onClick={handleReset}
             disabled={isSubmitting}
             aria-label="Reset Form to Default Values"
@@ -342,7 +340,6 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
           </Button>
           <Button
             type="submit"
-            variant="default"
             className="flex-1 transition-colors duration-200 hover:bg-primary/90 focus:ring-2 focus:ring-primary/50"
             disabled={isSubmitting}
             aria-label={isSubmitting ? 'Saving Driving License Data...' : 'Save Driving License'}

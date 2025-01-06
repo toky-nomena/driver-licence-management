@@ -23,13 +23,7 @@ export function DeleteAllAlert({ onConfirm, children, className }: DeleteAllAler
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="destructive"
-          className={cn(
-            'transition-all duration-200 hover:bg-destructive/90 focus:ring-2 focus:ring-destructive/50',
-            className
-          )}
-        >
+        <Button variant="ghost" className={cn(className)}>
           {children}
         </Button>
       </AlertDialogTrigger>

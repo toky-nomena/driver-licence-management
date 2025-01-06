@@ -4,6 +4,7 @@ import { RefreshCw, Save, LucideWand2 } from 'lucide-react';
 import type { LicenseFormValues } from './types';
 
 import { GenderRadio } from '@/components/GenderRadio';
+import { InputWithCopy } from '@/components/InputWithCopy';
 import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Input } from '@/components/ui/input';
@@ -88,7 +89,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 {(field) => (
                   <div>
                     <Label htmlFor={field.name}>First Name (Prénom)</Label>
-                    <Input
+                    <InputWithCopy
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -112,7 +113,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 {(field) => (
                   <div>
                     <Label htmlFor={field.name}>Last Name (Nom de famille)</Label>
-                    <Input
+                    <InputWithCopy
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -139,7 +140,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 {(field) => (
                   <div>
                     <Label htmlFor={field.name}>Date of Birth (Date de naissance)</Label>
-                    <Input
+                    <InputWithCopy
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -208,7 +209,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 {(field) => (
                   <div>
                     <Label htmlFor={field.name}>Email (Adresse email)</Label>
-                    <Input
+                    <InputWithCopy
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}

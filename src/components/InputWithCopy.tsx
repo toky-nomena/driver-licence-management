@@ -24,7 +24,7 @@ export function InputWithCopy({ value, error, children, ...inputProps }: InputWi
         {value && (
           <CopyButton
             value={value}
-            className="absolute right-2 top-2.5 h-4 w-4 border-none text-muted-foreground"
+            className="absolute right-2 top-3.5 h-4 w-4 border-none text-muted-foreground"
           />
         )}
       </div>

@@ -1,13 +1,18 @@
 import { CopyButton } from './ui/copy-button';
 
-export function Copy({ children }: { children?: string }) {
-  if (children) {
+interface CopyProps {
+  children?: React.ReactNode;
+  value?: string;
+}
+
+export function Copy({ value, children }: CopyProps) {
+  if (value) {
     return (
       <div className="group flex w-full items-center justify-between">
-        <span className="flex-1 truncate">{children}</span>
+        {children}
         <CopyButton
           className="h-8 w-8 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-          value={children}
+          value={value}
         />
       </div>
     );

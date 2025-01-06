@@ -22,50 +22,50 @@ import { formatDateToYYYYMMDD } from '@/lib/date';
 const columnHelper = createColumnHelper<DrivingLicensePayData>();
 
 export const columns = [
+  columnHelper.accessor('province', {
+    header: '',
+    cell: (info) => {
+      const province = provinces.find((p) => p.code === info.getValue());
+      const value = province ? province.code : info.getValue() || '';
+      return (
+        <div className="flex w-full items-center justify-center py-2" aria-label="User Initials">
+          <figure className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+            <span className="text-xs font-semibold">{value}</span>
+          </figure>
+        </div>
+      );
+    },
+  }),
   columnHelper.accessor('firstName', {
     header: 'First Name',
     enableGlobalFilter: true,
     enableColumnFilter: true,
-    cell: (info) => <Copy>{info.getValue()}</Copy>,
+    cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
   }),
   columnHelper.accessor('lastName', {
     header: 'Last Name',
     enableGlobalFilter: true,
     enableColumnFilter: true,
-    cell: (info) => <Copy>{info.getValue()}</Copy>,
+    cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
   }),
   columnHelper.accessor('dateOfBirth', {
     header: 'Date of Birth',
     cell: (info) => {
       const value = formatDateToYYYYMMDD(info.getValue());
-      return <Copy>{value}</Copy>;
+      return <Copy value={value}>{value}</Copy>;
     },
   }),
   columnHelper.accessor('drivingLicense', {
     header: 'Driving License',
-    cell: (info) => <Copy>{info.getValue()}</Copy>,
+    cell: (info) => (
+      <Copy value={info.getValue()}>
+        <span className="flex-1 truncate font-semibold">{info.getValue()}</span>
+      </Copy>
+    ),
   }),
   columnHelper.accessor('email', {
     header: 'Email',
-    cell: (info) => <Copy>{info.getValue()}</Copy>,
-  }),
-  columnHelper.accessor('description', {
-    header: 'Description',
-    cell: (info) => <Copy>{info.getValue()}</Copy>,
-  }),
-  columnHelper.accessor('province', {
-    header: 'Province',
-    cell: (info) => {
-      const province = provinces.find((p) => p.code === info.getValue());
-      return province ? province.code : info.getValue();
-    },
-  }),
-  columnHelper.accessor('createdAt', {
-    header: 'Created At',
-    cell: (info) => {
-      const data = info.getValue() as Date;
-      return data ? <span className="whitespace-nowrap">{formatDateToYYYYMMDD(data)}</span> : '-';
-    },
+    cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
   }),
   columnHelper.display({
     id: 'actions',
@@ -77,11 +77,7 @@ export const columns = [
       return (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="transition-colors duration-200 hover:bg-destructive/10 focus:ring-2 focus:ring-destructive/50"
-            >
+            <Button variant="ghost" size="icon">
               <Trash2 className="h-4 w-4 text-muted-foreground hover:text-destructive" />
             </Button>
           </AlertDialogTrigger>
