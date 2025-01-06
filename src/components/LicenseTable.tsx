@@ -20,19 +20,19 @@ import {
 import { columns } from '@/utils/columns';
 import type { DrivingLicensePayData } from '@/utils/data';
 
-interface LicenseListProps {
+interface LicenseTableProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
   onUpdateData: (data: DrivingLicensePayData[]) => void;
   data: DrivingLicensePayData[];
 }
 
-export function LicenseList({
+export function LicenseTable({
   globalFilter,
   onGlobalFilterChange,
   onUpdateData,
   data,
-}: LicenseListProps) {
+}: LicenseTableProps) {
   const [pagination, onPaginationChange] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,

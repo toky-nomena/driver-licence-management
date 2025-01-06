@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { DeleteAllAlert } from './components/DeleteAllAlert';
 import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { LicenseForm } from './components/LicenseForm';
-import { LicenseList } from './components/LicenseList';
+import { LicenseTable } from './components/LicenseTable';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import type { DrivingLicensePayData } from './utils/data';
 
@@ -54,7 +54,7 @@ export default function DataGenerator() {
         <ResizableHandle className="bg-transparent" />
         <ResizablePanel defaultValue={75} className="flex flex-col">
           {data.length > 0 ? (
-            <LicenseList
+            <LicenseTable
               data={data}
               onUpdateData={setData}
               globalFilter={globalFilter}
