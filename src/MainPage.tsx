@@ -25,8 +25,8 @@ export function MainPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col dark:bg-gray-900 dark:text-white">
-      <div className="flex items-center justify-between border-b px-4 py-2 dark:border-gray-700">
+    <div className="flex h-screen flex-col">
+      <div className="flex items-center justify-between border-b bg-gradient-to-r from-primary to-indigo-600 px-4 py-2 text-white dark:border-gray-700">
         <h1 className="font-semibold">Driving licence generator</h1>
         <ThemeSwitcher />
       </div>

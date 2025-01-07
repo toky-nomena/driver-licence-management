@@ -288,7 +288,9 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                           {license}
                         </span>
                       ) : (
-                        <div aria-live="assertive">{error}</div>
+                        <div aria-live="assertive" className="text-red-500">
+                          {error}
+                        </div>
                       )}
                       {license && <CopyButton value={license} />}
                     </span>
