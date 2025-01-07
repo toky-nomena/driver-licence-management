@@ -37,6 +37,6 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBeUndefined();
-    expect(result.errors).toBe(['Province is not supported']);
+    expect(result.errors).toStrictEqual(['Province is not supported']);
   });
 });
