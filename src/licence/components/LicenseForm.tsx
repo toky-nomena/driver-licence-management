@@ -56,14 +56,27 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         drivingLicense: license,
       });
 
-      licenseForm.reset();
+      reset({ province: value.province });
     },
   });
 
-  const onClickReset = () => licenseForm.reset(defaultValues);
+  const reset = (oldValues: Partial<LicenseFormValues>) => {
+    licenseForm.reset({
+      ...defaultValues,
+      ...oldValues,
+    });
+  };
+
+  const onClickReset = () => {
+    reset({ province: licenseForm.state.values.province || defaultValues.province });
+  };
 
   const onClickInspire = () => {
-    licenseForm.reset({ ...defaultValues, ...generateRandomData(licenseForm.state.values) });
+    licenseForm.reset({
+      ...defaultValues,
+      ...generateRandomData(licenseForm.state.values),
+      province: licenseForm.state.values.province || defaultValues.province,
+    });
   };
 
   return (
