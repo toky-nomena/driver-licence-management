@@ -1,8 +1,14 @@
 import type { SelectProps } from '@radix-ui/react-select';
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../components/ui/select';
 
-import { provinces } from '@/utils/provinces';
+import { provinces } from '@/licence/utils/provinces';
 
 interface ProvinceSelectProps extends SelectProps {
   value?: string;

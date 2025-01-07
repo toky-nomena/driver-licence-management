@@ -1,13 +1,13 @@
 import { createColumnHelper } from '@tanstack/react-table';
 
-import { LicenseDeleteConfirm } from '../LicenseDeleteConfirm';
-import { LicenseDetails } from '../LicenseDetails';
+import { LicenseDeleteConfirm } from '../components/LicenseDeleteConfirm';
+import { LicenseDetails } from '../components/LicenseDetails';
 import type { StoredLicense } from '../types';
 
 import { provinces } from './provinces';
 
-import { Copy } from '@/components/Copy';
 import { formatDateToYYYYMMDD } from '@/lib/date';
+import { Copy } from '@/licence/components/Copy';
 
 const columnHelper = createColumnHelper<StoredLicense>();
 

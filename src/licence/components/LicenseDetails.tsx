@@ -1,9 +1,9 @@
 import { Eye } from 'lucide-react';
 
-import { Copy } from '../components/Copy';
+import type { StoredLicense } from '../types';
+import { provinces } from '../utils/provinces';
 
-import type { StoredLicense } from './types';
-import { provinces } from './utils/provinces';
+import { Copy } from './Copy';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -23,8 +23,8 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
           <Eye className="h-4 w-4 text-muted-foreground hover:text-destructive" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
-        <div className="mt-3 w-full max-w-md space-y-4">
+      <SheetContent side="right" className="w-full max-w-md">
+        <div className="mt-3 space-y-4">
           <div>
             <div className="flex items-center justify-between">
               <span className="font-semibold">License Details</span>
@@ -50,7 +50,7 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
               <div>
                 <p className="text-xs text-muted-foreground">Date of Birth</p>
                 <Copy value={formatDateToYYYYMMDD(license.dateOfBirth)}>
-                  <span>{formatDateToYYYYMMDD(license.dateOfBirth)}</span>
+                  <span className="font-semibold">{formatDateToYYYYMMDD(license.dateOfBirth)}</span>
                 </Copy>
               </div>
               <div>
@@ -74,7 +74,7 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
               <div>
                 <p className="text-xs text-muted-foreground">Driving License</p>
                 <Copy value={license.drivingLicense}>
-                  <div>{license.drivingLicense}</div>
+                  <span className="font-semibold">{license.drivingLicense}</span>
                 </Copy>
               </div>
             </div>

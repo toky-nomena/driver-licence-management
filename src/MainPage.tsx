@@ -1,15 +1,15 @@
 import { Search, Trash2, Download } from 'lucide-react';
 import { useState } from 'react';
 
-import { DeleteAllAlert } from './components/DeleteAllAlert';
 import { useLocalStorage } from './components/hooks/useLocalStorage';
-import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { Button } from './components/ui/button';
-import { EmptyList } from './licence/EmptyList';
-import { LicenseForm } from './licence/LicenseForm';
-import { LicenseTable } from './licence/LicenseTable';
+import { DeleteAllAlert } from './licence/components/DeleteAllAlert';
+import { EmptyList } from './licence/components/EmptyList';
+import { LicenseForm } from './licence/components/LicenseForm';
+import { LicenseTable } from './licence/components/LicenseTable';
 import type { StoredLicense } from './licence/types';
 import { downloadLicenses } from './licence/utils/data';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';

@@ -1,13 +1,14 @@
 import { Trash2, Search } from 'lucide-react';
 import { useState } from 'react';
 
+import type { StoredLicense } from '../types';
+
 import { LicenseListItem } from './LicenseListItem';
-import type { StoredLicense } from './types';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { EmptyList } from '@/licence/EmptyList';
+import { EmptyList } from '@/licence/components/EmptyList';
 
 interface LicenseListProps {
   licenses: StoredLicense[];

@@ -1,6 +1,6 @@
 import { Trash2 } from 'lucide-react';
 
-import type { StoredLicense } from './types';
+import type { StoredLicense } from '../types';
 
 import { Button } from '@/components/ui/button';
 

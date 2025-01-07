@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { CopyButton } from './ui/copy-button';
-import { Input } from './ui/input';
-import type { InputProps } from './ui/input';
+import { CopyButton } from '../../components/ui/copy-button';
+import { Input } from '../../components/ui/input';
+import type { InputProps } from '../../components/ui/input';
 
 import { cn } from '@/lib/utils';
 

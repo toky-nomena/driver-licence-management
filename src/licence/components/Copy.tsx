@@ -1,4 +1,4 @@
-import { CopyButton } from './ui/copy-button';
+import { CopyButton } from '../../components/ui/copy-button';
 
 interface CopyProps {
   children?: React.ReactNode;
