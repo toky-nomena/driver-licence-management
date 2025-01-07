@@ -1,6 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 
 import { LicenseDeleteConfirm } from '../LicenseDeleteConfirm';
+import { LicenseDetails } from '../LicenseDetails';
 import type { StoredLicense } from '../types';
 
 import { provinces } from './provinces';
@@ -64,10 +65,13 @@ export const columns = [
         onDeleteRow?: (index: number) => void;
       };
       return (
-        <LicenseDeleteConfirm
-          licence={row.original}
-          onConfirm={() => meta?.onDeleteRow?.(row.index)}
-        />
+        <div className="flex gap-2">
+          <LicenseDeleteConfirm
+            licence={row.original}
+            onConfirm={() => meta?.onDeleteRow?.(row.index)}
+          />
+          <LicenseDetails license={row.original} />
+        </div>
       );
     },
   }),
