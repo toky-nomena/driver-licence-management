@@ -47,6 +47,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         lastName: value.lastName,
         dateOfBirth: value.dateOfBirth,
         province: value.province,
+        option: value.option,
       });
 
       await new Promise((resolve) => setTimeout(resolve, 700));
@@ -60,11 +61,22 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
     },
   });
 
-  const reset = (oldValues: Partial<LicenseFormValues>) => {
-    licenseForm.reset({
-      ...defaultValues,
-      ...oldValues,
-    });
+  const reset = (newValues: Partial<LicenseFormValues>) => {
+    const data = {
+      firstName: newValues.firstName || defaultValues.firstName,
+      lastName: newValues.lastName || defaultValues.lastName,
+      dateOfBirth: newValues.dateOfBirth || defaultValues.dateOfBirth,
+      email: newValues.email || defaultValues.email,
+      drivingLicense: newValues.drivingLicense || defaultValues.drivingLicense,
+      description: newValues.description || defaultValues.description,
+      gender: newValues.gender || defaultValues.gender,
+      province: newValues.province || defaultValues.province,
+      option: newValues.option || defaultValues.option,
+    };
+
+    console.log({ newValues, data });
+
+    licenseForm.reset(data);
   };
 
   const onClickReset = () => {
@@ -72,8 +84,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
   };
 
   const onClickInspire = () => {
-    licenseForm.reset({
-      ...defaultValues,
+    reset({
       ...generateRandomData(licenseForm.state.values),
       province: licenseForm.state.values.province || defaultValues.province,
     });
@@ -111,12 +122,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter first name"
                       className="mt-1"
+                      error={field.state.meta.errorMap.onChange}
                     />
-                    {field.state.meta.errorMap.onChange && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {field.state.meta.errorMap.onChange}
-                      </p>
-                    )}
                   </div>
                 )}
               </licenseForm.Field>
@@ -136,12 +143,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter last name"
                       className="mt-1"
+                      error={field.state.meta.errorMap.onChange}
                     />
-                    {field.state.meta.errorMap.onChange && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {field.state.meta.errorMap.onChange}
-                      </p>
-                    )}
                   </div>
                 )}
               </licenseForm.Field>
@@ -165,12 +168,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       type="date"
                       placeholder="Enter date of birth"
                       className="mt-1"
+                      error={field.state.meta.errorMap.onChange}
                     />
-                    {field.state.meta.errorMap.onChange && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {field.state.meta.errorMap.onChange}
-                      </p>
-                    )}
                   </div>
                 )}
               </licenseForm.Field>
@@ -184,7 +183,6 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       name={field.name}
                       value={field.state.value}
                       onValueChange={(value) => field.handleChange(value)}
-                      defaultValue={field.state.value}
                     >
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Select a province" />
@@ -194,6 +192,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                         <SelectItem value="ON">Ontario (ON)</SelectItem>
                         <SelectItem value="BC">British Columbia (BC)</SelectItem>
                         <SelectItem value="AB">Alberta (AB)</SelectItem>
+                        <SelectItem value="NB">New Brunswick (NB)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -237,12 +236,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       type="email"
                       placeholder="Enter email"
                       className="mt-1"
+                      error={field.state.meta.errorMap.onChange}
                     />
-                    {field.state.meta.errorMap.onChange && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {field.state.meta.errorMap.onChange}
-                      </p>
-                    )}
                   </div>
                 )}
               </licenseForm.Field>
@@ -288,14 +283,16 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   state.values.lastName,
                   state.values.dateOfBirth,
                   state.values.province,
+                  state.values.option,
                 ] as const
               }
-              children={([firstName, lastName, dateOfBirth, province]) => {
-                const { license, error } = DriverLicenseFactory.generate({
+              children={([firstName, lastName, dateOfBirth, province, option]) => {
+                const { license, errors } = DriverLicenseFactory.generate({
                   firstName,
                   lastName,
                   dateOfBirth,
                   province,
+                  option,
                 });
 
                 return (
@@ -311,9 +308,11 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                           {license}
                         </span>
                       ) : (
-                        <div aria-live="assertive" className="text-red-500">
-                          {error}
-                        </div>
+                        <ul aria-live="assertive" className="list-disc pl-6 text-sm text-red-500">
+                          {errors.map((error) => (
+                            <li key={error}>{error}</li>
+                          ))}
+                        </ul>
                       )}
                       {license && <CopyButton value={license} />}
                     </span>

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 interface InputWithCopyProps extends InputProps {
   value: string | undefined;
-  error?: string;
+  error?: string | false | null;
   children?: ReactNode;
 }
 
@@ -19,7 +19,7 @@ export function InputWithCopy({ value, error, children, ...inputProps }: InputWi
         <Input
           {...inputProps}
           value={value}
-          className={cn(inputProps.className, error && 'border-destructive')}
+          className={cn(inputProps.className, error && 'border-red-500')}
         />
         {value && (
           <CopyButton

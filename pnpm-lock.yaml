@@ -94,6 +94,9 @@ devDependencies:
   '@testing-library/react':
     specifier: ^16.1.0
     version: 16.1.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.2)(@types/react@18.3.14)(react-dom@18.3.1)(react@18.3.1)
+  '@total-typescript/shoehorn':
+    specifier: ^0.1.2
+    version: 0.1.2
   '@types/node':
     specifier: ^20.11.25
     version: 20.17.9
@@ -1984,6 +1987,10 @@ packages:
       '@types/react-dom': 18.3.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    dev: true
+
+  /@total-typescript/shoehorn@0.1.2:
+    resolution: {integrity: sha512-p7nNZbOZIofpDNyP0u1BctFbjxD44Qc+oO5jufgQdFdGIXJLc33QRloJpq7k5T59CTgLWfQSUxsuqLcmeurYRw==}
     dev: true
 
   /@types/aria-query@5.0.4:

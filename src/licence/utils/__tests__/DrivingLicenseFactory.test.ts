@@ -1,7 +1,6 @@
-// src/utils/license/DriverLicenseFactory.test.ts
 import { describe, it, expect } from 'vitest';
 
-import { DriverLicenseFactory } from './DrivingLicenseFactory';
+import { DriverLicenseFactory } from '../license/DrivingLicenseFactory';
 
 describe('DriverLicenseFactory', () => {
   it('generates license for QC province', () => {
@@ -13,7 +12,7 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBe('D0005-010190-05');
-    expect(result.error).toBeUndefined();
+    expect(result.errors).toBe([]);
   });
 
   it('generates license for AB province', () => {
@@ -22,10 +21,11 @@ describe('DriverLicenseFactory', () => {
       lastName: 'Doe',
       dateOfBirth: '1990-01-01',
       province: 'AB',
+      option: 1, // Add option parameter
     });
 
-    expect(result.license).toBe('DJOHN010190');
-    expect(result.error).toBeUndefined();
+    expect(result.license).toBe('A00001'); // Update expected license
+    expect(result.errors).toBe([]);
   });
 
   it('handles unsupported province', () => {
@@ -37,6 +37,6 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBeUndefined();
-    expect(result.error).toBe('Province is not supported');
+    expect(result.errors).toBe(['Province is not supported']);
   });
 });
