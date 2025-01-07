@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form';
-import { RefreshCw, Save, LucideWand2 } from 'lucide-react';
+import { RefreshCw, Save, LucideWand2, Loader2 } from 'lucide-react';
 
 import type { LicenseFormValues } from '../types';
 import { DriverLicenseFactory } from '../utils/license/DrivingLicenseFactory';
@@ -49,6 +49,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         province: value.province,
       });
 
+      await new Promise((resolve) => setTimeout(resolve, 700));
+
       onSubmit({
         ...value,
         drivingLicense: license,
@@ -90,6 +92,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>First Name (Prénom)</Label>
                     <InputWithCopy
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -114,6 +117,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Last Name (Nom de famille)</Label>
                     <InputWithCopy
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -141,6 +145,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Date of Birth</Label>
                     <InputWithCopy
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -162,6 +167,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Province</Label>
                     <Select
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
                       onValueChange={(value) => field.handleChange(value)}
@@ -187,6 +193,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 <div>
                   <Label className="block text-sm font-medium text-gray-700">Gender</Label>
                   <GenderRadio
+                    disabled={licenseForm.state.isSubmitting}
                     className="mt-1"
                     value={field.state.value as 'male' | 'female'}
                     onChange={(value) => field.handleChange(value)}
@@ -210,6 +217,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Email (Adresse email)</Label>
                     <InputWithCopy
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -231,6 +239,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>Option</Label>
                     <Input
+                      disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       type="number"
                       value={String(field.state.value)}
@@ -248,6 +257,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 <div>
                   <Label htmlFor={field.name}>Description</Label>
                   <Textarea
+                    disabled={licenseForm.state.isSubmitting}
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -301,26 +311,48 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
           </div>
         </div>
       </ScrollArea>
-      <div className="border-t p-4">
-        <div className="flex items-center gap-2">
-          <div className="relative flex-grow space-x-2">
-            <Button type="button" variant="outline" size="sm" onClick={onClickInspire}>
-              <LucideWand2 className="mr-1 h-4 w-4" />
-              <span>Generate</span>
-            </Button>
-            <Button type="button" variant="outline" size="sm" onClick={onClickReset}>
-              <RefreshCw className="mr-1 h-4 w-4" />
-              <span>Reset</span>
-            </Button>
+
+      <licenseForm.Subscribe
+        selector={(state) => [state.canSubmit, state.isSubmitting]}
+        children={([canSubmit, isSubmitting]) => (
+          <div className="border-t p-4">
+            <div className="flex items-center gap-2">
+              <div className="relative flex-grow space-x-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={onClickInspire}
+                  disabled={isSubmitting}
+                >
+                  <LucideWand2 className="mr-1 h-4 w-4" />
+                  <span>Generate</span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={onClickReset}
+                  disabled={!canSubmit || isSubmitting}
+                >
+                  <RefreshCw className="mr-1 h-4 w-4" />
+                  <span>Reset</span>
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Save className="mr-1 h-4 w-4" />
+                  )}
+                  <span>Save</span>
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Button type="submit" variant="outline">
-              <Save className="mr-1 h-4 w-4" />
-              <span>Save</span>
-            </Button>
-          </div>
-        </div>
-      </div>
+        )}
+      />
     </form>
   );
 }
