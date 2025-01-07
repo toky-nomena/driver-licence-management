@@ -12,7 +12,7 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBe('D0005-010190-05');
-    expect(result.errors).toBe([]);
+    expect(result.errors).toStrictEqual([]);
   });
 
   it('generates license for AB province', () => {
@@ -25,7 +25,7 @@ describe('DriverLicenseFactory', () => {
     });
 
     expect(result.license).toBe('A00001'); // Update expected license
-    expect(result.errors).toBe([]);
+    expect(result.errors).toStrictEqual([]);
   });
 
   it('handles unsupported province', () => {
