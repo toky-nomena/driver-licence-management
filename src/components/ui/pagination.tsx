@@ -36,7 +36,7 @@ export function Pagination({
     <div className={cn('flex items-center justify-between gap-3 px-2', className)}>
       <div className="flex items-center gap-3 text-xs text-muted-foreground">
         <span>
-          {startItem} - {endItem} of {totalItems}
+          Showing {startItem} - {endItem} of {totalItems}
         </span>
         <Select
           value={pageSize.toString()}
