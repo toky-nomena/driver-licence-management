@@ -1,6 +1,6 @@
 import type { DrivingLicenseGenerator } from '../DrivingLicenseGenerator';
 
-import { formatDateToDDMMYY } from '@/lib/date';
+import { format } from '@/lib/date';
 import type { LicenseFormValues } from '@/licence/types';
 
 const FIRST_NAME_CODES = [
@@ -96,7 +96,7 @@ export class QC implements DrivingLicenseGenerator {
     const p1 = params.lastName.toUpperCase().substring(0, 1);
     const p2 = encodeLastName(params.lastName);
     const p3 = encodeFirstName(params.firstName);
-    const p4 = formatDateToDDMMYY(params.dateOfBirth);
+    const p4 = format(params.dateOfBirth, 'DDMMYY');
 
     const value = `${p1}${p2}${p3}-${p4}-0`;
     const code = getCode(value);

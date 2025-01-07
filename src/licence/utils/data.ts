@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import type { StoredLicense } from '../types';
 
-import { formatDateToYYYYMMDD } from '@/lib/date';
+import { format } from '@/lib/date';
 
 export function generateRandomData(template: Partial<StoredLicense> = {}): StoredLicense {
   const firstName = template?.firstName || faker.person.firstName(template?.gender);
@@ -14,12 +14,7 @@ export function generateRandomData(template: Partial<StoredLicense> = {}): Store
     faker.internet.email({ firstName, lastName, allowSpecialCharacters: false }).toLowerCase();
   const dateOfBirth =
     template?.dateOfBirth ||
-    formatDateToYYYYMMDD(
-      faker.date.between({
-        from: '1950-01-01',
-        to: '2005-12-31',
-      })
-    );
+    format(faker.date.between({ from: '1950-01-01', to: '2005-12-31' }), 'YYYY-MM-DD');
 
   return {
     gender,

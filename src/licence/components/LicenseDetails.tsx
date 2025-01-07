@@ -7,7 +7,7 @@ import { Copy } from './Copy';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { formatDateToYYYYMMDD } from '@/lib/date';
+import { format } from '@/lib/date';
 
 interface StoredLicenseDetailsProps {
   license: StoredLicense;
@@ -49,8 +49,8 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-xs text-muted-foreground">Date of Birth</p>
-                <Copy value={formatDateToYYYYMMDD(license.dateOfBirth)}>
-                  <span className="font-semibold">{formatDateToYYYYMMDD(license.dateOfBirth)}</span>
+                <Copy value={format(license.dateOfBirth, 'YYYY-MM-DD')}>
+                  <span className="font-semibold">{format(license.dateOfBirth, 'YYYY-MM-DD')}</span>
                 </Copy>
               </div>
               <div>

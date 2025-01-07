@@ -6,7 +6,7 @@ import type { StoredLicense } from '../types';
 
 import { provinces } from './provinces';
 
-import { formatDateToYYYYMMDD } from '@/lib/date';
+import { format } from '@/lib/date';
 import { Copy } from '@/licence/components/Copy';
 
 const columnHelper = createColumnHelper<StoredLicense>();
@@ -41,7 +41,7 @@ export const columns = [
   columnHelper.accessor('dateOfBirth', {
     header: 'Date of Birth',
     cell: (info) => {
-      const value = formatDateToYYYYMMDD(info.getValue());
+      const value = format(info.getValue(), 'YYYY-MM-DD');
       return <Copy value={value}>{value}</Copy>;
     },
   }),
