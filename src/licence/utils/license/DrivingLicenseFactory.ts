@@ -1,4 +1,4 @@
-import type { DrivingLicensePayData } from '../data';
+import type { DrivingLicensePayData } from '../../licence/data';
 import type { licensePayload } from '../licence/types';
 
 import { generate as ab } from './impl/ab';

@@ -11,6 +11,6 @@ export interface LicenseFormValues {
 }
 
 export interface StoredLicense extends LicenseFormValues {
-  id: string;
-  createdAt: number;
+  id?: string;
+  createdAt?: number;
 }

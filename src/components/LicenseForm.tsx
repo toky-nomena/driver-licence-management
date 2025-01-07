@@ -12,15 +12,15 @@ import { Input } from './ui/input';
 
 import { Button } from '@/components/ui/button';
 import { isValidDateOfBirth, isValidName, validateEmail } from '@/lib/validators';
-import { generateRandomData } from '@/utils/data';
-import type { DrivingLicensePayData } from '@/utils/data';
-import { DriverLicenseFactory } from '@/utils/license/DrivingLicenseFactory';
+import type { StoredLicense } from '@/licence/types';
+import { generateRandomData } from '@/licence/utils/data';
+import { DriverLicenseFactory } from '@/licence/utils/license/DrivingLicenseFactory';
 
 interface LicenseFormProps {
-  onSubmit: (person: DrivingLicensePayData) => void;
+  onSubmit: (person: StoredLicense) => void;
 }
 
-const defaultValues: DrivingLicensePayData = {
+const defaultValues: StoredLicense = {
   firstName: '',
   lastName: '',
   email: '',
@@ -34,7 +34,7 @@ const defaultValues: DrivingLicensePayData = {
 export function LicenseForm({ onSubmit }: LicenseFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<DrivingLicensePayData>({
+  const form = useForm<StoredLicense>({
     defaultValues: defaultValues,
     onSubmit: async ({ value }) => {
       setIsSubmitting(true);
@@ -57,7 +57,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       onSubmit({
         ...value,
         drivingLicense: license.license,
-        createdAt: new Date(),
+        createdAt: Date.now(),
       });
     },
   });

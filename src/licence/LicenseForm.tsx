@@ -2,6 +2,7 @@ import { useForm } from '@tanstack/react-form';
 import { RefreshCw, Save, LucideWand2 } from 'lucide-react';
 
 import type { LicenseFormValues } from './types';
+import { DriverLicenseFactory } from './utils/license/DrivingLicenseFactory';
 
 import { GenderRadio } from '@/components/GenderRadio';
 import { InputWithCopy } from '@/components/InputWithCopy';
@@ -19,8 +20,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { isValidDateOfBirth, isValidName } from '@/lib/validators';
-import { generateRandomData } from '@/utils/data';
-import { DriverLicenseFactory } from '@/utils/license/DrivingLicenseFactory';
+import { generateRandomData } from '@/licence/utils/data';
 
 interface LicenseFormProps {
   onSubmit: (license: LicenseFormValues) => void;

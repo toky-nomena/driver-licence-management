@@ -3,24 +3,24 @@ import { useState } from 'react';
 
 import { DeleteAllAlert } from './components/DeleteAllAlert';
 import { useLocalStorage } from './components/hooks/useLocalStorage';
-import { LicenseTable } from './components/LicenseTable';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { Button } from './components/ui/button';
 import { EmptyList } from './licence/EmptyList';
 import { LicenseForm } from './licence/LicenseForm';
-import { downloadLicenses } from './licence/utils';
-import type { DrivingLicensePayData } from './utils/data';
+import { LicenseTable } from './licence/LicenseTable';
+import type { StoredLicense } from './licence/types';
+import { downloadLicenses } from './licence/utils/data';
 
 import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 
 export function MainPage() {
   const [globalFilter, onGlobalFilterChange] = useState('');
-  const [data, setData] = useLocalStorage<DrivingLicensePayData[]>('driving-license-data', []);
+  const [data, setData] = useLocalStorage<StoredLicense[]>('driving-license-data', []);
 
   const clearAllData = () => setData([]);
 
-  const onSubmit = (newPerson: DrivingLicensePayData) => {
+  const onSubmit = (newPerson: StoredLicense) => {
     setData((prev) => [newPerson, ...prev]);
   };
 

@@ -1,23 +1,10 @@
 import { faker } from '@faker-js/faker';
 
+import type { StoredLicense } from '../types';
+
 import { formatDateToYYYYMMDD } from '@/lib/date';
 
-export interface DrivingLicensePayData {
-  firstName: string;
-  lastName: string;
-  dateOfBirth?: string;
-  email?: string;
-  drivingLicense?: string;
-  description?: string;
-  gender?: 'male' | 'female';
-  createdAt?: Date;
-  province?: string;
-  option?: number;
-}
-
-export function generateRandomData(
-  template: Partial<DrivingLicensePayData> = {}
-): DrivingLicensePayData {
+export function generateRandomData(template: Partial<StoredLicense> = {}): StoredLicense {
   const firstName = template?.firstName || faker.person.firstName(template?.gender);
   const lastName = template?.lastName || faker.person.lastName(template?.gender);
   const gender = template?.gender || faker.helpers.arrayElement(['male', 'female'] as const);
@@ -43,3 +30,15 @@ export function generateRandomData(
     province: template?.province,
   };
 }
+
+export const downloadLicenses = <T>(data: T) => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'driving-licenses.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};

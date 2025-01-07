@@ -17,14 +17,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { columns } from '@/utils/columns';
-import type { DrivingLicensePayData } from '@/utils/data';
+import type { StoredLicense } from '@/licence/types';
+import { columns } from '@/licence/utils/columns';
 
 interface LicenseTableProps {
   globalFilter: string;
   onGlobalFilterChange: (value: string) => void;
-  onUpdateData: (data: DrivingLicensePayData[]) => void;
-  data: DrivingLicensePayData[];
+  onUpdateData: (data: StoredLicense[]) => void;
+  data: StoredLicense[];
 }
 
 export function LicenseTable({
