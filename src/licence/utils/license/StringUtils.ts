@@ -1,67 +1,56 @@
 export class StringUtils {
   /**
    * Extracts the first letter of a given word
-   *
    * @param word Input string
-   *
    * @returns First letter or empty string
    */
-  static first(word: string): string {
-    return word?.charAt(0) ?? '';
+  static first(word: string = ''): string {
+    return word.charAt(0);
   }
 
   /**
    * Removes specified letters from a word
-   *
    * @param word Input string
    * @param lettersToRemove Array of letters to remove
-   *
    * @returns Filtered string
    */
-  static remove(word: string, lettersToRemove: string[]): string {
-    if (!word || !lettersToRemove.length) {
+  static remove(word: string = '', lettersToRemove: string[] = []): string {
+    if (!lettersToRemove.length) {
       return word;
     }
 
-    return word
-      .split('')
-      .filter((char) => !lettersToRemove.includes(char.toLowerCase()))
+    const lettersToRemoveSet = new Set(lettersToRemove.map((char) => char.toUpperCase()));
+
+    return Array.from(word)
+      .filter((char) => !lettersToRemoveSet.has(char.toUpperCase()))
       .join('');
   }
 
   /**
    * Converts letters to numbers based on conversion groups
-   *
    * @param word Input string
    * @param conversion Conversion groups
-   *
    * @returns Converted numeric string
    */
-  static convert(word: string, conversion: string[][]): string {
-    if (!word) {
-      return '';
-    }
-
+  static convert(word: string = '', conversion: string[][] = []): string {
     const letterMap = new Map(
-      conversion.flatMap((group, index) => group.map((letter) => [letter, String(index + 1)]))
+      conversion.flatMap((group, index) =>
+        group.map((letter) => [letter.toUpperCase(), String(index + 1)])
+      )
     );
 
-    return word
-      .toLowerCase()
-      .split('')
-      .map((letter) => letterMap.get(letter) || '')
+    return Array.from(word.toUpperCase())
+      .map((char) => letterMap.get(char) || '')
       .join('');
   }
 
   /**
    * Removes consecutive duplicate characters
-   *
    * @param word Input string
-   *
    * @returns String with duplicates removed
    */
-  static uniq(word: string): string {
-    return word?.replace(/(.)\1+/g, '$1') ?? '';
+  static uniq(word: string = ''): string {
+    return word.replace(/(.)\1+/g, '$1');
   }
 
   /**
@@ -70,39 +59,37 @@ export class StringUtils {
    * @param word Input string
    * @param char Padding character
    * @param length Desired total length
-   * @param padIndex Insertion index
+   * @param paddingIndex Insertion index
    *
    * @returns Padded string
    */
   static pad({
-    word,
+    word = '',
     char,
     length,
-    padIndex,
+    paddingIndex = 0,
   }: {
-    word: string;
+    word?: string;
     char: string;
     length: number;
-    padIndex: number;
+    paddingIndex?: number;
   }): string {
-    if (!word) {
-      return char.repeat(length);
-    }
+    const paddingNeeded = Math.max(0, length - word.length);
 
-    const paddingNeeded = length - word.length;
-
-    if (paddingNeeded <= 0) {
+    if (paddingNeeded === 0) {
       return word;
     }
 
-    if (padIndex <= 0) {
-      return char.repeat(paddingNeeded) + word;
+    const padding = char.repeat(paddingNeeded);
+
+    if (paddingIndex <= 0) {
+      return padding + word;
     }
 
-    if (padIndex >= word.length) {
-      return word + char.repeat(paddingNeeded);
+    if (paddingIndex >= word.length) {
+      return word + padding;
     }
 
-    return word.slice(0, padIndex) + char.repeat(paddingNeeded) + word.slice(padIndex);
+    return word.slice(0, paddingIndex) + padding + word.slice(paddingIndex);
   }
 }

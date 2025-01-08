@@ -47,7 +47,7 @@
     "@eslint/js": "^9.16.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@total-typescript/shoehorn": "^0.1.2",
+    "@total-typescript/shoehorn": "^0.1.0",
     "@types/node": "^20.11.25",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

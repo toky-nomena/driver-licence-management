@@ -43,12 +43,16 @@ describe('LicenseGeneratorUtils', () => {
 
   describe('pad', () => {
     it('should pad a word according to the new implementation', () => {
-      expect(StringUtils.pad({ word: 'test', char: '0', length: 6, padIndex: 3 })).toBe('tes00t');
-      expect(StringUtils.pad({ word: 'abc', char: 'x', length: 5, padIndex: 2 })).toBe('abxxc');
-      expect(StringUtils.pad({ word: 'short', char: '9', length: 7, padIndex: 4 })).toBe('shor99t');
+      expect(StringUtils.pad({ word: 'test', char: '0', length: 6, paddingIndex: 3 })).toBe(
+        'tes00t'
+      );
+      expect(StringUtils.pad({ word: 'abc', char: 'x', length: 5, paddingIndex: 2 })).toBe('abxxc');
+      expect(StringUtils.pad({ word: 'short', char: '9', length: 7, paddingIndex: 4 })).toBe(
+        'shor99t'
+      );
 
-      expect(StringUtils.pad({ word: '', char: '0', length: 5, padIndex: 2 })).toBe('00000');
-      expect(StringUtils.pad({ word: 'a', char: 'x', length: 3, padIndex: 0 })).toBe('xxa');
+      expect(StringUtils.pad({ word: '', char: '0', length: 5, paddingIndex: 2 })).toBe('00000');
+      expect(StringUtils.pad({ word: 'a', char: 'x', length: 3 })).toBe('xxa');
     });
   });
 });

@@ -1,52 +1,47 @@
 import type { DrivingLicenseGenerator } from './DrivingLicenseGenerator';
-import { AB } from './impl/ab';
-import { NB } from './impl/nb';
-import { QC } from './impl/qc';
+import { generators } from './generators';
 
 import type { LicenseFormValues } from '@/licence/types';
 
-// Interface for driver license generator
-
-// Factory for creating province-specific driver license generators
 export class DriverLicenseFactory {
-  private static generators: Record<string, DrivingLicenseGenerator> = {
-    QC: new QC(),
-    AB: new AB(),
-    NB: new NB(),
-  };
-
-  // Method to get a generator for a specific province
+  /**
+   * Retrieves a generator for the specified province.
+   * @param province Province code.
+   * @returns Corresponding DrivingLicenseGenerator or undefined if not found.
+   */
   private static getGenerator(province: string): DrivingLicenseGenerator | undefined {
-    return this.generators[province.toUpperCase()];
+    return generators[province.toUpperCase()];
   }
 
-  // Method to generate a driver's license
-  static generate(params: LicenseFormValues): { errors: string[]; license?: string } {
+  /**
+   * Validates the input parameters for license generation.
+   * @param params License form values.
+   * @returns Array of error messages.
+   */
+  private static validateParams(params: LicenseFormValues): string[] {
     const errors: string[] = [];
 
-    if (!params.province) {
-      errors.push('Province is required');
-    }
+    if (!params.province) errors.push('Province is required');
+    if (!params.firstName) errors.push('First name is required');
+    if (!params.lastName) errors.push('Last name is required');
+    if (!params.dateOfBirth) errors.push('Date of birth is required');
 
-    if (!params.firstName) {
-      errors.push('First name is required');
-    }
+    return errors;
+  }
 
-    if (!params.lastName) {
-      errors.push('Last name is required');
-    }
+  /**
+   * Generates a driver's license for the specified province and parameters.
+   * @param params License form values.
+   * @returns Object containing errors or the generated license.
+   */
+  static generate(params: LicenseFormValues): { errors: string[]; license?: string } {
+    const errors = this.validateParams(params);
 
-    if (!params.dateOfBirth) {
-      errors.push('Date of birth is required');
-    }
-
-    // Return errors if any
     if (errors.length > 0) {
       return { errors };
     }
 
-    // Get the appropriate generator and generate the license
-    const generator = this.getGenerator(params.province!);
+    const generator = this.getGenerator(params.province ?? '');
 
     if (!generator) {
       return { errors: ['Province is not supported'] };

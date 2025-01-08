@@ -1,6 +1,7 @@
 import { useForm } from '@tanstack/react-form';
 import { RefreshCw, Save, LucideWand2, Loader2 } from 'lucide-react';
 
+import { provinces } from '../data/provinces';
 import type { LicenseFormValues } from '../types';
 import { DriverLicenseFactory } from '../utils/license/DrivingLicenseFactory';
 
@@ -188,11 +189,11 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                         <SelectValue placeholder="Select a province" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="QC">Quebec (QC)</SelectItem>
-                        <SelectItem value="ON">Ontario (ON)</SelectItem>
-                        <SelectItem value="BC">British Columbia (BC)</SelectItem>
-                        <SelectItem value="AB">Alberta (AB)</SelectItem>
-                        <SelectItem value="NB">New Brunswick (NB)</SelectItem>
+                        {provinces.map((province) => (
+                          <SelectItem key={province.code} value={province.code}>
+                            {province.label} ({province.code})
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
