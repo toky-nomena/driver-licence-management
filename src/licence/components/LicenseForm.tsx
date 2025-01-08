@@ -42,6 +42,7 @@ const defaultValues: LicenseFormValues = {
 
 export function LicenseForm({ onSubmit }: LicenseFormProps) {
   const { t } = useI18n();
+
   const licenseForm = useForm<LicenseFormValues>({
     defaultValues,
     onSubmit: async ({ value }) => {
@@ -77,9 +78,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       option: newValues.option || defaultValues.option,
     };
 
-    console.log({ newValues, data });
-
     licenseForm.reset(data);
+    licenseForm.setFieldValue('province', newValues.province);
   };
 
   const onClickReset = () => {

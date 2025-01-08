@@ -23,7 +23,7 @@ export const en = {
   enterEmail: 'Enter email',
   enterOption: 'Enter option',
   enterDescription: 'Enter description',
-  generate: 'Generate',
+  generate: 'Generate random',
   reset: 'Reset',
   save: 'Save',
   invalidEmail: 'Invalid email format',
@@ -73,4 +73,6 @@ export const en = {
 
   // Title
   title: 'Driving License Generator',
+
+  customMessage: '{{name}} has {{count}} items',
 };

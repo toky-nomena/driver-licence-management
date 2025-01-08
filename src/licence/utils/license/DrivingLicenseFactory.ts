@@ -1,3 +1,5 @@
+import { isValidDateOfBirth } from '../validators';
+
 import type { DrivingLicenseGenerator } from './DrivingLicenseGenerator';
 import { generators } from './generators';
 
@@ -24,7 +26,12 @@ export class DriverLicenseFactory {
     if (!params.province) errors.push('Province is required');
     if (!params.firstName) errors.push('First name is required');
     if (!params.lastName) errors.push('Last name is required');
-    if (!params.dateOfBirth) errors.push('Date of birth is required');
+
+    const dateValidation = isValidDateOfBirth(params.dateOfBirth);
+
+    if (dateValidation) {
+      errors.push(dateValidation);
+    }
 
     return errors;
   }

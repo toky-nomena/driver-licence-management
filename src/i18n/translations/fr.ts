@@ -23,7 +23,7 @@ export const fr = {
   enterEmail: "Entrez l'email",
   enterOption: "Entrez l'option",
   enterDescription: 'Entrez la description',
-  generate: 'Générer',
+  generate: 'Générer aleatoire',
   reset: 'Réinitialiser',
   save: 'Enregistrer',
   invalidEmail: "Format d'email invalide",
@@ -73,4 +73,6 @@ export const fr = {
 
   // Title
   title: 'Générateur de permis de conduire',
+
+  customMessage: '{{name}} a {{count}} éléments',
 };

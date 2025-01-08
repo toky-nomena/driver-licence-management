@@ -1,18 +1,25 @@
 import dayjs from 'dayjs';
 
-export function isValidDateOfBirth(value: string | Date | undefined): string | undefined {
-  const date = dayjs(value);
+export function isValidDateOfBirth(dateOfBirth: string | Date | undefined): string | undefined {
+  if (!dateOfBirth) {
+    return 'Date of birth is required';
+  }
+
+  const date = dayjs(dateOfBirth);
 
   if (!date.isValid()) {
-    return 'Date is not valid';
+    return 'Invalid date of birth';
   }
 
-  if (date.isAfter(new Date())) {
-    return 'Date must be in the past';
-  }
+  const now = dayjs();
 
-  if (date.isBefore(new Date('1900-01-01'))) {
-    return 'Date must be at least 1900-01-01';
+  if (date.isAfter(now)) {
+    return 'Date of birth cannot be in the future';
+  }
+  const minDate = now.subtract(120, 'year');
+
+  if (date.isBefore(minDate)) {
+    return 'Date of birth cannot be more than 120 years ago';
   }
 
   return undefined;
