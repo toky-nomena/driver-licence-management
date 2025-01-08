@@ -8,6 +8,8 @@ import {
 import type { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 
+import { useColumns } from '../utils/columns';
+
 import { Pagination } from '@/components/ui/pagination';
 import {
   Table,
@@ -18,7 +20,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import type { StoredLicense } from '@/licence/types';
-import { columns } from '@/licence/utils/columns';
 
 interface LicenseTableProps {
   globalFilter: string;
@@ -33,6 +34,7 @@ export function LicenseTable({
   onUpdateData,
   data,
 }: LicenseTableProps) {
+  const columns = useColumns();
   const [pagination, onPaginationChange] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50,

@@ -6,17 +6,10 @@ interface CopyProps {
 }
 
 export function Copy({ value, children }: CopyProps) {
-  if (value) {
-    return (
-      <div className="group flex w-full items-center justify-between">
-        {children}
-        <CopyButton
-          className="h-8 w-8 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-          value={value}
-        />
-      </div>
-    );
-  }
-
-  return <span className="text-muted-foreground">-</span>;
+  return (
+    <div className="group relative flex items-center gap-2">
+      {children}
+      <CopyButton value={value} className="invisible group-hover:visible" />
+    </div>
+  );
 }
