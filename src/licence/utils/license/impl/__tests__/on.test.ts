@@ -12,6 +12,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1990-05-20',
         lastName: 'Smith',
         gender: 'male',
+        province: 'ON',
       } as const;
       const expectedLicense = 'S00000000900520'; // Expected output.
 
@@ -24,6 +25,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1990-05-20',
         lastName: 'Johnson',
         gender: 'female',
+        province: 'ON',
       } as const;
       const expectedLicense = 'J00000000905520'; // Adjusted month for female (May -> 55).
 
@@ -36,6 +38,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1990-01-10',
         lastName: 'Adams',
         gender: 'male',
+        province: 'ON',
       } as const;
       const expectedLicense = 'A00000000900110'; // January, male, expected formatting.
 
@@ -48,6 +51,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1990-01-10',
         lastName: 'Adams',
         gender: 'female',
+        province: 'ON',
       } as const;
       const expectedLicense = 'A00000000905110'; // Adjusted month for female (January -> 51).
 
@@ -60,6 +64,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1999-12-31',
         lastName: 'Zebra',
         gender: 'male',
+        province: 'ON',
       } as const;
       const expectedLicense = 'Z00000000991231'; // December (12) for male.
 
@@ -72,6 +77,7 @@ describe('ON License Generator', () => {
         dateOfBirth: '1999-12-31',
         lastName: 'Zebra',
         gender: 'female',
+        province: 'ON',
       } as const;
       const expectedLicense = 'Z00000000996231'; // Adjusted month for female (December -> 62).
 

@@ -8,7 +8,7 @@ describe('NB DrivingLicenseGenerator', () => {
 
   describe('generate', () => {
     it('should generate the correctly padded string', () => {
-      const result = nb.generate(fromPartial({ dateOfBirth: '1990-06-15' }));
+      const result = nb.generate(fromPartial({ dateOfBirth: '1990-06-15', province: 'NB' }));
       expect(result).toBe('1001');
     });
   });

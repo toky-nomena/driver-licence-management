@@ -8,7 +8,7 @@ describe('YT License Generator', () => {
 
   describe('generate', () => {
     it('should generate a padded license with "1" padded to a length of 6', () => {
-      const formValues = {}; // Empty object since the method doesn't use any form values.
+      const formValues = { province: 'YT' }; // Empty object since the method doesn't use any form values.
       const expectedLicense = '000001'; // Padded string with '1', length 6.
 
       const generatedLicense = yt.generate(fromPartial(formValues));
