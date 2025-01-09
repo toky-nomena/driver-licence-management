@@ -83,4 +83,13 @@ export const en = {
   columns: 'Columns',
 
   language: 'Language',
+  importButton: 'Import licenses',
+  importError: 'Error importing file',
+  importSuccess: 'Successfully imported {{count}} licenses',
+  importInvalidFormat: 'Invalid file format. Please use JSON format.',
+  importSelectFile: 'Select JSON file',
+
+  dataCleared: 'Data cleared successfully',
+  licenseDeleted: 'License deleted successfully',
+  licenseAdded: 'Licence added successfully',
 };

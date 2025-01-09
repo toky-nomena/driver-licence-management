@@ -85,4 +85,14 @@ export const fr = {
   columns: 'Colonnes',
 
   language: 'Langue',
+
+  importButton: 'Importer des permis',
+  importError: "Erreur lors de l'importation du fichier",
+  importSuccess: '{{count}} permis importés avec succès',
+  importInvalidFormat: 'Format de fichier invalide. Veuillez utiliser le format JSON.',
+  importSelectFile: 'Sélectionner un fichier JSON',
+
+  dataCleared: 'Données effacées avec succès',
+  licenseDeleted: 'Permis supprimé avec succès',
+  licenseAdded: 'Permis ajouté avec succès',
 };

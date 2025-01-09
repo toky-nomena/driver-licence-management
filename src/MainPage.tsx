@@ -6,13 +6,15 @@ import {
 } from '@tanstack/react-table';
 import type { PaginationState } from '@tanstack/react-table';
 import { Search, Trash2, Download } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { toast } from 'sonner';
 
 import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { Button } from './components/ui/button';
 import { useTranslate } from './i18n/TranslationContext';
 import { DeleteAllAlert } from './licence/components/DeleteAllAlert';
 import { EmptyList } from './licence/components/EmptyList';
+import { ImportLicenses } from './licence/components/ImportLicenses';
 import { LicenseForm } from './licence/components/LicenseForm';
 import { LicenseTable } from './licence/components/LicenseTable';
 import { ColumnsVisibility } from './licence/components/toolbar/ColumnsVisibility';
@@ -23,16 +25,21 @@ import { MainHeader } from './MainHeader';
 
 import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { Toaster } from '@/components/ui/sooner';
 
 export function MainPage() {
   const { t } = useTranslate();
   const [globalFilter, onGlobalFilterChange] = useState('');
   const [data, setData] = useLocalStorage<StoredLicense[]>('driving-license-data', []);
 
-  const clearAllData = () => setData([]);
+  const clearAllData = () => {
+    setData([]);
+    toast(t('dataCleared'));
+  };
 
   const onSubmit = (newPerson: StoredLicense) => {
     setData((prev) => [newPerson, ...prev]);
+    toast(t('licenseAdded'));
   };
 
   const columns = useColumns();
@@ -44,7 +51,15 @@ export function MainPage() {
   // Handle row deletion
   const onDeleteRow = (rowIndex: number) => {
     setData((items) => items.filter((_, index) => index !== rowIndex));
+    toast(t('licenseDeleted'));
   };
+
+  const handleImport = useCallback(
+    (importedLicenses: StoredLicense[]) => {
+      setData((prev) => [...importedLicenses, ...prev]);
+    },
+    [setData]
+  );
 
   const table = useReactTable({
     data,
@@ -103,7 +118,7 @@ export function MainPage() {
                     <span className="sr-only">Delete all licenses</span>
                     <Trash2 className="h-4 w-4 text-slate-700 dark:text-slate-300" />
                   </DeleteAllAlert>
-
+                  <ImportLicenses onImport={handleImport} />
                   <Button
                     variant="outline"
                     className="h-10 w-10"
@@ -125,6 +140,7 @@ export function MainPage() {
           )}
         </ResizablePanel>
       </ResizablePanelGroup>
+      <Toaster expand={true} richColors />
     </div>
   );
 }
