@@ -12,7 +12,6 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { useTranslate } from '@/i18n/TranslationContext';
-import { cn } from '@/lib/utils';
 
 interface DeleteAllAlertProps {
   onConfirm: () => void;
@@ -20,13 +19,13 @@ interface DeleteAllAlertProps {
   className?: string;
 }
 
-export function DeleteAllAlert({ onConfirm, children, className }: DeleteAllAlertProps) {
+export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
   const { t } = useTranslate();
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className={cn(className)}>
+        <Button variant="outline" className="h-10 w-10" size="icon">
           {children}
         </Button>
       </AlertDialogTrigger>

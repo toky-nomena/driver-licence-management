@@ -83,4 +83,6 @@ export const fr = {
   filterByProvince: 'Filtrer par province',
   resetFilters: 'Réinitialiser les filtres',
   columns: 'Colonnes',
+
+  language: 'Langue',
 };

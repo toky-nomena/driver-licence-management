@@ -12,8 +12,8 @@ export const LanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <Button className="border border-white" variant="ghost" size="icon" onClick={toggleLanguage}>
-      {language.toUpperCase()}
+    <Button variant="outline" onClick={toggleLanguage} className="p-0 px-2">
+      <span>{language.toUpperCase()}</span>
     </Button>
   );
 };

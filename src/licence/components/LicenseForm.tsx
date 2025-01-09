@@ -350,13 +350,13 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   variant="outline"
                   size="sm"
                   onClick={onClickReset}
-                  disabled={!canSubmit || isSubmitting}
+                  disabled={isSubmitting}
                 >
                   <RefreshCw className="mr-1 h-4 w-4" />
                   <span>{t('reset')}</span>
                 </Button>
               </div>
-              <Button type="submit" className="text-white" disabled={!canSubmit || isSubmitting}>
+              <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
