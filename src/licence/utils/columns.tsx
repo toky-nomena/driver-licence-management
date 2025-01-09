@@ -17,7 +17,7 @@ export function useColumns() {
 
   return [
     columnHelper.accessor('province', {
-      header: '',
+      header: () => null,
       id: 'province',
       cell: (info) => {
         const province = provinces.find((p) => p.code === info.getValue());
@@ -28,9 +28,9 @@ export function useColumns() {
             aria-label={t('userInitials')}
           >
             <figure
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${province?.color || 'bg-muted'}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg ${province?.color || 'bg-gray-100'}`}
             >
-              <span className="text-xs font-semibold">{value}</span>
+              <span className="text-sm font-medium">{value}</span>
             </figure>
           </div>
         );
@@ -38,46 +38,116 @@ export function useColumns() {
       enableHiding: false,
     }),
     columnHelper.accessor('firstName', {
-      header: t('firstName'),
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('firstName')}
+        </div>
+      ),
       enableGlobalFilter: true,
       enableColumnFilter: true,
-      cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
+      cell: (info) => (
+        <div className="py-4">
+          <Copy value={info.getValue()}>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {info.getValue()}
+              </span>
+            </div>
+          </Copy>
+        </div>
+      ),
     }),
     columnHelper.accessor('lastName', {
-      header: t('lastName'),
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('lastName')}
+        </div>
+      ),
       enableGlobalFilter: true,
       enableColumnFilter: true,
-      cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
+      cell: (info) => (
+        <div className="py-4">
+          <Copy value={info.getValue()}>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {info.getValue()}
+              </span>
+            </div>
+          </Copy>
+        </div>
+      ),
     }),
     columnHelper.accessor('dateOfBirth', {
-      header: t('dateOfBirth'),
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('dateOfBirth')}
+        </div>
+      ),
       cell: (info) => {
         const value = format(info.getValue(), 'YYYY-MM-DD');
-        return <Copy value={value}>{value}</Copy>;
+        return (
+          <div className="py-4">
+            <Copy value={value}>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  {value}
+                </span>
+              </div>
+            </Copy>
+          </div>
+        );
       },
     }),
     columnHelper.accessor('drivingLicense', {
-      header: t('drivingLicense'),
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('drivingLicense')}
+        </div>
+      ),
       cell: (info) => (
-        <Copy value={info.getValue()}>
-          <span className="flex-1 truncate font-semibold">{info.getValue()}</span>
-        </Copy>
+        <div className="py-4">
+          <Copy value={info.getValue()}>
+            <div className="flex flex-col">
+              <span className="max-w-[200px] truncate text-sm font-bold text-gray-900 dark:text-gray-100">
+                {info.getValue()}
+              </span>
+            </div>
+          </Copy>
+        </div>
       ),
     }),
     columnHelper.accessor('email', {
-      header: t('email'),
-      cell: (info) => <Copy value={info.getValue()}>{info.getValue()}</Copy>,
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('email')}
+        </div>
+      ),
+      cell: (info) => (
+        <div className="py-4">
+          <Copy value={info.getValue()}>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {info.getValue()}
+              </span>
+            </div>
+          </Copy>
+        </div>
+      ),
     }),
     columnHelper.display({
       id: 'actions',
-      header: t('actions'),
+      header: () => (
+        <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400">
+          {t('actions')}
+        </div>
+      ),
       enableHiding: false,
       cell: ({ row, table }) => {
         const meta = table.options.meta as {
           onDeleteRow?: (index: number) => void;
         };
         return (
-          <div className="flex gap-2">
+          <div className="flex items-center gap-3">
             <LicenseDeleteConfirm
               licence={row.original}
               onConfirm={() => meta?.onDeleteRow?.(row.index)}

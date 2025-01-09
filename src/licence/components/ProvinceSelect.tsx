@@ -27,12 +27,32 @@ export function ProvinceSelect({
   return (
     <Select value={value} onValueChange={onChange} disabled={disabled}>
       <SelectTrigger>
-        <SelectValue placeholder={placeholder} />
+        {value ? (
+          <div className="flex items-center gap-2">
+            <div
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-white ${
+                provinces.find((p) => p.code === value)?.color || 'bg-gray-200 dark:bg-gray-700'
+              }`}
+            >
+              <span className="text-xs font-medium">{value}</span>
+            </div>
+            <SelectValue />
+          </div>
+        ) : (
+          <SelectValue placeholder={placeholder} />
+        )}
       </SelectTrigger>
       <SelectContent>
         {provinces.map((province) => (
-          <SelectItem key={province.code} value={province.code}>
-            {province.label} ({province.code})
+          <SelectItem key={province.code} value={province.code} className="flex items-center gap-2">
+            <div
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-white ${province.color}`}
+            >
+              <span className="text-xs font-medium">{province.code}</span>
+            </div>
+            <span className="text-sm text-gray-900 dark:text-gray-100">
+              {province.name} ({province.code})
+            </span>
           </SelectItem>
         ))}
       </SelectContent>
