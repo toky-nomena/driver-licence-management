@@ -5,7 +5,7 @@ import {
   getFilteredRowModel,
 } from '@tanstack/react-table';
 import type { PaginationState } from '@tanstack/react-table';
-import { Search, Trash2, Download } from 'lucide-react';
+import { Trash2, Download } from 'lucide-react';
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
 
@@ -18,18 +18,20 @@ import { ImportLicenses } from './licence/components/ImportLicenses';
 import { LicenseForm } from './licence/components/LicenseForm';
 import { LicenseTable } from './licence/components/LicenseTable';
 import { ColumnsVisibility } from './licence/components/toolbar/ColumnsVisibility';
+import { LicenseSearch } from './licence/LicenseSearch';
 import type { StoredLicense } from './licence/types';
 import { useColumns } from './licence/utils/columns';
 import { downloadLicenses } from './licence/utils/data';
 import { MainHeader } from './MainHeader';
 
-import { Input } from '@/components/ui/input';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { Toaster } from '@/components/ui/sooner';
+import { cn } from '@/lib/utils';
 
 export function MainPage() {
   const { t } = useTranslate();
-  const [globalFilter, onGlobalFilterChange] = useState('');
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [isPending, setPending] = useState(false);
   const [data, setData] = useLocalStorage<StoredLicense[]>('driving-license-data', []);
 
   const clearAllData = () => {
@@ -68,7 +70,7 @@ export function MainPage() {
       pagination,
       globalFilter,
     },
-    onGlobalFilterChange,
+    onGlobalFilterChange: setGlobalFilter,
     onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -101,19 +103,7 @@ export function MainPage() {
         <ResizablePanel defaultValue={75} className="flex flex-col rounded-lg pl-[2px] pt-[2px]">
           <>
             <div className="z-50 flex items-center justify-between gap-4 pb-4">
-              <div className="flex items-center gap-2">
-                <div className="relative w-96 rounded-lg bg-background">
-                  <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder={t('search')}
-                    className="h-10 w-full pl-8"
-                    value={globalFilter}
-                    onChange={(e) => onGlobalFilterChange(e.target.value)}
-                    disabled={!hasData}
-                  />
-                </div>
-              </div>
+              <LicenseSearch onChange={setGlobalFilter} setPending={setPending} />
               <div className="flex items-center gap-2 pt-1">
                 <ColumnsVisibility table={table} disabled={!hasData} />
                 <DeleteAllAlert onConfirm={clearAllData} disabled={!hasData}>
@@ -137,6 +127,7 @@ export function MainPage() {
                 table={table}
                 onPaginationChange={onPaginationChange}
                 pagination={pagination}
+                className={cn('transition-opacity duration-200', isPending && 'opacity-50')}
               />
             ) : (
               <EmptyList />

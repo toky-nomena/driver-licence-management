@@ -10,17 +10,29 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 import type { StoredLicense } from '@/licence/types';
 
 interface LicenseTableProps {
+  className?: string;
   table: ReactTable<StoredLicense>;
   onPaginationChange: (page: { pageIndex: number; pageSize: number }) => void;
   pagination: { pageIndex: number; pageSize: number };
 }
 
-export function LicenseTable({ table, onPaginationChange, pagination }: LicenseTableProps) {
+export function LicenseTable({
+  table,
+  onPaginationChange,
+  pagination,
+  className,
+}: LicenseTableProps) {
   return (
-    <div className="flex flex-1 flex-col overflow-hidden rounded-lg border bg-background">
+    <div
+      className={cn(
+        'flex flex-1 flex-col overflow-hidden rounded-lg border bg-background',
+        className
+      )}
+    >
       <div className="flex flex-1 overflow-auto">
         <Table className="flex-1">
           <TableHeader className="sticky top-0 z-10 rounded-lg border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
