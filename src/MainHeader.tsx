@@ -7,7 +7,7 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 export function MainHeader() {
   const { t } = useTranslate();
   return (
-    <div className="flex items-center justify-between border-b bg-gradient-to-r px-4 py-2 dark:border-gray-700">
+    <div className="flex items-center justify-between border-b bg-background px-4 py-2 dark:border-gray-700">
       <div className="flex flex-row items-center gap-2">
         <div className="flex flex-row items-center gap-2">
           <Hexagon className="h-6 w-6" strokeWidth={2} />
