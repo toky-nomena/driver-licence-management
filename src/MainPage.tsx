@@ -12,11 +12,11 @@ import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Button } from './components/ui/button';
 import { useTranslate } from './i18n/TranslationContext';
-import { ColumnVisibilityDropdown } from './licence/components/ColumnVisibilityDropdown';
 import { DeleteAllAlert } from './licence/components/DeleteAllAlert';
 import { EmptyList } from './licence/components/EmptyList';
 import { LicenseForm } from './licence/components/LicenseForm';
 import { LicenseTable } from './licence/components/LicenseTable';
+import { ColumnsVisibility } from './licence/components/toolbar/ColumnsVisibility';
 import type { StoredLicense } from './licence/types';
 import { useColumns } from './licence/utils/columns';
 import { downloadLicenses } from './licence/utils/data';
@@ -103,9 +103,9 @@ export function MainPage() {
                       onChange={(e) => onGlobalFilterChange(e.target.value)}
                     />
                   </div>
-                  <ColumnVisibilityDropdown table={table} />
                 </div>
                 <div className="flex items-center">
+                  <ColumnsVisibility table={table} />
                   {data.length > 0 && (
                     <DeleteAllAlert onConfirm={clearAllData}>
                       <span className="sr-only">Delete all licenses</span>
