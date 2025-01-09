@@ -77,4 +77,8 @@ export const en = {
   customMessage: '{{name}} has {{count}} items',
 
   toggleColumns: 'Toggle columns',
+
+  filterByProvince: 'Filter by Province',
+  resetFilters: 'Reset filters',
+  columns: 'Columns',
 };

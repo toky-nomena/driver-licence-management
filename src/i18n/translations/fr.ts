@@ -79,9 +79,8 @@ export const fr = {
   toggleColumns: 'Afficher/Masquer les colonnes',
 
   // Add column names that match column IDs
-  firstName: 'Prénom',
-  lastName: 'Nom',
-  dateOfBirth: 'Date de naissance',
-  email: 'Email',
-  drivingLicense: 'Numéro de permis',
+
+  filterByProvince: 'Filtrer par province',
+  resetFilters: 'Réinitialiser les filtres',
+  columns: 'Colonnes',
 };

@@ -1,5 +1,5 @@
 import type { Table } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,19 +13,19 @@ import {
 import { useTranslate } from '@/i18n/TranslationContext';
 import type { StoredLicense } from '@/licence/types';
 
-interface ColumnVisibilityDropdownProps {
+interface ColumnsVisibilityProps {
   table: Table<StoredLicense>;
 }
 
-export function ColumnVisibilityDropdown({ table }: ColumnVisibilityDropdownProps) {
+export function ColumnsVisibility({ table }: ColumnsVisibilityProps) {
   const { t } = useTranslate();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <MoreHorizontal className="h-4 w-4" />
-          <span className="sr-only">Toggle columns</span>
+        <Button variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex">
+          <SlidersHorizontal className="mr-2 h-4 w-4" />
+          {t('columns')}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[250px]">
@@ -33,7 +33,7 @@ export function ColumnVisibilityDropdown({ table }: ColumnVisibilityDropdownProp
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
-          .filter((column) => column.getCanHide())
+          .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
           .map((column) => {
             return (
               <DropdownMenuCheckboxItem
