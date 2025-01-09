@@ -1,6 +1,7 @@
 export interface LicenseFormValues {
   firstName: string;
   lastName: string;
+  middleName: string;
   dateOfBirth?: string;
   email?: string;
   drivingLicense?: string;

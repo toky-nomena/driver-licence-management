@@ -37,6 +37,7 @@ const defaultValues: LicenseFormValues = {
   description: '',
   gender: 'male',
   province: 'QC',
+  middleName: '',
   option: 1,
 };
 
@@ -52,6 +53,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         dateOfBirth: value.dateOfBirth,
         province: value.province,
         option: value.option,
+        middleName: value.middleName,
       });
 
       await new Promise((resolve) => setTimeout(resolve, 700));
@@ -76,6 +78,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       gender: newValues.gender || defaultValues.gender,
       province: newValues.province || defaultValues.province,
       option: newValues.option || defaultValues.option,
+      middleName: newValues.middleName || defaultValues.middleName,
     };
 
     licenseForm.reset(data);
@@ -95,7 +98,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
 
   return (
     <form
-      className="flex h-full flex-col"
+      className="flex h-full flex-col @container"
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -108,7 +111,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       <ScrollArea className="flex-grow">
         <div className="space-y-4 p-4">
           <div className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 @[400px]:grid-cols-2">
               <licenseForm.Field
                 name="firstName"
                 validators={{
@@ -153,7 +156,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               </licenseForm.Field>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 @[400px]:grid-cols-2">
               <licenseForm.Field
                 name="dateOfBirth"
                 validators={{
@@ -206,10 +209,10 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
             <licenseForm.Field name="gender">
               {(field) => (
                 <div>
-                  <Label className="block text-sm font-medium text-gray-700">{t('gender')}</Label>
+                  <Label>{t('gender')}</Label>
                   <GenderRadio
-                    disabled={licenseForm.state.isSubmitting}
                     className="mt-1"
+                    disabled={licenseForm.state.isSubmitting}
                     value={field.state.value as 'male' | 'female'}
                     onChange={(value) => field.handleChange(value)}
                   />
@@ -217,7 +220,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               )}
             </licenseForm.Field>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 @[400px]:grid-cols-2">
               <licenseForm.Field
                 name="email"
                 validators={{
@@ -283,19 +286,21 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               selector={(state) =>
                 [
                   state.values.firstName,
+                  state.values.middleName,
                   state.values.lastName,
                   state.values.dateOfBirth,
                   state.values.province,
                   state.values.option,
                 ] as const
               }
-              children={([firstName, lastName, dateOfBirth, province, option]) => {
+              children={([firstName, middleName, lastName, dateOfBirth, province, option]) => {
                 const { license, errors } = DriverLicenseFactory.generate({
                   firstName,
                   lastName,
                   dateOfBirth,
                   province,
                   option,
+                  middleName,
                 });
 
                 return (
@@ -328,8 +333,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         selector={(state) => [state.canSubmit, state.isSubmitting]}
         children={([canSubmit, isSubmitting]) => (
           <div className="border-t p-4">
-            <div className="flex items-center gap-2">
-              <div className="relative flex-grow space-x-2">
+            <div className="flex flex-col gap-2 @[400px]:flex-row @[400px]:items-center">
+              <div className="flex flex-1 flex-col gap-2 @[400px]:flex-row">
                 <Button
                   type="button"
                   variant="outline"
@@ -351,16 +356,14 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <span>{t('reset')}</span>
                 </Button>
               </div>
-              <div className="flex gap-2">
-                <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
-                  {isSubmitting ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Save className="mr-1 h-4 w-4" />
-                  )}
-                  <span>{t('save')}</span>
-                </Button>
-              </div>
+              <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
+                {isSubmitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Save className="mr-1 h-4 w-4" />
+                )}
+                <span>{t('save')}</span>
+              </Button>
             </div>
           </div>
         )}

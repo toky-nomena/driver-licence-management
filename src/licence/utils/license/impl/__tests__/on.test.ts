@@ -1,88 +1,59 @@
-import { fromPartial } from '@total-typescript/shoehorn';
 import { describe, it, expect } from 'vitest';
 
-import { ON } from '../on'; // Import your ON class.
+import { ON } from '../on';
 
-const on = new ON();
+import type { LicenseFormValues } from '@/licence/types';
 
-describe('ON License Generator', () => {
+// Helper function to format test cases more easily
+const generateLicense = (formValues: LicenseFormValues) => {
+  const generator = new ON();
+  return generator.generate(formValues);
+};
+
+describe('ON Driving License Generator', () => {
   describe('generate', () => {
-    it('should generate the correct license for a male with a given dateOfBirth and lastName', () => {
-      const formValues = {
-        dateOfBirth: '1990-05-20',
+    it('should generate a valid driving license for a male', () => {
+      const formValues: LicenseFormValues = {
         lastName: 'Smith',
+        firstName: 'John',
+        middleName: 'Paul',
+        dateOfBirth: '1985-06-15',
         gender: 'male',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'S00000000900520'; // Expected output.
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
+      };
+      expect(generateLicense(formValues)).toBe('S1913-4637-850615');
     });
 
-    it('should generate the correct license for a female with a given dateOfBirth and lastName', () => {
-      const formValues = {
-        dateOfBirth: '1990-05-20',
-        lastName: 'Johnson',
+    it('should generate a valid driving license for a female', () => {
+      const formValues: LicenseFormValues = {
+        lastName: 'Jones',
+        firstName: 'Alice',
+        middleName: 'Mary',
+        dateOfBirth: '1992-03-22',
         gender: 'female',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'J00000000905520'; // Adjusted month for female (May -> 55).
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
+      };
+      expect(generateLicense(formValues)).toBe('J1015-0546-925322');
     });
 
-    it('should generate the correct license for a single-digit month for a male', () => {
-      const formValues = {
-        dateOfBirth: '1990-01-10',
-        lastName: 'Adams',
+    it('should handle missing middle names correctly', () => {
+      const formValues: LicenseFormValues = {
+        lastName: 'Brown',
+        firstName: 'Emily',
+        middleName: '',
+        dateOfBirth: '2000-12-01',
+        gender: 'female',
+      };
+      expect(generateLicense(formValues)).toBe('B0218-2540-006201');
+    });
+
+    it('should handle edge cases for dates correctly', () => {
+      const formValues: LicenseFormValues = {
+        lastName: 'Green',
+        firstName: 'Olivia',
+        middleName: 'Ivy',
+        dateOfBirth: '1900-01-01',
         gender: 'male',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'A00000000900110'; // January, male, expected formatting.
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
-    });
-
-    it('should generate the correct license for a female with a single-digit month', () => {
-      const formValues = {
-        dateOfBirth: '1990-01-10',
-        lastName: 'Adams',
-        gender: 'female',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'A00000000905110'; // Adjusted month for female (January -> 51).
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
-    });
-
-    it('should handle edge case for a dateOfBirth at the end of the year for a male', () => {
-      const formValues = {
-        dateOfBirth: '1999-12-31',
-        lastName: 'Zebra',
-        gender: 'male',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'Z00000000991231'; // December (12) for male.
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
-    });
-
-    it('should handle edge case for a dateOfBirth at the end of the year for a female', () => {
-      const formValues = {
-        dateOfBirth: '1999-12-31',
-        lastName: 'Zebra',
-        gender: 'female',
-        province: 'ON',
-      } as const;
-      const expectedLicense = 'Z00000000996231'; // Adjusted month for female (December -> 62).
-
-      const generatedLicense = on.generate(fromPartial(formValues));
-      expect(generatedLicense).toBe(expectedLicense);
+      };
+      expect(generateLicense(formValues)).toBe('G0718-6540-000101');
     });
   });
 });

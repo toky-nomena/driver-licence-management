@@ -73,7 +73,7 @@ export function LicenseTable({
     <div className="flex flex-1 flex-col overflow-hidden rounded-lg border">
       <div className="flex flex-1 overflow-auto">
         <Table className="flex-1">
-          <TableHeader className="sticky top-0 border-b bg-background">
+          <TableHeader className="sticky top-0 z-10 border-b bg-background/75 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
