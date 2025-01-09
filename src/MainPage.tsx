@@ -105,7 +105,7 @@ export function MainPage() {
   const hasData = data.length > 0;
 
   return (
-    <div className="flex h-screen flex-col bg-muted/30">
+    <div className="dark:via-background/98 flex h-screen flex-col bg-gradient-to-br from-background via-background/95 to-muted/20 dark:from-background dark:to-muted/10">
       <MainHeader />
       <ResizablePanelGroup
         direction="horizontal"

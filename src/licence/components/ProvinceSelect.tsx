@@ -50,7 +50,7 @@ export function ProvinceSelect({
             >
               <span className="text-xs font-medium">{province.code}</span>
             </div>
-            <span className="text-sm text-gray-900 dark:text-gray-100">
+            <span className="text-sm">
               {province.name} ({province.code})
             </span>
           </SelectItem>

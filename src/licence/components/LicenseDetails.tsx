@@ -1,4 +1,4 @@
-import { Eye } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 import type { StoredLicense } from '../types';
 import { provinces } from '../utils/provinces';
@@ -22,7 +22,7 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Eye className="h-4 w-4 text-muted-foreground hover:text-destructive" />
+          <Info className="h-4 w-4 text-muted-foreground hover:text-destructive" />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-md">

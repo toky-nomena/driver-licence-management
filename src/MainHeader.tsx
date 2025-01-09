@@ -14,7 +14,7 @@ export function MainHeader() {
           <h1 className="font-semibold">{t('title')}</h1>
         </div>
 
-        <span className="m-2 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground">
+        <span className="m-2 rounded-full border border-yellow-500 px-3 py-1 text-xs text-yellow-500">
           {t('appWarning', { version: import.meta.env.VITE_APP_VERSION })}
         </span>
       </div>

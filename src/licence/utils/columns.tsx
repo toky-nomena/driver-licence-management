@@ -30,7 +30,7 @@ export function useColumns() {
             <figure
               className={`flex h-9 w-9 items-center justify-center rounded-lg ${province?.color || 'bg-gray-100'}`}
             >
-              <span className="text-sm font-medium">{value}</span>
+              <span className="text-xs font-semibold">{value}</span>
             </figure>
           </div>
         );
@@ -49,9 +49,7 @@ export function useColumns() {
         <div className="py-4">
           <Copy value={info.getValue()}>
             <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {info.getValue()}
-              </span>
+              <span className="text-sm font-medium">{info.getValue()}</span>
             </div>
           </Copy>
         </div>
@@ -69,9 +67,7 @@ export function useColumns() {
         <div className="py-4">
           <Copy value={info.getValue()}>
             <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {info.getValue()}
-              </span>
+              <span className="text-sm font-medium">{info.getValue()}</span>
             </div>
           </Copy>
         </div>
@@ -89,9 +85,7 @@ export function useColumns() {
           <div className="py-4">
             <Copy value={value}>
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                  {value}
-                </span>
+                <span className="text-sm font-medium">{value}</span>
               </div>
             </Copy>
           </div>
@@ -108,9 +102,7 @@ export function useColumns() {
         <div className="py-4">
           <Copy value={info.getValue()}>
             <div className="flex flex-col">
-              <span className="max-w-[200px] truncate text-sm font-bold text-gray-900 dark:text-gray-100">
-                {info.getValue()}
-              </span>
+              <span className="max-w-[200px] truncate text-sm font-bold">{info.getValue()}</span>
             </div>
           </Copy>
         </div>
@@ -126,9 +118,7 @@ export function useColumns() {
         <div className="py-4">
           <Copy value={info.getValue()}>
             <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {info.getValue()}
-              </span>
+              <span className="text-sm font-medium">{info.getValue()}</span>
             </div>
           </Copy>
         </div>
