@@ -11,7 +11,7 @@ import {
 } from '../../components/ui/alert-dialog';
 
 import { Button } from '@/components/ui/button';
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 import { cn } from '@/lib/utils';
 
 interface DeleteAllAlertProps {
@@ -21,7 +21,7 @@ interface DeleteAllAlertProps {
 }
 
 export function DeleteAllAlert({ onConfirm, children, className }: DeleteAllAlertProps) {
-  const { t } = useI18n();
+  const { t } = useTranslate();
 
   return (
     <AlertDialog>

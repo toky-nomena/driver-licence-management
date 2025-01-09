@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-import { I18nProvider, useI18n } from '../I18nContext';
+import { TranslationProvider, useTranslate } from '../TranslationContext';
 
 const TestComponent = () => {
-  const { t, language, setLanguage } = useI18n();
+  const { t, language, setLanguage } = useTranslate();
 
   return (
     <div>
@@ -16,7 +16,7 @@ const TestComponent = () => {
 };
 
 const TestInterpolation = () => {
-  const { t } = useI18n();
+  const { t } = useTranslate();
   return (
     <div>
       <span data-testid="simple">{t('minLength', { length: '3' })}</span>
@@ -25,16 +25,16 @@ const TestInterpolation = () => {
   );
 };
 
-describe('I18nContext', () => {
+describe('TranslationContext', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
   it('provides default language (en) when no language is stored', () => {
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <TestComponent />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByTestId('language')).toHaveTextContent('en');
@@ -45,9 +45,9 @@ describe('I18nContext', () => {
     localStorage.setItem('language', 'fr');
 
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <TestComponent />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByTestId('language')).toHaveTextContent('fr');
@@ -56,9 +56,9 @@ describe('I18nContext', () => {
 
   it('changes language and updates translations', () => {
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <TestComponent />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByTestId('translated')).toHaveTextContent('Welcome to our app');
@@ -71,14 +71,14 @@ describe('I18nContext', () => {
 
   it('returns key if translation is missing', () => {
     const TestMissingKey = () => {
-      const { t } = useI18n();
+      const { t } = useTranslate();
       return <span data-testid="missing">{t('nonexistentKey')}</span>;
     };
 
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <TestMissingKey />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByTestId('missing')).toHaveTextContent('nonexistentKey');
@@ -87,7 +87,9 @@ describe('I18nContext', () => {
   it('throws error when useI18n is used outside provider', () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(() => render(<TestComponent />)).toThrow('useI18n must be used within an I18nProvider');
+    expect(() => render(<TestComponent />)).toThrow(
+      'useTranslation must be used within an TranslationProvider'
+    );
 
     consoleError.mockRestore();
   });
@@ -95,9 +97,9 @@ describe('I18nContext', () => {
   describe('interpolation', () => {
     it('interpolates single value', () => {
       render(
-        <I18nProvider>
+        <TranslationProvider>
           <TestInterpolation />
-        </I18nProvider>
+        </TranslationProvider>
       );
 
       expect(screen.getByTestId('simple')).toHaveTextContent('Must be at least 3 characters');
@@ -105,9 +107,9 @@ describe('I18nContext', () => {
 
     it('interpolates multiple values', () => {
       render(
-        <I18nProvider>
+        <TranslationProvider>
           <TestInterpolation />
-        </I18nProvider>
+        </TranslationProvider>
       );
 
       expect(screen.getByTestId('multiple')).toHaveTextContent('John has 5 items');
@@ -115,14 +117,14 @@ describe('I18nContext', () => {
 
     it('handles missing interpolation values', () => {
       const TestMissingValues = () => {
-        const { t } = useI18n();
+        const { t } = useTranslate();
         return <span data-testid="missing">{t('minLength')}</span>;
       };
 
       render(
-        <I18nProvider>
+        <TranslationProvider>
           <TestMissingValues />
-        </I18nProvider>
+        </TranslationProvider>
       );
 
       expect(screen.getByTestId('missing')).toHaveTextContent(
@@ -132,14 +134,14 @@ describe('I18nContext', () => {
 
     it('handles non-string interpolation values', () => {
       const TestNumberValues = () => {
-        const { t } = useI18n();
+        const { t } = useTranslate();
         return <span data-testid="number">{t('minLength', { length: 3 })}</span>;
       };
 
       render(
-        <I18nProvider>
+        <TranslationProvider>
           <TestNumberValues />
-        </I18nProvider>
+        </TranslationProvider>
       );
 
       expect(screen.getByTestId('number')).toHaveTextContent('Must be at least 3 characters');

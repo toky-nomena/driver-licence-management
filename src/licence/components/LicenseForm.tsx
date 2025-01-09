@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 import { GenderRadio } from '@/licence/components/GenderRadio';
 import { InputWithCopy } from '@/licence/components/InputWithCopy';
 import { generateRandomData } from '@/licence/utils/data';
@@ -42,7 +42,7 @@ const defaultValues: LicenseFormValues = {
 };
 
 export function LicenseForm({ onSubmit }: LicenseFormProps) {
-  const { t } = useI18n();
+  const { t } = useTranslate();
 
   const licenseForm = useForm<LicenseFormValues>({
     defaultValues,
@@ -98,7 +98,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
 
   return (
     <form
-      className="flex h-full flex-col @container"
+      className="flex h-full flex-col bg-background @container"
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();

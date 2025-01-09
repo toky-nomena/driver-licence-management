@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useI18n } from '../i18n/I18nContext';
+import { useTranslate } from '../i18n/TranslationContext';
 
 import { Button } from './ui/button';
 
 export const LanguageSwitcher: React.FC = () => {
-  const { language, setLanguage } = useI18n();
+  const { language, setLanguage } = useTranslate();
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'fr' : 'en');

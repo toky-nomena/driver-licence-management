@@ -6,14 +6,14 @@ import type { StoredLicense } from '../types';
 
 import { provinces } from './provinces';
 
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 import { format } from '@/lib/date';
 import { Copy } from '@/licence/components/Copy';
 
 const columnHelper = createColumnHelper<StoredLicense>();
 
 export function useColumns() {
-  const { t } = useI18n();
+  const { t } = useTranslate();
 
   return [
     columnHelper.accessor('province', {

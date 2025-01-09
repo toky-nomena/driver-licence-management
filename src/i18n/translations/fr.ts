@@ -6,7 +6,7 @@ export const fr = {
   // Add more translations as needed
 
   // License Form
-  newLicense: 'Nouvelle licence',
+  newLicense: 'Nouveau permis de conduire',
   firstName: 'Prénom',
   lastName: 'Nom de famille',
   dateOfBirth: 'Date de naissance',

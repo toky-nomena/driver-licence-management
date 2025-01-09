@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 
 import { LanguageSwitcher } from '../LanguageSwitcher';
 
-import { I18nProvider } from '@/i18n/I18nContext';
+import { TranslationProvider } from '@/i18n/TranslationContext';
 
 describe('LanguageSwitcher', () => {
   beforeEach(() => {
@@ -12,9 +12,9 @@ describe('LanguageSwitcher', () => {
 
   it('displays current language code', () => {
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <LanguageSwitcher />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByRole('button')).toHaveTextContent('EN');
@@ -22,9 +22,9 @@ describe('LanguageSwitcher', () => {
 
   it('toggles between languages', () => {
     render(
-      <I18nProvider>
+      <TranslationProvider>
         <LanguageSwitcher />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     const button = screen.getByRole('button');
@@ -39,9 +39,9 @@ describe('LanguageSwitcher', () => {
 
   it('persists language selection', () => {
     const { rerender } = render(
-      <I18nProvider>
+      <TranslationProvider>
         <LanguageSwitcher />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     fireEvent.click(screen.getByRole('button'));
@@ -49,9 +49,9 @@ describe('LanguageSwitcher', () => {
 
     // Unmount and remount to test persistence
     rerender(
-      <I18nProvider>
+      <TranslationProvider>
         <LanguageSwitcher />
-      </I18nProvider>
+      </TranslationProvider>
     );
 
     expect(screen.getByRole('button')).toHaveTextContent('FR');

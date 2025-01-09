@@ -7,7 +7,7 @@ import { Copy } from './Copy';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 import { format } from '@/lib/date';
 
 interface StoredLicenseDetailsProps {
@@ -15,7 +15,7 @@ interface StoredLicenseDetailsProps {
 }
 
 export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
-  const { t } = useI18n();
+  const { t } = useTranslate();
   const provinceDetails = provinces.find((p) => p.code === license.province);
 
   return (

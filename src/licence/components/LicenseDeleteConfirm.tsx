@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 
 interface LicenseDeleteConfirmProps {
   licence: StoredLicense;
@@ -22,7 +22,7 @@ interface LicenseDeleteConfirmProps {
 }
 
 export function LicenseDeleteConfirm({ licence, onConfirm }: LicenseDeleteConfirmProps) {
-  const { t } = useI18n();
+  const { t } = useTranslate();
 
   return (
     <AlertDialog>

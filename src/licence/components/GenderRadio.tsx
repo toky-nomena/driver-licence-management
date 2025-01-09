@@ -1,5 +1,5 @@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { useI18n } from '@/i18n/I18nContext';
+import { useTranslate } from '@/i18n/TranslationContext';
 import { cn } from '@/lib/utils';
 
 interface GenderRadioProps {
@@ -10,7 +10,7 @@ interface GenderRadioProps {
 }
 
 export function GenderRadio({ value, onChange, className, disabled }: GenderRadioProps) {
-  const { t } = useI18n();
+  const { t } = useTranslate();
   return (
     <RadioGroup
       disabled={disabled}
