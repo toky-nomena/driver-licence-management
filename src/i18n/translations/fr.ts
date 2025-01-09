@@ -95,4 +95,8 @@ export const fr = {
   dataCleared: 'Données effacées avec succès',
   licenseDeleted: 'Permis supprimé avec succès',
   licenseAdded: 'Permis ajouté avec succès',
+
+  emptyFormWarning: 'Veuillez remplir le formulaire pour générer un permis de conduire',
+
+  appWarning: 'Ne pas utiliser des donnees reelles. Ceci est une outil de developpement.',
 };

@@ -5,6 +5,7 @@ import { provinces } from '../data/provinces';
 import type { LicenseFormValues } from '../types';
 import { DriverLicenseFactory } from '../utils/license/DrivingLicenseFactory';
 
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Input } from '@/components/ui/input';
@@ -105,7 +106,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
         void licenseForm.handleSubmit();
       }}
     >
-      <div className="border-b p-3">
+      <div className="gap-2 border-b p-3">
         <h2 className="font-semibold">{t('newLicense')}</h2>
       </div>
       <ScrollArea className="flex-grow">
@@ -294,7 +295,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 ] as const
               }
               children={([firstName, middleName, lastName, dateOfBirth, province, option]) => {
-                const { license, errors } = DriverLicenseFactory.generate({
+                const { license } = DriverLicenseFactory.generate({
                   firstName,
                   lastName,
                   dateOfBirth,
@@ -305,21 +306,31 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
 
                 return (
                   <div>
-                    <Label className="mb-2 block text-sm font-medium">{t('drivingLicense')}</Label>
-
                     <span className="flex items-center gap-2">
-                      {license ? (
-                        <span className="text-xl font-semibold" aria-label={t('generatedLicense')}>
-                          {license}
-                        </span>
-                      ) : (
-                        <ul aria-live="assertive" className="list-disc pl-6 text-sm text-red-500">
-                          {errors.map((error) => (
-                            <li key={error}>{error}</li>
-                          ))}
-                        </ul>
-                      )}
-                      {license && <CopyButton value={license} />}
+                      <Alert variant="default">
+                        <AlertTitle>
+                          <Label className="mb-2 block text-sm font-medium">
+                            {t('drivingLicense')}
+                          </Label>
+                        </AlertTitle>
+                        <AlertDescription>
+                          {license ? (
+                            <div className="flex items-center gap-4">
+                              <span
+                                className="text-xl font-semibold"
+                                aria-label={t('generatedLicense')}
+                              >
+                                {license}
+                              </span>
+                              <CopyButton value={license} />
+                            </div>
+                          ) : (
+                            <span className="text-sm text-muted-foreground">
+                              {t('emptyFormWarning')}
+                            </span>
+                          )}
+                        </AlertDescription>
+                      </Alert>
                     </span>
                   </div>
                 );

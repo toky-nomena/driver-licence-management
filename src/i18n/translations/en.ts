@@ -92,4 +92,8 @@ export const en = {
   dataCleared: 'Data cleared successfully',
   licenseDeleted: 'License deleted successfully',
   licenseAdded: 'Licence added successfully',
+
+  emptyFormWarning: 'Please fill out the form to generate a driving license',
+
+  appWarning: 'Do not use real data. This is a tool for development.',
 };
