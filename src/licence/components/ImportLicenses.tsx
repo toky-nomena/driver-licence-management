@@ -53,7 +53,7 @@ export function ImportLicenses({ onImport }: ImportLicensesProps) {
         aria-label={t('importSelectFile')}
       />
       <span className="sr-only">{t('importButton')}</span>
-      <Upload className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+      <Upload className="h-4 w-4 text-muted-foreground" />
     </Button>
   );
 }

@@ -92,7 +92,7 @@ export function MainPage() {
         direction="horizontal"
         className="flex flex-1 flex-col gap-2 overflow-hidden bg-muted/30 p-4 lg:flex-row"
       >
-        <ResizablePanel defaultSize={30} className="flex flex-col rounded-lg border">
+        <ResizablePanel defaultSize={30} className="flex flex-col rounded-lg border bg-background">
           <LicenseForm onSubmit={onSubmit} />
         </ResizablePanel>
         <ResizableHandle className="bg-transparent" />
@@ -102,7 +102,7 @@ export function MainPage() {
               <div className="z-50 flex items-center justify-between gap-4 pb-4">
                 <div className="flex items-center gap-2">
                   <div className="relative w-96 rounded-lg bg-background">
-                    <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground dark:text-gray-400" />
+                    <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       type="search"
                       placeholder={t('search')}
@@ -116,7 +116,7 @@ export function MainPage() {
                   <ColumnsVisibility table={table} />
                   <DeleteAllAlert onConfirm={clearAllData}>
                     <span className="sr-only">Delete all licenses</span>
-                    <Trash2 className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                    <Trash2 className="h-4 w-4 text-muted-foreground" />
                   </DeleteAllAlert>
                   <ImportLicenses onImport={handleImport} />
                   <Button
@@ -125,7 +125,7 @@ export function MainPage() {
                     onClick={() => downloadLicenses(data)}
                   >
                     <span className="sr-only">Download licenses</span>
-                    <Download className="h-4 w-4 text-slate-700 dark:text-slate-300" />
+                    <Download className="h-4 w-4 text-muted-foreground" />
                   </Button>
                 </div>
               </div>
