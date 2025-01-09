@@ -99,4 +99,6 @@ export const fr = {
   emptyFormWarning: 'Veuillez remplir le formulaire pour générer un permis de conduire',
 
   appWarning: 'Ne pas utiliser des donnees reelles. Ceci est une outil de developpement.',
+
+  close: 'Fermer',
 };

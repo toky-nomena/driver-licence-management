@@ -1,6 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-import containerQueries from '@tailwindcss/container-queries';
-import tailwindcssAnimate from 'tailwindcss-animate';
+import queries from '@tailwindcss/container-queries';
+import type { Config } from 'tailwindcss';
+import animate from 'tailwindcss-animate';
 
 export default {
   darkMode: ['class'],
@@ -27,7 +27,7 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#2563eb',
+          DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
@@ -89,5 +89,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate, containerQueries],
-};
+  plugins: [queries, animate],
+} satisfies Config;

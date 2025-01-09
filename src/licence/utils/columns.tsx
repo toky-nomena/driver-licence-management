@@ -18,6 +18,7 @@ export function useColumns() {
   return [
     columnHelper.accessor('province', {
       header: '',
+      id: 'province',
       cell: (info) => {
         const province = provinces.find((p) => p.code === info.getValue());
         const value = province ? province.code : info.getValue() || '';
@@ -26,7 +27,9 @@ export function useColumns() {
             className="flex w-full items-center justify-center py-2"
             aria-label={t('userInitials')}
           >
-            <figure className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+            <figure
+              className={`flex h-8 w-8 items-center justify-center rounded-full ${province?.color || 'bg-muted'}`}
+            >
               <span className="text-xs font-semibold">{value}</span>
             </figure>
           </div>

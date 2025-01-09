@@ -96,4 +96,6 @@ export const en = {
   emptyFormWarning: 'Please fill out the form to generate a driving license',
 
   appWarning: 'Do not use real data. This is a tool for development.',
+
+  close: 'Close',
 };

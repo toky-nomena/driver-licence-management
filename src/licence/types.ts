@@ -15,3 +15,9 @@ export interface StoredLicense extends LicenseFormValues {
   id?: string;
   createdAt?: number;
 }
+
+export interface Province {
+  code: string;
+  name: string;
+  color: string;
+}

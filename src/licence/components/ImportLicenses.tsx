@@ -27,9 +27,20 @@ export function ImportLicenses({ onImport }: ImportLicensesProps) {
         }
 
         onImport(data);
-        toast(t('importSuccess', { count: data.length }));
+
+        toast(t('importSuccess', { count: data.length }), {
+          action: {
+            label: t('close'),
+            onClick: () => toast.dismiss(),
+          },
+        });
       } catch (error) {
-        toast(t(error instanceof SyntaxError ? 'importInvalidFormat' : 'importError'));
+        toast(t(error instanceof SyntaxError ? 'importInvalidFormat' : 'importError'), {
+          action: {
+            label: t('close'),
+            onClick: () => toast.dismiss(),
+          },
+        });
       }
 
       // Reset the input

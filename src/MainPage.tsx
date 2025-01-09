@@ -36,12 +36,22 @@ export function MainPage() {
 
   const clearAllData = () => {
     setData([]);
-    toast(t('dataCleared'));
+    toast(t('dataCleared'), {
+      action: {
+        label: t('close'),
+        onClick: () => toast.dismiss(),
+      },
+    });
   };
 
   const onSubmit = (newPerson: StoredLicense) => {
     setData((prev) => [newPerson, ...prev]);
-    toast(t('licenseAdded'));
+    toast(t('licenseAdded'), {
+      action: {
+        label: t('close'),
+        onClick: () => toast.dismiss(),
+      },
+    });
   };
 
   const columns = useColumns();
@@ -53,7 +63,12 @@ export function MainPage() {
   // Handle row deletion
   const onDeleteRow = (rowIndex: number) => {
     setData((items) => items.filter((_, index) => index !== rowIndex));
-    toast(t('licenseDeleted'));
+    toast(t('licenseDeleted'), {
+      action: {
+        label: t('close'),
+        onClick: () => toast.dismiss(),
+      },
+    });
   };
 
   const handleImport = useCallback(
