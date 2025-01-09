@@ -98,7 +98,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
 
   return (
     <form
-      className="flex h-full flex-col bg-background @container"
+      className="flex h-full flex-col bg-background shadow-md @container"
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -330,7 +330,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       </ScrollArea>
 
       <licenseForm.Subscribe
-        selector={(state) => [state.canSubmit, state.isSubmitting]}
+        selector={(state) => [state.canSubmit, state.isSubmitting, state.values] as const}
         children={([canSubmit, isSubmitting]) => (
           <div className="border-t p-4">
             <div className="flex flex-col gap-2 @[400px]:flex-row @[400px]:items-center">
@@ -356,7 +356,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <span>{t('reset')}</span>
                 </Button>
               </div>
-              <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
+              <Button type="submit" className="text-white" disabled={!canSubmit || isSubmitting}>
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (

@@ -10,6 +10,8 @@ import { useState } from 'react';
 
 import { useColumns } from '../utils/columns';
 
+import { ColumnVisibilityDropdown } from './ColumnVisibilityDropdown';
+
 import { Pagination } from '@/components/ui/pagination';
 import {
   Table,
@@ -113,6 +115,7 @@ export function LicenseTable({
             onPaginationChange({ ...pagination, pageIndex: 0, pageSize: size });
           }}
         />
+        <ColumnVisibilityDropdown table={table} />
       </div>
     </div>
   );

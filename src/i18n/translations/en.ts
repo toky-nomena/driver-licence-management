@@ -75,4 +75,6 @@ export const en = {
   title: 'Driving License Generator',
 
   customMessage: '{{name}} has {{count}} items',
+
+  toggleColumns: 'Toggle columns',
 };

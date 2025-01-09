@@ -29,7 +29,7 @@ export function MainPage() {
 
   return (
     <div className="flex h-screen flex-col bg-muted/30">
-      <div className="flex items-center justify-between border-b bg-gradient-to-r from-primary/90 via-primary to-indigo-600/90 px-4 py-2 text-white dark:border-gray-700">
+      <div className="flex items-center justify-between border-b bg-primary bg-gradient-to-r px-4 py-2 text-white dark:border-gray-700">
         <h1 className="font-semibold">{t('title')}</h1>
         <div className="flex flex-row items-center justify-center gap-2">
           <ThemeSwitcher />

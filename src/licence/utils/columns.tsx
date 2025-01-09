@@ -32,6 +32,7 @@ export function useColumns() {
           </div>
         );
       },
+      enableHiding: false,
     }),
     columnHelper.accessor('firstName', {
       header: t('firstName'),
@@ -67,6 +68,7 @@ export function useColumns() {
     columnHelper.display({
       id: 'actions',
       header: t('actions'),
+      enableHiding: false,
       cell: ({ row, table }) => {
         const meta = table.options.meta as {
           onDeleteRow?: (index: number) => void;

@@ -3,7 +3,9 @@ import { FileStack } from 'lucide-react';
 export function EmptyList() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center space-y-4 bg-muted/30 p-8 text-center">
-      <FileStack className="h-16 w-16 text-slate-400 dark:text-slate-500" />
+      <div className="rounded-full bg-emerald-100 p-4 dark:bg-emerald-900/30">
+        <FileStack className="h-12 w-12 text-emerald-600 dark:text-emerald-400" />
+      </div>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
           No Driving Licenses Yet
