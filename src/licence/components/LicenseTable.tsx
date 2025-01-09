@@ -1,16 +1,5 @@
-import {
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-  getFilteredRowModel,
-} from '@tanstack/react-table';
-import type { PaginationState } from '@tanstack/react-table';
-import { useState } from 'react';
-
-import { useColumns } from '../utils/columns';
-
-import { ColumnVisibilityDropdown } from './ColumnVisibilityDropdown';
+import { flexRender } from '@tanstack/react-table';
+import type { Table as ReactTable } from '@tanstack/react-table';
 
 import { Pagination } from '@/components/ui/pagination';
 import {
@@ -24,53 +13,12 @@ import {
 import type { StoredLicense } from '@/licence/types';
 
 interface LicenseTableProps {
-  globalFilter: string;
-  onGlobalFilterChange: (value: string) => void;
-  onUpdateData: (data: StoredLicense[]) => void;
-  data: StoredLicense[];
+  table: ReactTable<StoredLicense>;
+  onPaginationChange: (page: { pageIndex: number; pageSize: number }) => void;
+  pagination: { pageIndex: number; pageSize: number };
 }
 
-export function LicenseTable({
-  globalFilter,
-  onGlobalFilterChange,
-  onUpdateData,
-  data,
-}: LicenseTableProps) {
-  const columns = useColumns();
-  const [pagination, onPaginationChange] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 50,
-  });
-
-  // Handle row deletion
-  const onDeleteRow = (rowIndex: number) => {
-    onUpdateData(data.filter((_, index) => index !== rowIndex));
-  };
-
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      pagination,
-      globalFilter,
-    },
-    onGlobalFilterChange,
-    onPaginationChange,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    meta: {
-      onDeleteRow,
-    },
-    globalFilterFn: (row, _, filterValue) => {
-      const search = filterValue.toLowerCase().trim();
-      return (
-        row.original.firstName.toLowerCase().includes(search) ||
-        row.original.lastName.toLowerCase().includes(search)
-      );
-    },
-  });
-
+export function LicenseTable({ table, onPaginationChange, pagination }: LicenseTableProps) {
   return (
     <div className="flex flex-1 flex-col overflow-hidden rounded-lg border bg-background">
       <div className="flex flex-1 overflow-auto">
@@ -115,7 +63,6 @@ export function LicenseTable({
             onPaginationChange({ ...pagination, pageIndex: 0, pageSize: size });
           }}
         />
-        <ColumnVisibilityDropdown table={table} />
       </div>
     </div>
   );

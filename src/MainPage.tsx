@@ -1,3 +1,10 @@
+import {
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+  getFilteredRowModel,
+} from '@tanstack/react-table';
+import type { PaginationState } from '@tanstack/react-table';
 import { Search, Trash2, Download } from 'lucide-react';
 import { useState } from 'react';
 
@@ -5,11 +12,13 @@ import { useLocalStorage } from './components/hooks/useLocalStorage';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Button } from './components/ui/button';
 import { useTranslate } from './i18n/TranslationContext';
+import { ColumnVisibilityDropdown } from './licence/components/ColumnVisibilityDropdown';
 import { DeleteAllAlert } from './licence/components/DeleteAllAlert';
 import { EmptyList } from './licence/components/EmptyList';
 import { LicenseForm } from './licence/components/LicenseForm';
 import { LicenseTable } from './licence/components/LicenseTable';
 import type { StoredLicense } from './licence/types';
+import { useColumns } from './licence/utils/columns';
 import { downloadLicenses } from './licence/utils/data';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
@@ -26,6 +35,41 @@ export function MainPage() {
   const onSubmit = (newPerson: StoredLicense) => {
     setData((prev) => [newPerson, ...prev]);
   };
+
+  const columns = useColumns();
+  const [pagination, onPaginationChange] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 50,
+  });
+
+  // Handle row deletion
+  const onDeleteRow = (rowIndex: number) => {
+    setData(data.filter((_, index) => index !== rowIndex));
+  };
+
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      pagination,
+      globalFilter,
+    },
+    onGlobalFilterChange,
+    onPaginationChange,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    meta: {
+      onDeleteRow,
+    },
+    globalFilterFn: (row, _, filterValue) => {
+      const search = filterValue.toLowerCase().trim();
+      return (
+        row.original.firstName.toLowerCase().includes(search) ||
+        row.original.lastName.toLowerCase().includes(search)
+      );
+    },
+  });
 
   return (
     <div className="flex h-screen flex-col bg-muted/30">
@@ -48,15 +92,18 @@ export function MainPage() {
           {data.length > 0 ? (
             <>
               <div className="z-50 flex items-center justify-between gap-4 pb-4">
-                <div className="relative w-96 rounded-lg bg-background">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground dark:text-gray-400" />
-                  <Input
-                    type="search"
-                    placeholder={t('search')}
-                    className="w-full pl-8"
-                    value={globalFilter}
-                    onChange={(e) => onGlobalFilterChange(e.target.value)}
-                  />
+                <div className="flex items-center gap-2">
+                  <div className="relative w-96 rounded-lg bg-background">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground dark:text-gray-400" />
+                    <Input
+                      type="search"
+                      placeholder={t('search')}
+                      className="w-full pl-8"
+                      value={globalFilter}
+                      onChange={(e) => onGlobalFilterChange(e.target.value)}
+                    />
+                  </div>
+                  <ColumnVisibilityDropdown table={table} />
                 </div>
                 <div className="flex items-center">
                   {data.length > 0 && (
@@ -72,10 +119,9 @@ export function MainPage() {
                 </div>
               </div>
               <LicenseTable
-                data={data}
-                onUpdateData={setData}
-                globalFilter={globalFilter}
-                onGlobalFilterChange={onGlobalFilterChange}
+                table={table}
+                onPaginationChange={onPaginationChange}
+                pagination={pagination}
               />
             </>
           ) : (
