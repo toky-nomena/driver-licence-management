@@ -85,6 +85,8 @@ export function MainPage() {
     },
   });
 
+  const hasData = data.length > 0;
+
   return (
     <div className="flex h-screen flex-col bg-muted/30">
       <MainHeader />
@@ -97,47 +99,49 @@ export function MainPage() {
         </ResizablePanel>
         <ResizableHandle className="bg-transparent" />
         <ResizablePanel defaultValue={75} className="flex flex-col rounded-lg pl-[2px] pt-[2px]">
-          {data.length > 0 ? (
-            <>
-              <div className="z-50 flex items-center justify-between gap-4 pb-4">
-                <div className="flex items-center gap-2">
-                  <div className="relative w-96 rounded-lg bg-background">
-                    <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder={t('search')}
-                      className="h-10 w-full pl-8"
-                      value={globalFilter}
-                      onChange={(e) => onGlobalFilterChange(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 pt-1">
-                  <ColumnsVisibility table={table} />
-                  <DeleteAllAlert onConfirm={clearAllData}>
-                    <span className="sr-only">Delete all licenses</span>
-                    <Trash2 className="h-4 w-4 text-muted-foreground" />
-                  </DeleteAllAlert>
-                  <ImportLicenses onImport={handleImport} />
-                  <Button
-                    variant="outline"
-                    className="h-10 w-10"
-                    onClick={() => downloadLicenses(data)}
-                  >
-                    <span className="sr-only">Download licenses</span>
-                    <Download className="h-4 w-4 text-muted-foreground" />
-                  </Button>
+          <>
+            <div className="z-50 flex items-center justify-between gap-4 pb-4">
+              <div className="flex items-center gap-2">
+                <div className="relative w-96 rounded-lg bg-background">
+                  <Search className="absolute left-2 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="search"
+                    placeholder={t('search')}
+                    className="h-10 w-full pl-8"
+                    value={globalFilter}
+                    onChange={(e) => onGlobalFilterChange(e.target.value)}
+                    disabled={!hasData}
+                  />
                 </div>
               </div>
+              <div className="flex items-center gap-2 pt-1">
+                <ColumnsVisibility table={table} disabled={!hasData} />
+                <DeleteAllAlert onConfirm={clearAllData} disabled={!hasData}>
+                  <span className="sr-only">Delete all licenses</span>
+                  <Trash2 className="h-4 w-4 text-muted-foreground" />
+                </DeleteAllAlert>
+                <ImportLicenses onImport={handleImport} />
+                <Button
+                  variant="outline"
+                  className="h-10 w-10"
+                  onClick={() => downloadLicenses(data)}
+                  disabled={!hasData}
+                >
+                  <span className="sr-only">Download licenses</span>
+                  <Download className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </div>
+            </div>
+            {hasData ? (
               <LicenseTable
                 table={table}
                 onPaginationChange={onPaginationChange}
                 pagination={pagination}
               />
-            </>
-          ) : (
-            <EmptyList />
-          )}
+            ) : (
+              <EmptyList />
+            )}
+          </>
         </ResizablePanel>
       </ResizablePanelGroup>
       <Toaster expand={true} richColors />

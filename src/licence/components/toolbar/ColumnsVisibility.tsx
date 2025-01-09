@@ -1,5 +1,5 @@
 import type { Table } from '@tanstack/react-table';
-import { SlidersHorizontal } from 'lucide-react';
+import { Settings2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -15,37 +15,36 @@ import type { StoredLicense } from '@/licence/types';
 
 interface ColumnsVisibilityProps {
   table: Table<StoredLicense>;
+  disabled?: boolean;
 }
 
-export function ColumnsVisibility({ table }: ColumnsVisibilityProps) {
+export function ColumnsVisibility({ table, disabled }: ColumnsVisibilityProps) {
   const { t } = useTranslate();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="ml-auto hidden h-10 lg:flex">
-          <SlidersHorizontal className="mr-2 h-4 w-4" />
-          {t('columns')}
+        <Button variant="outline" className="h-10 w-10" disabled={disabled}>
+          <Settings2 className="h-4 w-4 text-muted-foreground" />
+          <span className="sr-only">{t('toggleColumns')}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[250px]">
-        <DropdownMenuLabel>{t('toggleColumns')}</DropdownMenuLabel>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>{t('columns')}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {table
-          .getAllColumns()
-          .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
-          .map((column) => {
-            return (
-              <DropdownMenuCheckboxItem
-                key={column.id}
-                className="capitalize"
-                checked={column.getIsVisible()}
-                onCheckedChange={(value) => column.toggleVisibility(!!value)}
-              >
-                {t(column.id)}
-              </DropdownMenuCheckboxItem>
-            );
-          })}
+        {table.getAllColumns().map((column) => {
+          if (!column.getCanHide()) return null;
+          return (
+            <DropdownMenuCheckboxItem
+              key={column.id}
+              className="capitalize"
+              checked={column.getIsVisible()}
+              onCheckedChange={(value) => column.toggleVisibility(!!value)}
+            >
+              {t(column.id)}
+            </DropdownMenuCheckboxItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

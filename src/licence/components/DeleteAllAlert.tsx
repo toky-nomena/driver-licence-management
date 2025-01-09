@@ -16,16 +16,16 @@ import { useTranslate } from '@/i18n/TranslationContext';
 interface DeleteAllAlertProps {
   onConfirm: () => void;
   children: React.ReactNode;
-  className?: string;
+  disabled?: boolean;
 }
 
-export function DeleteAllAlert({ onConfirm, children }: DeleteAllAlertProps) {
+export function DeleteAllAlert({ onConfirm, children, disabled }: DeleteAllAlertProps) {
   const { t } = useTranslate();
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="h-10 w-10" size="icon">
+        <Button variant="outline" className="h-10 w-10" disabled={disabled}>
           {children}
         </Button>
       </AlertDialogTrigger>
