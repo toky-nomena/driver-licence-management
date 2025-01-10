@@ -1,30 +1,31 @@
-import { faker } from '@faker-js/faker';
+import { randFirstName, randLastName, rand, randEmail, randBetweenDate } from '@ngneat/falso';
 
 import type { StoredLicense } from '../types';
 
 import { format } from '@/lib/date';
 
 export function generateRandomData(template: Partial<StoredLicense> = {}): StoredLicense {
-  const firstName = template?.firstName || faker.person.firstName(template?.gender);
-  const lastName = template?.lastName || faker.person.lastName(template?.gender);
-  const middleName = template?.middleName || faker.person.middleName(template?.gender);
-  const gender = template?.gender || faker.helpers.arrayElement(['male', 'female'] as const);
+  const gender = template.gender || rand(['male', 'female'] as const);
+
+  const firstName = template.firstName || randFirstName({ gender, withAccents: false });
+  const lastName = template.lastName || randLastName({ withAccents: false });
+  const middleName = template.middleName || randLastName({ withAccents: false });
 
   const email =
-    template?.email ||
-    faker.internet.email({ firstName, lastName, allowSpecialCharacters: false }).toLowerCase();
+    template.email || randEmail({ firstName, lastName, nameSeparator: '.' }).toLowerCase();
+
   const dateOfBirth =
-    template?.dateOfBirth ||
-    format(faker.date.between({ from: '1950-01-01', to: '2005-12-31' }), 'YYYY-MM-DD');
+    template.dateOfBirth ||
+    format(randBetweenDate({ from: '1950-01-01', to: '2005-12-31' }), 'YYYY-MM-DD');
 
   return {
+    ...template,
     gender,
     firstName,
-    middleName,
     lastName,
+    middleName,
     dateOfBirth,
     email,
-    province: template?.province,
   };
 }
 
@@ -45,7 +46,7 @@ export function merge<T extends Record<string, any>>(values: Partial<T>, default
   const result = {} as T;
 
   for (const key of Object.keys({ ...values, ...defaultValues }) as (keyof T)[]) {
-    result[key] = values[key] || defaultValues[key];
+    result[key] = values[key] ?? defaultValues[key];
   }
 
   return result;

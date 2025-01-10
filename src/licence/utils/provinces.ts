@@ -12,24 +12,9 @@ export const provinces: Province[] = [
     color: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
   },
   {
-    code: 'BC',
-    name: 'British Columbia',
-    color: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300',
-  },
-  {
     code: 'AB',
     name: 'Alberta',
     color: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
-  },
-  {
-    code: 'MB',
-    name: 'Manitoba',
-    color: 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300',
-  },
-  {
-    code: 'SK',
-    name: 'Saskatchewan',
-    color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300',
   },
   {
     code: 'NS',

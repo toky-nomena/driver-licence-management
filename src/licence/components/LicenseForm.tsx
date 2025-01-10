@@ -108,7 +108,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={(e) => field.handleChange(e.target.value.trim())}
                       placeholder={t('enterFirstName')}
                       className="mt-1"
                       error={field.state.meta.errorMap.onChange}
@@ -131,7 +131,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={(e) => field.handleChange(e.target.value.trim())}
                       placeholder={t('enterLastName')}
                       className="mt-1"
                       error={field.state.meta.errorMap.onChange}
@@ -231,7 +231,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={(e) => field.handleChange(e.target.value.trim())}
                       type="email"
                       placeholder={t('enterEmail')}
                       className="mt-1"
@@ -271,7 +271,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                     disabled={licenseForm.state.isSubmitting}
                     name={field.name}
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(e.target.value.trim())}
                     placeholder={t('enterDescription')}
                     className="mt-1 resize-none"
                   />
@@ -280,26 +280,9 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
             </licenseForm.Field>
 
             <licenseForm.Subscribe
-              selector={(state) =>
-                [
-                  state.values.firstName,
-                  state.values.middleName,
-                  state.values.lastName,
-                  state.values.dateOfBirth,
-                  state.values.province,
-                  state.values.option,
-                ] as const
-              }
-              children={([firstName, middleName, lastName, dateOfBirth, province, option]) => {
-                const { license } = DriverLicenseFactory.generate({
-                  firstName,
-                  lastName,
-                  dateOfBirth,
-                  province,
-                  option,
-                  middleName,
-                });
-
+              selector={(state) => state.values}
+              children={(values) => {
+                const { license } = DriverLicenseFactory.generate(values);
                 return (
                   <div>
                     <span className="flex items-center gap-2">
@@ -366,7 +349,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               </div>
               <Button type="submit" variant="outline" disabled={!canSubmit || isSubmitting}>
                 {isSubmitting ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-1 h-4 w-4 animate-spin" />
                 ) : (
                   <Save className="mr-1 h-4 w-4" />
                 )}
