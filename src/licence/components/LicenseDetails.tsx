@@ -26,7 +26,7 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-md">
-        <div className="mt-3 space-y-4">
+        <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between">
               <span className="font-semibold">{t('licenseDetails')}</span>

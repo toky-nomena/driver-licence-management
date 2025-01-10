@@ -22,7 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useTranslate } from '@/i18n/TranslationContext';
 import { GenderRadio } from '@/licence/components/GenderRadio';
 import { InputWithCopy } from '@/licence/components/InputWithCopy';
-import { generateRandomData } from '@/licence/utils/data';
+import { generateRandomData, merge } from '@/licence/utils/data';
 import { isValidDateOfBirth, isValidName } from '@/licence/utils/validators';
 
 interface LicenseFormProps {
@@ -48,41 +48,20 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
   const licenseForm = useForm<LicenseFormValues>({
     defaultValues,
     onSubmit: async ({ value }) => {
-      const { license } = DriverLicenseFactory.generate({
-        firstName: value.firstName,
-        lastName: value.lastName,
-        dateOfBirth: value.dateOfBirth,
-        province: value.province,
-        option: value.option,
-        middleName: value.middleName,
-      });
+      // Simulate a 500ms delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      const { license: drivingLicense } = DriverLicenseFactory.generate(value);
 
-      onSubmit({
-        ...value,
-        drivingLicense: license,
-      });
-
-      reset({ province: value.province });
+      if (drivingLicense) {
+        onSubmit({ ...value, drivingLicense });
+        reset({ province: value.province });
+      }
     },
   });
 
   const reset = (newValues: Partial<LicenseFormValues>) => {
-    const data = {
-      firstName: newValues.firstName || defaultValues.firstName,
-      lastName: newValues.lastName || defaultValues.lastName,
-      dateOfBirth: newValues.dateOfBirth || defaultValues.dateOfBirth,
-      email: newValues.email || defaultValues.email,
-      drivingLicense: newValues.drivingLicense || defaultValues.drivingLicense,
-      description: newValues.description || defaultValues.description,
-      gender: newValues.gender || defaultValues.gender,
-      province: newValues.province || defaultValues.province,
-      option: newValues.option || defaultValues.option,
-      middleName: newValues.middleName || defaultValues.middleName,
-    };
-
-    licenseForm.reset(data);
+    licenseForm.reset(merge(newValues, defaultValues));
     licenseForm.setFieldValue('province', newValues.province);
   };
 

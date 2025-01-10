@@ -7,6 +7,7 @@ import { format } from '@/lib/date';
 export function generateRandomData(template: Partial<StoredLicense> = {}): StoredLicense {
   const firstName = template?.firstName || faker.person.firstName(template?.gender);
   const lastName = template?.lastName || faker.person.lastName(template?.gender);
+  const middleName = template?.middleName || faker.person.middleName(template?.gender);
   const gender = template?.gender || faker.helpers.arrayElement(['male', 'female'] as const);
 
   const email =
@@ -19,6 +20,7 @@ export function generateRandomData(template: Partial<StoredLicense> = {}): Store
   return {
     gender,
     firstName,
+    middleName,
     lastName,
     dateOfBirth,
     email,
@@ -37,3 +39,14 @@ export const downloadLicenses = <T>(data: T) => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function merge<T extends Record<string, any>>(values: Partial<T>, defaultValues: T): T {
+  const result = {} as T;
+
+  for (const key of Object.keys(values) as (keyof T)[]) {
+    result[key] = values[key] ?? defaultValues[key];
+  }
+
+  return result;
+}
