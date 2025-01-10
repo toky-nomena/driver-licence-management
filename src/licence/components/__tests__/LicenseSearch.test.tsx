@@ -1,18 +1,13 @@
-import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
 import { LicenseSearch } from '../LicenseSearch';
 
-import { TranslationProvider } from '@/i18n/TranslationContext';
+import { render, fireEvent } from '@/tests/setup';
 
 describe('LicenseSearch Component', () => {
   it('renders search input with correct placeholder', () => {
     const mockOnChange = () => {};
-    const { getByPlaceholderText } = render(
-      <TranslationProvider>
-        <LicenseSearch onChange={mockOnChange} />
-      </TranslationProvider>
-    );
+    const { getByPlaceholderText } = render(<LicenseSearch onChange={mockOnChange} />);
 
     const input = getByPlaceholderText('Search');
     expect(input).toBeTruthy();
@@ -23,11 +18,7 @@ describe('LicenseSearch Component', () => {
       expect(value).toBe('John Doe');
     };
 
-    const { getByPlaceholderText } = render(
-      <TranslationProvider>
-        <LicenseSearch onChange={handleChange} />
-      </TranslationProvider>
-    );
+    const { getByPlaceholderText } = render(<LicenseSearch onChange={handleChange} />);
 
     const input = getByPlaceholderText('Search');
     fireEvent.change(input, { target: { value: 'John Doe' } });
@@ -35,11 +26,7 @@ describe('LicenseSearch Component', () => {
 
   it('renders search icon', () => {
     const mockOnChange = () => {};
-    const { container } = render(
-      <TranslationProvider>
-        <LicenseSearch onChange={mockOnChange} />
-      </TranslationProvider>
-    );
+    const { container } = render(<LicenseSearch onChange={mockOnChange} />);
 
     const searchIcon = container.querySelector('svg');
     expect(searchIcon).toBeTruthy();

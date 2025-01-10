@@ -1,17 +1,12 @@
-import { render, screen } from '@testing-library/react';
 import { describe, it, beforeEach, expect } from 'vitest';
 
 import { provinces } from '../../utils/provinces';
 import { LicenseDetails } from '../LicenseDetails';
 
-import { TranslationProvider } from '@/i18n/TranslationContext';
 import { format } from '@/lib/date';
+import { render, screen } from '@/tests/setup';
 
 describe('LicenseDetails', () => {
-  const renderWithTranslation = (ui: React.ReactElement) => {
-    return render(<TranslationProvider>{ui}</TranslationProvider>);
-  };
-
   const mockLicense = {
     firstName: 'John',
     lastName: 'Doe',
@@ -28,7 +23,7 @@ describe('LicenseDetails', () => {
   });
 
   it('renders license details correctly', () => {
-    renderWithTranslation(<LicenseDetails license={mockLicense} />);
+    render(<LicenseDetails license={mockLicense} />);
 
     // Check personal details
     expect(screen.getByText('John')).toBeInTheDocument();
@@ -52,7 +47,7 @@ describe('LicenseDetails', () => {
   it('handles license without middle name', () => {
     const licenseWithoutMiddleName = { ...mockLicense, middleName: '' };
 
-    renderWithTranslation(<LicenseDetails license={licenseWithoutMiddleName} />);
+    render(<LicenseDetails license={licenseWithoutMiddleName} />);
 
     // Verify middle name section is not rendered
     expect(screen.queryByText('Middle Name')).not.toBeInTheDocument();
@@ -61,14 +56,14 @@ describe('LicenseDetails', () => {
   it('handles license without description', () => {
     const licenseWithoutDescription = { ...mockLicense, description: undefined };
 
-    renderWithTranslation(<LicenseDetails license={licenseWithoutDescription} />);
+    render(<LicenseDetails license={licenseWithoutDescription} />);
 
     // Verify description section is not rendered
     expect(screen.queryByText('Description')).not.toBeInTheDocument();
   });
 
   it('displays copy functionality for each detail', () => {
-    renderWithTranslation(<LicenseDetails license={mockLicense} />);
+    render(<LicenseDetails license={mockLicense} />);
 
     // Check that each detail is wrapped in a Copy component
     const copyElements = screen.getAllByRole('button', { name: /copy/i });

@@ -1,21 +1,16 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, beforeEach, expect } from 'vitest';
 
 import { LicenseForm } from '../LicenseForm';
 
-import { TranslationProvider } from '@/i18n/TranslationContext';
+import { render, screen, fireEvent, waitFor } from '@/tests/setup';
 
 describe('LicenseForm', () => {
-  const renderWithTranslation = (ui: React.ReactElement) => {
-    return render(<TranslationProvider>{ui}</TranslationProvider>);
-  };
-
   beforeEach(() => {
     localStorage.setItem('language', 'en');
   });
 
   it('renders the form with initial values', () => {
-    renderWithTranslation(<LicenseForm onSubmit={() => {}} />);
+    render(<LicenseForm onSubmit={() => {}} />);
 
     expect(screen.getByTestId('firstName')).toBeInTheDocument();
     expect(screen.getByTestId('lastName')).toBeInTheDocument();
@@ -38,7 +33,7 @@ describe('LicenseForm', () => {
       });
     };
 
-    renderWithTranslation(<LicenseForm onSubmit={mockOnSubmit} />);
+    render(<LicenseForm onSubmit={mockOnSubmit} />);
 
     fireEvent.change(screen.getByTestId('firstName'), { target: { value: 'John' } });
     fireEvent.change(screen.getByTestId('lastName'), { target: { value: 'Doe' } });
@@ -56,7 +51,7 @@ describe('LicenseForm', () => {
   });
 
   it('shows validation error for invalid email', async () => {
-    renderWithTranslation(<LicenseForm onSubmit={() => {}} />);
+    render(<LicenseForm onSubmit={() => {}} />);
 
     fireEvent.change(screen.getByTestId('email'), { target: { value: 'invalid-email' } });
     fireEvent.click(screen.getByRole('button', { name: /save/i }));
@@ -65,7 +60,7 @@ describe('LicenseForm', () => {
   });
 
   it('generates random data on inspire button click', async () => {
-    renderWithTranslation(<LicenseForm onSubmit={() => {}} />);
+    render(<LicenseForm onSubmit={() => {}} />);
 
     fireEvent.click(screen.getByRole('button', { name: /generate/i }));
 
@@ -78,7 +73,7 @@ describe('LicenseForm', () => {
   });
 
   it('resets the form on reset button click', async () => {
-    renderWithTranslation(<LicenseForm onSubmit={() => {}} />);
+    render(<LicenseForm onSubmit={() => {}} />);
 
     const firstNameInput = screen.getByTestId('firstName') as HTMLInputElement;
 
