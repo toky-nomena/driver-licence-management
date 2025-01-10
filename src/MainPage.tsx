@@ -31,7 +31,6 @@ import { cn } from '@/lib/utils';
 export function MainPage() {
   const { t } = useTranslate();
   const [globalFilter, setGlobalFilter] = useState('');
-  const [isPending, setPending] = useState(false);
   const [data, setData] = useLocalStorage<StoredLicense[]>('driving-license-data', []);
 
   const clearAllData = () => {
@@ -118,7 +117,7 @@ export function MainPage() {
         <ResizablePanel defaultValue={75} className="flex flex-col rounded-lg pl-[2px] pt-[2px]">
           <>
             <div className="z-50 flex items-center justify-between gap-4 pb-4">
-              <LicenseSearch onChange={setGlobalFilter} setPending={setPending} />
+              <LicenseSearch onChange={setGlobalFilter} />
               <div className="flex items-center gap-2 pt-1">
                 <ColumnsVisibility table={table} disabled={!hasData} />
                 <DeleteAllAlert onConfirm={clearAllData} disabled={!hasData}>
@@ -142,7 +141,7 @@ export function MainPage() {
                 table={table}
                 onPaginationChange={onPaginationChange}
                 pagination={pagination}
-                className={cn('transition-opacity duration-200', isPending && 'opacity-50')}
+                className={cn('transition-opacity duration-200')}
               />
             ) : (
               <EmptyList />

@@ -8,12 +8,11 @@ import { cn } from '@/lib/utils';
 interface LicenseSearchProps {
   onChange: (value: string) => void;
   disabled?: boolean;
-  setPending: (pending: boolean) => void;
 }
 
-export function LicenseSearch({ onChange, disabled, setPending }: LicenseSearchProps) {
+export function LicenseSearch({ onChange, disabled }: LicenseSearchProps) {
   const [state, setState] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const { t } = useTranslate();
 
@@ -30,7 +29,6 @@ export function LicenseSearch({ onChange, disabled, setPending }: LicenseSearchP
             setState(e.target.value);
             startTransition(() => {
               onChange(e.target.value);
-              setPending(isPending);
             });
           }}
           disabled={disabled}
