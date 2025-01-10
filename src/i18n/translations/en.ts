@@ -9,6 +9,7 @@ export const en = {
   newLicense: 'New driving license',
   firstName: 'First Name',
   lastName: 'Last Name',
+  middleName: 'Middle Name',
   dateOfBirth: 'Date of Birth',
   province: 'Province',
   selectProvince: 'Select a province',

@@ -46,6 +46,14 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
                   <span className="font-semibold">{license.lastName}</span>
                 </Copy>
               </div>
+              {license.middleName && (
+                <div>
+                  <p className="text-xs text-muted-foreground">{t('middleName')}</p>
+                  <Copy value={license.middleName}>
+                    <span className="font-semibold">{license.middleName}</span>
+                  </Copy>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -76,7 +84,7 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
               <div>
                 <p className="text-xs text-muted-foreground">{t('drivingLicense')}</p>
                 <Copy value={license.drivingLicense}>
-                  <span className="font-semibold">{license.drivingLicense}</span>
+                  <span className="text-lg font-semibold">{license.drivingLicense}</span>
                 </Copy>
               </div>
             </div>

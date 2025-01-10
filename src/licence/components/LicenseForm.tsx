@@ -1,9 +1,9 @@
 import { useForm } from '@tanstack/react-form';
 import { RefreshCw, Save, LucideWand2, Loader2 } from 'lucide-react';
 
-import { provinces } from '../data/provinces';
 import type { LicenseFormValues } from '../types';
 import { DriverLicenseFactory } from '../utils/license/DrivingLicenseFactory';
+import { provinces } from '../utils/provinces';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -78,6 +78,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
 
   return (
     <form
+      role="form"
       className="flex h-full flex-col bg-background shadow-md @container"
       onSubmit={(e) => {
         e.preventDefault();
@@ -102,6 +103,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('firstName')}</Label>
                     <InputWithCopy
+                      data-testid="firstName"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
@@ -123,6 +126,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('lastName')}</Label>
                     <InputWithCopy
+                      data-testid="lastName"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
@@ -147,6 +152,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('dateOfBirth')}</Label>
                     <InputWithCopy
+                      data-testid="dateOfBirth"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
@@ -165,6 +172,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('province')}</Label>
                     <Select
+                      data-testid="province"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
@@ -176,7 +185,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                       <SelectContent>
                         {provinces.map((province) => (
                           <SelectItem key={province.code} value={province.code}>
-                            {province.label} ({province.code})
+                            {province.name} ({province.code})
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -191,6 +200,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 <div>
                   <Label>{t('gender')}</Label>
                   <GenderRadio
+                    data-testid="gender"
+                    aria-labelledby={field.name}
                     className="mt-1"
                     disabled={licenseForm.state.isSubmitting}
                     value={field.state.value as 'male' | 'female'}
@@ -215,6 +226,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('email')}</Label>
                     <InputWithCopy
+                      data-testid="email"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       value={field.state.value}
@@ -233,6 +246,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                   <div>
                     <Label htmlFor={field.name}>{t('option')}</Label>
                     <Input
+                      data-testid="option"
+                      aria-labelledby={field.name}
                       disabled={licenseForm.state.isSubmitting}
                       name={field.name}
                       type="number"
@@ -251,6 +266,8 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                 <div>
                   <Label htmlFor={field.name}>{t('description')}</Label>
                   <Textarea
+                    data-testid="description"
+                    aria-labelledby={field.name}
                     disabled={licenseForm.state.isSubmitting}
                     name={field.name}
                     value={field.state.value}

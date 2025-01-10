@@ -9,6 +9,7 @@ export const fr = {
   newLicense: 'Nouveau permis de conduire',
   firstName: 'Prénom',
   lastName: 'Nom de famille',
+  middleName: 'Deuxième prénom',
   dateOfBirth: 'Date de naissance',
   province: 'Province',
   selectProvince: 'Sélectionnez une province',
