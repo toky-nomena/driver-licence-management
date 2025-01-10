@@ -44,8 +44,8 @@ export const downloadLicenses = <T>(data: T) => {
 export function merge<T extends Record<string, any>>(values: Partial<T>, defaultValues: T): T {
   const result = {} as T;
 
-  for (const key of Object.keys(values) as (keyof T)[]) {
-    result[key] = values[key] ?? defaultValues[key];
+  for (const key of Object.keys({ ...values, ...defaultValues }) as (keyof T)[]) {
+    result[key] = values[key] || defaultValues[key];
   }
 
   return result;

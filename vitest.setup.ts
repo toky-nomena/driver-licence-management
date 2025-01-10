@@ -17,3 +17,9 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Add any global test setup here
+
+global.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};

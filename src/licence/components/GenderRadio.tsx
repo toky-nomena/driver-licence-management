@@ -1,19 +1,20 @@
+import type { ComponentPropsWithoutRef } from 'react';
+
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useTranslate } from '@/i18n/TranslationContext';
 import { cn } from '@/lib/utils';
 
-interface GenderRadioProps {
+interface GenderRadioProps extends Omit<ComponentPropsWithoutRef<typeof RadioGroup>, 'onChange'> {
   className?: string;
   value: 'male' | 'female';
   onChange: (value: 'male' | 'female') => void;
-  disabled?: boolean;
 }
 
-export function GenderRadio({ value, onChange, className, disabled }: GenderRadioProps) {
+export function GenderRadio({ onChange, className, value, ...props }: GenderRadioProps) {
   const { t } = useTranslate();
   return (
     <RadioGroup
-      disabled={disabled}
+      {...props}
       value={value}
       onValueChange={onChange}
       className={cn('flex gap-3 overflow-x-auto transition-colors', className)}

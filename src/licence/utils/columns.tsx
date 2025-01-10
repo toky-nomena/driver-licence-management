@@ -1,4 +1,5 @@
 import { createColumnHelper } from '@tanstack/react-table';
+import { Info } from 'lucide-react';
 
 import { LicenseDeleteConfirm } from '../components/LicenseDeleteConfirm';
 import { LicenseDetails } from '../components/LicenseDetails';
@@ -6,6 +7,15 @@ import type { StoredLicense } from '../types';
 
 import { provinces } from './provinces';
 
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { useTranslate } from '@/i18n/TranslationContext';
 import { format } from '@/lib/date';
 import { Copy } from '@/licence/components/Copy';
@@ -142,7 +152,26 @@ export function useColumns() {
               licence={row.original}
               onConfirm={() => meta?.onDeleteRow?.(row.index)}
             />
-            <LicenseDetails license={row.original} />
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" name="info">
+                  <Info className="h-4 w-4 text-muted-foreground hover:text-destructive" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="w-full max-w-md"
+                aria-describedby="license-details"
+              >
+                <SheetHeader className="space-y-0">
+                  <SheetTitle>{t('licenseDetails')}</SheetTitle>
+                  <SheetDescription id="license-details">
+                    {t('createdAt', { createdAt: format(row.original.createdAt, 'YYYY-MM-DD') })}
+                  </SheetDescription>
+                </SheetHeader>
+                <LicenseDetails license={row.original} />
+              </SheetContent>
+            </Sheet>
           </div>
         );
       },

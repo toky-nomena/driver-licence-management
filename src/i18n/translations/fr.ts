@@ -64,7 +64,8 @@ export const fr = {
 
   // Table and Details
   actions: 'Actions',
-  licenseDetails: 'Détails de la licence',
+  licenseDetails: 'Détails du permis de conduire',
+  createdAt: 'Créé le {{createdAt}}',
   userInitials: 'Initiales',
   copyValue: 'Copier la valeur',
   copied: 'Copié !',

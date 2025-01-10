@@ -64,10 +64,11 @@ export const en = {
 
   // Table and Details
   actions: 'Actions',
-  licenseDetails: 'License Details',
+  licenseDetails: 'Driving License Details',
   userInitials: 'User Initials',
   copyValue: 'Copy value',
   copied: 'Copied!',
+  createdAt: 'Created At {{createdAt}}',
 
   // Search
   search: 'Search',

@@ -101,7 +101,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               >
                 {(field) => (
                   <div>
-                    <Label htmlFor={field.name}>{t('firstName')}</Label>
+                    <Label htmlFor="firstName">{t('firstName')}</Label>
                     <InputWithCopy
                       data-testid="firstName"
                       aria-labelledby={field.name}
@@ -124,7 +124,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
               >
                 {(field) => (
                   <div>
-                    <Label htmlFor={field.name}>{t('lastName')}</Label>
+                    <Label htmlFor="lastName">{t('lastName')}</Label>
                     <InputWithCopy
                       data-testid="lastName"
                       aria-labelledby={field.name}
@@ -305,14 +305,15 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
                     <span className="flex items-center gap-2">
                       <Alert variant="default">
                         <AlertTitle>
-                          <Label className="mb-2 block text-sm font-medium">
+                          <span className="mb-2 block text-sm font-medium">
                             {t('drivingLicense')}
-                          </Label>
+                          </span>
                         </AlertTitle>
                         <AlertDescription>
                           {license ? (
                             <div className="flex items-center gap-4">
                               <span
+                                data-testid="generatedLicense"
                                 className="text-xl font-semibold"
                                 aria-label={t('generatedLicense')}
                               >
