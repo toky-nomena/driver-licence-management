@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, beforeEach, expect } from 'vitest';
 
-import { LicenseForm } from './LicenseForm';
+import { LicenseForm } from '../LicenseForm';
 
 import { TranslationProvider } from '@/i18n/TranslationContext';
 

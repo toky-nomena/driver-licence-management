@@ -27,7 +27,7 @@ export function LicenseDeleteConfirm({ licence, onConfirm }: LicenseDeleteConfir
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" role="button">
           <Trash2 className="h-4 w-4 text-muted-foreground hover:text-destructive" />
         </Button>
       </AlertDialogTrigger>
@@ -43,10 +43,16 @@ export function LicenseDeleteConfirm({ licence, onConfirm }: LicenseDeleteConfir
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="transition-colors duration-200 hover:bg-muted/50">
+          <AlertDialogCancel
+            name="cancel"
+            role="cancel"
+            className="transition-colors duration-200 hover:bg-muted/50"
+          >
             {t('cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
+            name="delete"
+            role="delete"
             onClick={onConfirm}
             className="bg-destructive text-destructive-foreground transition-colors duration-200 hover:bg-destructive/90"
           >
