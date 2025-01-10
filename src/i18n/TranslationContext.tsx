@@ -13,7 +13,7 @@ type Keys = keyof typeof en & keyof typeof fr;
 
 const TranslationContext = createContext<TranslationContextType<Keys> | undefined>(undefined);
 
-export function translate(
+function translate(
   key: Parameters<TranslationContextType<Keys>['t']>[0],
   values?: InterpolationValues,
   language: keyof typeof translations = 'en' // Default to English
@@ -58,7 +58,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
 export const useTranslate = () => {
   const context = useContext(TranslationContext);
   if (!context) {
-    throw new Error('useTranslation must be used within an TranslationProvider');
+    throw new Error('useTranslate must be used within an TranslationProvider');
   }
   return context;
 };

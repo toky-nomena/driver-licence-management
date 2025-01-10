@@ -40,6 +40,11 @@ export default tseslint.config(
         },
       ],
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+
+      // Additional TypeScript-specific error checking
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-non-null-assertion': 'error',
     },
   },
   {

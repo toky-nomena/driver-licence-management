@@ -13,9 +13,9 @@ describe('Translations', () => {
 
   it('has no empty translations', () => {
     const checkEmptyValues = (translations: Record<string, string>) => {
-      Object.keys(translations).forEach((value) => {
+      for (const value of Object.keys(translations)) {
         expect(value.trim()).not.toBe('');
-      });
+      }
     };
 
     checkEmptyValues(en);
@@ -25,18 +25,15 @@ describe('Translations', () => {
   it('has valid interpolation placeholders', () => {
     const placeholderRegex = /\{\{([^}]+)\}\}/g;
 
-    const checkPlaceholders = (translations: Record<string, string>) => {
-      Object.entries(translations).forEach(([key, value]) => {
-        const enPlaceholders = [...value.matchAll(placeholderRegex)].map((m) => m[1]);
-        const frPlaceholders = [
-          ...(fr[key as keyof typeof fr] as string).matchAll(placeholderRegex),
-        ].map((m) => m[1]);
-
-        expect(enPlaceholders.sort()).toEqual(frPlaceholders.sort());
-      });
+    const checkPlaceholders = (t1: Record<string, string>, t2: Record<string, string>) => {
+      for (const key of Object.keys({ ...t1, ...t2 })) {
+        const t1Placeholders = [...t1[key].matchAll(placeholderRegex)].map((m) => m[1]);
+        const t2Placeholders = [...t2[key].matchAll(placeholderRegex)].map((m) => m[1]);
+        expect(t1Placeholders.sort()).toEqual(t2Placeholders.sort());
+      }
     };
 
-    checkPlaceholders(en);
+    checkPlaceholders(en, fr);
   });
 
   it('has no duplicate values within each language', () => {

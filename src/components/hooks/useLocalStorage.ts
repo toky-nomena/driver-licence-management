@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [data, setData] = useState<T>(() => {
-    const savedData = localStorage.getItem(key);
-    return savedData ? JSON.parse(savedData) : initialValue;
+    try {
+      const savedData = localStorage.getItem(key);
+      return savedData ? JSON.parse(savedData) : initialValue;
+    } catch {
+      return initialValue;
+    }
   });
 
   // Save data to localStorage whenever it changes

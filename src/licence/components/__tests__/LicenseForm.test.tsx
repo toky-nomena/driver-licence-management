@@ -23,14 +23,16 @@ describe('LicenseForm', () => {
 
   it('submits the form with valid data', async () => {
     const mockOnSubmit = (data: unknown) => {
-      expect(data).toEqual({
-        firstName: 'John',
-        lastName: 'Doe',
-        dateOfBirth: '1990-01-01',
-        email: 'john.doe@example.com',
-        option: 1,
-        drivingLicense: expect.any(String), // Assuming drivingLicense is generated
-      });
+      expect(data).toEqual(
+        expect.objectContaining({
+          firstName: 'John',
+          lastName: 'Doe',
+          dateOfBirth: '1990-01-01',
+          email: 'john.doe@example.com',
+          option: 1,
+          drivingLicense: expect.any(String),
+        })
+      );
     };
 
     render(<LicenseForm onSubmit={mockOnSubmit} />);

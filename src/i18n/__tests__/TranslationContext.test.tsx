@@ -88,7 +88,7 @@ describe('TranslationContext', () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => render(<TestComponent />)).toThrow(
-      'useTranslation must be used within an TranslationProvider'
+      'useTranslate must be used within an TranslationProvider'
     );
 
     consoleError.mockRestore();

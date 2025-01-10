@@ -8,6 +8,7 @@ describe('DriverLicenseFactory', () => {
   const baseInput: LicenseFormValues = {
     firstName: 'John',
     lastName: 'Doe',
+    middleName: '',
     dateOfBirth: '1990-01-01',
     email: 'john@example.com',
     gender: 'male',
@@ -166,15 +167,12 @@ describe('DriverLicenseFactory', () => {
 
       const edgeDates = [almostTooOld.toISOString(), yesterday.toISOString()];
 
-      edgeDates.forEach((date) => {
-        const result = DriverLicenseFactory.generate({
-          ...baseInput,
-          dateOfBirth: date,
-        });
+      for (const dateOfBirth of edgeDates) {
+        const result = DriverLicenseFactory.generate({ ...baseInput, dateOfBirth });
 
         expect(result.license).toBeDefined();
         expect(result.errors).toHaveLength(0);
-      });
+      }
     });
   });
 });
