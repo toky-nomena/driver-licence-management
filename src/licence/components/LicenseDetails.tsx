@@ -30,16 +30,6 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
               <span className="font-semibold">{license.lastName}</span>
             </Copy>
           </div>
-          {license.middleName && (
-            <div>
-              <p className="text-xs text-muted-foreground">{t('middleName')}</p>
-              <Copy value={license.middleName}>
-                <span className="font-semibold">{license.middleName}</span>
-              </Copy>
-            </div>
-          )}
-        </div>
-        <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-muted-foreground">{t('dateOfBirth')}</p>
             <Copy value={format(license.dateOfBirth, 'YYYY-MM-DD')}>
