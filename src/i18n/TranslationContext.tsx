@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useCallback, useTransition } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 
 import { en } from './translations/en';
 import { fr } from './translations/fr';
@@ -36,15 +36,13 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     return saved || 'en';
   });
 
-  const [, startTransition] = useTransition();
-
   const t: TranslationContextType<Keys>['t'] = useCallback(
     (key, values) => translate(key, values, language),
     [language]
   );
 
   const handleSetLanguage = useCallback((lang: Language) => {
-    startTransition(() => setLanguage(lang));
+    setLanguage(lang);
     localStorage.setItem('language', lang);
   }, []);
 

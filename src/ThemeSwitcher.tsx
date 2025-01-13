@@ -27,7 +27,7 @@ export function ThemeSwitcher() {
     setIsDarkMode(!isDarkMode);
   };
   return (
-    <Button variant="outline" size="icon" onClick={toggleDarkMode}>
+    <Button variant="outline" size="icon" onClick={toggleDarkMode} className="h-10 w-10">
       {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>
   );
