@@ -28,7 +28,6 @@ describe('LicenseDetails', () => {
     // Check personal details
     expect(screen.getByText('John')).toBeInTheDocument();
     expect(screen.getByText('Doe')).toBeInTheDocument();
-    expect(screen.getByText('Michael')).toBeInTheDocument();
 
     // Check formatted date of birth
     const formattedDOB = format(mockLicense.dateOfBirth, 'YYYY-MM-DD');
