@@ -17,7 +17,7 @@ export function LicenseSearch({ onChange, disabled }: LicenseSearchProps) {
   const { t } = useTranslate();
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex w-full items-center gap-2">
       <div className="relative w-96 rounded-lg bg-background">
         <Search className={cn('absolute left-2 top-2.5 h-4 w-4')} />
         <Input

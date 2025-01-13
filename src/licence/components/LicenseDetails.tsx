@@ -12,7 +12,7 @@ interface StoredLicenseDetailsProps {
 
 export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
   const { t } = useTranslate();
-  const provinceDetails = provinces.find((p) => p.code === license.province);
+  const province = provinces.find((p) => p.code === license.province);
 
   return (
     <div className="space-y-4 py-4">
@@ -39,7 +39,6 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
             </div>
           )}
         </div>
-
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-muted-foreground">{t('dateOfBirth')}</p>
@@ -47,23 +46,21 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
               <span className="font-semibold">{format(license.dateOfBirth, 'YYYY-MM-DD')}</span>
             </Copy>
           </div>
-          <div>
+          <div className="flex flex-col items-start">
             <p className="text-xs text-muted-foreground">{t('province')}</p>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold">
-                {provinceDetails ? provinceDetails.code : license.province}
-              </span>
+            <div
+              className={`flex items-center justify-center rounded-lg px-2 ${province?.color || 'bg-gray-100'}`}
+            >
+              <span className="font-semibold">{province ? province.code : license.province}</span>
             </div>
           </div>
         </div>
-
         <div>
           <p className="text-xs text-muted-foreground">{t('email')}</p>
           <Copy value={license.email}>
             <span className="font-semibold">{license.email}</span>
           </Copy>
         </div>
-
         <div className="grid grid-cols-1 gap-4">
           <div>
             <p className="text-xs text-muted-foreground">{t('drivingLicense')}</p>
@@ -72,7 +69,6 @@ export function LicenseDetails({ license }: StoredLicenseDetailsProps) {
             </Copy>
           </div>
         </div>
-
         {license.description && (
           <div>
             <p className="text-xs text-muted-foreground">{t('description')}</p>

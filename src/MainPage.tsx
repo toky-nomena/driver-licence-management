@@ -115,38 +115,36 @@ export function MainPage() {
         </ResizablePanel>
         <ResizableHandle className="bg-transparent" />
         <ResizablePanel defaultValue={75} className="flex flex-col rounded-lg pl-[2px] pt-[2px]">
-          <>
-            <div className="z-50 flex items-center justify-between gap-4 pb-4">
-              <LicenseSearch onChange={setGlobalFilter} />
-              <div className="flex items-center gap-2 pt-1">
-                <ColumnsVisibility table={table} disabled={!hasData} />
-                <DeleteAllAlert onConfirm={clearAllData} disabled={!hasData}>
-                  <span className="sr-only">Delete all licenses</span>
-                  <Trash2 className="h-4 w-4 text-muted-foreground" />
-                </DeleteAllAlert>
-                <ImportLicenses onImport={handleImport} />
-                <Button
-                  variant="outline"
-                  className="h-10 w-10"
-                  onClick={() => downloadLicenses(data)}
-                  disabled={!hasData}
-                >
-                  <span className="sr-only">Download licenses</span>
-                  <Download className="h-4 w-4 text-muted-foreground" />
-                </Button>
-              </div>
+          <div className="z-50 flex items-center justify-between gap-4 pb-4">
+            <LicenseSearch onChange={setGlobalFilter} />
+            <div className="flex items-center gap-2 pt-1">
+              <ColumnsVisibility table={table} disabled={!hasData} />
+              <DeleteAllAlert onConfirm={clearAllData} disabled={!hasData}>
+                <span className="sr-only">Delete all licenses</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
+              </DeleteAllAlert>
+              <ImportLicenses onImport={handleImport} />
+              <Button
+                variant="outline"
+                className="h-10 w-10"
+                onClick={() => downloadLicenses(data)}
+                disabled={!hasData}
+              >
+                <span className="sr-only">Download licenses</span>
+                <Download className="h-4 w-4 text-muted-foreground" />
+              </Button>
             </div>
-            {hasData ? (
-              <LicenseTable
-                table={table}
-                onPaginationChange={onPaginationChange}
-                pagination={pagination}
-                className={cn('transition-opacity duration-200')}
-              />
-            ) : (
-              <EmptyList />
-            )}
-          </>
+          </div>
+          {hasData ? (
+            <LicenseTable
+              table={table}
+              onPaginationChange={onPaginationChange}
+              pagination={pagination}
+              className={cn('transition-opacity duration-200')}
+            />
+          ) : (
+            <EmptyList />
+          )}
         </ResizablePanel>
       </ResizablePanelGroup>
       <Toaster expand={true} richColors />
