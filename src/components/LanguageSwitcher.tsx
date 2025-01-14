@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 export const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useTranslate();
   const [lang, setLang] = useState(language);
-  const [, startTransition] = useTransition();
+  const [loading, startTransition] = useTransition();
 
   const toggleLanguage = () => {
     const lang = language === 'en' ? 'fr' : 'en';
@@ -18,7 +18,7 @@ export const LanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <Button variant="outline" onClick={toggleLanguage} className="h-10 w-10">
+    <Button variant="outline" onClick={toggleLanguage} className="h-10 w-10" disabled={loading}>
       <span>{lang.toUpperCase()}</span>
     </Button>
   );

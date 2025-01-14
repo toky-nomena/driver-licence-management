@@ -44,10 +44,12 @@ export function Pagination({
     });
   };
 
+  const loadingClass = loading ? 'text-muted-foreground' : '';
+
   return (
     <div className={cn('flex items-center justify-between gap-3 px-2', className)}>
-      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-        <span>
+      <div className="flex items-center gap-3 text-xs">
+        <span className={loadingClass}>
           Showing {startItem} - {endItem} of {totalItems}
         </span>
         <Select
@@ -95,9 +97,9 @@ export function Pagination({
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="flex items-center gap-1 text-xs">
-          <span className="text-muted-foreground">Page</span>
+          <span className={loadingClass}>Page</span>
           <span className="font-medium">{internalPage}</span>
-          <span className="text-muted-foreground">of</span>
+          <span className={loadingClass}>of</span>
           <span className="font-medium">{totalPages}</span>
         </div>
         <Button
