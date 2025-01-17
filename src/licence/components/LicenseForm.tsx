@@ -321,7 +321,7 @@ export function LicenseForm({ onSubmit }: LicenseFormProps) {
       </ScrollArea>
 
       <licenseForm.Subscribe
-        selector={(state) => [state.canSubmit, state.isSubmitting, state.values] as const}
+        selector={(state) => [state.canSubmit, state.isSubmitting] as const}
         children={([canSubmit, isSubmitting]) => (
           <div className="border-t p-4">
             <div className="flex flex-col gap-2 @[400px]:flex-row @[400px]:items-center">
